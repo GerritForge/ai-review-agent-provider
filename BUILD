@@ -14,7 +14,18 @@ gerrit_plugin(
     ],
     resources = glob(["src/main/resources/**/*"]),
     deps = [
+        ":secure-config-neverlink",
         "//lib/errorprone:annotations",
+    ],
+)
+
+java_library(
+    name = "test-utils",
+    testonly = True,
+    srcs = ["src/test/java/com/gerritforge/gerrit/plugins/ai/provider/TestAiReviewProviderModule.java"],
+    deps = [
+        ":ai-review-agent-provider__plugin",
+        "//lib/guice",
     ],
 )
 
@@ -24,5 +35,14 @@ gerrit_plugin_tests(
     tags = ["ai-review-agent-provider"],
     deps = [
         ":ai-review-agent-provider__plugin",
+        ":secure-config-neverlink",
+        ":test-utils",
+        "//plugins/secure-config",
     ],
+)
+
+java_library(
+    name = "secure-config-neverlink",
+    neverlink = True,
+    exports = ["//plugins/secure-config"],
 )
