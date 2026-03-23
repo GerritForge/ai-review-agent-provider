@@ -20,15 +20,15 @@ gerrit_plugin(
 )
 
 gerrit_plugin_tests(
-    name = "ai-review-agent-provider_tests",
-    srcs = glob(["src/test/java/**/*.java"]),
+    name = src.split("/")[-1].replace(".java", ""),
+    srcs = [src],
     tags = ["ai-review-agent-provider"],
     deps = [
         ":ai-review-agent-provider__plugin",
         ":secure-config-neverlink",
         "//plugins/secure-config",
     ],
-)
+) for src in glob(["src/test/java/**/*IT.java"])]
 
 java_library(
     name = "secure-config-neverlink",
