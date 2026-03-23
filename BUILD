@@ -1,0 +1,28 @@
+load(
+    "@com_googlesource_gerrit_bazlets//:gerrit_plugin.bzl",
+    "gerrit_plugin",
+    "gerrit_plugin_tests",
+)
+
+gerrit_plugin(
+    name = "ai-review-agent-provider",
+    srcs = glob(["src/main/java/com/gerritforge/gerrit/plugins/ai/provider/*.java"]),
+    manifest_entries = [
+        "Gerrit-PluginName: ai-review-agent-provider",
+        "Implementation-Title: AI Review Agent shared provider library",
+        "Implementation-URL: https://github.com/GerritForge/ai-review-agent-provider",
+    ],
+    resources = glob(["src/main/resources/**/*"]),
+    deps = [
+        "//lib/errorprone:annotations",
+    ],
+)
+
+gerrit_plugin_tests(
+    name = "ai-review-agent-provider_tests",
+    srcs = glob(["src/test/java/**/*.java"]),
+    tags = ["ai-review-agent-provider"],
+    deps = [
+        ":ai-review-agent-provider__plugin",
+    ],
+)
