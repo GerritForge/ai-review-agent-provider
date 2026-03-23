@@ -1,0 +1,92 @@
+Business Source License 1.1 (adapted/rev-2)
+
+License text copyright (c) 2020 MariaDB Corporation Ab, All Rights Reserved.
+“Business Source License” is a trademark of MariaDB Corporation Ab.
+
+Licensed Work: Gerrit Enterprise, multi-site plugin
+Licensor: GerritForge, Inc.
+License: Business Source License 1.1 ("BSL")
+Change Date: The earlier of (a) five (5) years from the date the Licensed Work version is first made
+generally available by the Licensor, or (b) a date separately designated in the source code
+repository for that version.
+Change License: Apache 2.0
+
+1. Grant
+
+Subject to the conditions below, the Licensor grants you a non-exclusive, worldwide, non-transferable,
+royalty-free license to: (i) copy, modify, create derivative works of, and redistribute the Licensed
+Work; and (ii) make non-production use of the Licensed Work.
+
+The Licensor may offer an Additional Use Grant (Section 2) that permits certain production uses.
+
+All rights not expressly granted are reserved by the Licensor.
+
+2. Additional Use Grant (Production Use)
+
+You may run the Licensed Work in production for your own or your organization's internal business
+purposes, provided that your use does not: (1) offer, provide, or enable a hosted, managed, or
+embedded service whose core purpose is to provide functionality that is a substitute for, or
+materially equivalent to, Gerrit Enterprise or any paid, commercial, or enterprise offering of the
+Licensor that includes Gerrit Enterprise; or (2) constitute providing the Licensed Work (or
+substantial portions thereof) to third parties as a service or product that competes with any
+commercial offering from the Licensor in code review, code collaboration, or CI/CD orchestration
+based on Gerrit; or (3) have a gross annual revenue exceeding 5 million US dollars.
+
+Partners, integrations, extensions, and plugins that do not provide a competing hosted or embedded
+substitute are permitted, including building and distributing integrations, connectors, or plugins,
+and operating the Licensed Work to support your own internal development workflows.
+
+For any production use outside this Additional Use Grant, you must obtain a separate commercial
+license from the Licensor.
+
+3. Change Date and Change License
+
+On the Change Date, the license for the then-current version of the Licensed Work automatically and
+permanently transitions to the Change License specified above. After the Change Date, your rights to
+that version are governed by the Change License, in addition to any rights obtained under this BSL
+prior to the Change Date.
+
+4. Scope, Copies, and Notices
+
+You must include a copy of this License (or a URL/reference to it) with all copies of the Licensed
+Work you distribute. You must retain all copyright, license, and attribution notices in source files
+and documentation. If you modify the Licensed Work and distribute your modifications, you must
+describe material changes in a prominent notice.
+
+5. Trademarks
+
+This License does not grant rights to use the Licensor's names, logos, or trademarks. Any permitted
+use of trademarks must follow the Licensor's applicable trademark guidelines or a separate written
+permission.
+
+6. No Warranty
+
+THE LICENSED WORK IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY WARRANTIES OF TITLE, NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. YOU ARE SOLELY RESPONSIBLE FOR DETERMINING
+THE APPROPRIATENESS OF USING OR REDISTRIBUTING THE LICENSED WORK AND ASSUME ANY RISKS ASSOCIATED
+WITH YOUR EXERCISE OF PERMISSIONS UNDER THIS LICENSE.
+
+7. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL THE LICENSOR OR ITS CONTRIBUTORS
+BE LIABLE FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT, OR OTHERWISE, ARISING FROM,
+OUT OF, OR IN CONNECTION WITH THE LICENSED WORK OR THIS LICENSE, INCLUDING WITHOUT LIMITATION
+DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+8. Termination
+
+Your rights under this License terminate automatically if you materially breach it and fail to cure
+within 30 days of notice. Upon termination, you must cease use of the Licensed Work in production
+and stop distributing copies; reasonable non-production use may continue solely for internal
+evaluation and migration. Sections 5–9 survive termination.
+
+9. Relationship to Other Agreements
+
+If you have a separate written agreement with the Licensor covering use of the Licensed Work, that
+agreement governs to the extent of any direct conflict with this License. Nothing in this License is
+intended to reduce, limit, or restrict rights granted under the Change License after the Change
+Date.
+
+Copyright © 2026 GerritForge, Inc.
