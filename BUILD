@@ -22,7 +22,18 @@ gerrit_plugin(
         "Implementation-URL: https://github.com/GerritForge/ai-review-agent-provider",
     ],
     deps = [
+        ":secure-config-neverlink",
         "//lib/errorprone:annotations",
+    ],
+)
+
+java_library(
+    name = "test-utils",
+    testonly = True,
+    srcs = ["src/test/java/com/gerritforge/gerrit/plugins/ai/provider/TestAiReviewProviderModule.java"],
+    deps = [
+        ":ai-review-agent-provider__plugin",
+        "//lib/guice",
     ],
 )
 
@@ -33,5 +44,14 @@ junit_tests(
     visibility = ["//visibility:public"],
     deps = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":ai-review-agent-provider__plugin",
+        ":secure-config-neverlink",
+        ":test-utils",
+        "//plugins/secure-config",
     ],
+)
+
+java_library(
+    name = "secure-config-neverlink",
+    neverlink = True,
+    exports = ["//plugins/secure-config"],
 )
