@@ -12,10 +12,27 @@
 package com.gerritforge.gerrit.plugins.ai.provider;
 
 import com.google.gerrit.extensions.restapi.RestApiModule;
+import com.google.gerrit.server.account.AccountResource;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
+import com.googlesource.gerrit.plugins.secureconfig.Codec;
+import com.googlesource.gerrit.plugins.secureconfig.PBECodec;
 
 public class AiReviewProviderModule extends RestApiModule {
+  static final String API_TOKEN_ENDPOINT = "apiToken";
+
+  private final String providerKey;
+
+  public AiReviewProviderModule(String providerKey) {
+    this.providerKey = providerKey;
+  }
+
   @Override
   protected void configure() {
-    // TODO: wire modules in the follow-ups
+    bind(String.class).annotatedWith(ProviderKey.class).toInstance(providerKey);
+
+    put(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(AddToken.class);
+
+    install(new FactoryModuleBuilder().build(VersionedAiUserData.Factory.class));
+    bind(Codec.class).to(PBECodec.class);
   }
 }
