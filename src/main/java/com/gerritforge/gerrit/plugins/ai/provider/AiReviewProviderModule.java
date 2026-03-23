@@ -30,6 +30,7 @@ public class AiReviewProviderModule extends RestApiModule {
   protected void configure() {
     bind(String.class).annotatedWith(ProviderKey.class).toInstance(providerKey);
 
+    get(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(GetToken.class);
     put(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(AddToken.class);
 
     install(new FactoryModuleBuilder().build(VersionedAiUserData.Factory.class));
