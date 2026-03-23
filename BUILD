@@ -37,9 +37,9 @@ java_library(
     ],
 )
 
-junit_tests(
-    name = "ai-review-agent-provider_tests",
-    srcs = glob(["src/test/java/**/*IT.java"]),
+[junit_tests(
+    name = src.split("/")[-1].replace(".java", ""),
+    srcs = [src],
     tags = ["ai-review-agent-provider"],
     visibility = ["//visibility:public"],
     deps = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
@@ -48,7 +48,7 @@ junit_tests(
         ":test-utils",
         "//plugins/secure-config",
     ],
-)
+) for src in glob(["src/test/java/**/*IT.java"])]
 
 java_library(
     name = "secure-config-neverlink",
