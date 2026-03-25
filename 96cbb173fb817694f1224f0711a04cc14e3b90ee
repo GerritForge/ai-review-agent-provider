@@ -20,6 +20,86 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eae36d83_976f56a3",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-25T11:20:43Z",
+      "side": 1,
+      "message": "Use `bazlets`, from Gerrit@HEAD and it also included in 3.14?\n\n```python\nload(\n    \"@com_googlesource_gerrit_bazlets//:gerrit_plugin.bzl\",\n    \"gerrit_plugin\",\n    \"gerrit_plugin_tests\",\n)\n```\nAlso `PLUGIN_DEPS`, `PLUGIN_TEST_DEPS` wouldn\u0027t be needed any more.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 0
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa1ea563_3d35c72a",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-25T11:20:43Z",
+      "side": 1,
+      "message": "This can be removed?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4178e5b_b4b62d62",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-25T11:20:43Z",
+      "side": 1,
+      "message": "Nit: If you decide late to ship some documentation with your plugin like `config.md` or `build.md` you would need `resources`. Add:\n\n```\nresources \u003d glob([\"src/main/resources/**/*\"]),\n```",
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca8da74_1c1a7cb4",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-25T11:20:43Z",
+      "side": 1,
+      "message": "Use: `gerrit_plugin_tests`?",
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a32d0b0_dd7a2445",
         "filename": "BUILD",
         "patchSetId": 1
@@ -35,6 +115,92 @@
         "startLine": 31,
         "startChar": 18,
         "endLine": 31,
+        "endChar": 43
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2562fc9c_51c9cc17",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-25T11:20:43Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df9c54f7_106abab7",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-25T11:20:43Z",
+      "side": 1,
+      "message": "If you use `bazlets` you wouldn\u0027t need it any more.\n\nI addressed my and @luca.milanesio@gmail.com comments and this version worked:\n\n```python\nload(\n    \"@com_googlesource_gerrit_bazlets//:gerrit_plugin.bzl\",\n    \"gerrit_plugin\",\n    \"gerrit_plugin_tests\",\n)\n\ngerrit_plugin(\n    name \u003d \"ai-review-agent-provider\",\n    srcs \u003d glob([\"src/main/java/com/gerritforge/gerrit/plugins/ai/provider/*.java\"]),\n    manifest_entries \u003d [\n        \"Gerrit-PluginName: ai-review-agent-provider\",\n        \"Implementation-Title: AI Review Agent shared provider library\",\n        \"Implementation-URL: https://github.com/GerritForge/ai-review-agent-provider\",\n    ],\n    resources \u003d glob([\"src/main/resources/**/*\"]),\n    deps \u003d [\n        \"//lib/errorprone:annotations\",\n    ],\n)\n\ngerrit_plugin_tests(\n    name \u003d \"ai-review-agent-provider_tests\",\n    srcs \u003d glob([\"src/test/java/**/*.java\"]),\n    tags \u003d [\"ai-review-agent-provider\"],\n    deps \u003d [\n        \":ai-review-agent-provider__plugin\",\n    ],\n)\n```",
+      "range": {
+        "startLine": 34,
+        "startChar": 11,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc794ec_9ef0abe0",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-25T11:20:43Z",
+      "side": 1,
+      "message": "It would be nice to add this to the plugin under resources, see for example high-availability plugin. Then this documentation would be shipped in plug-in JAR and available live in gerrit_site.\n\nSee example for documentation of reviewers plugin on googlesource.com: [1], [2].\n\n\nor also high-availability plugin:\n\n```\n✔ ~/projects/high-availability [master|…1]\n12:14 $ ls src/main/resources/Documentation/\nabout.md\tbuild.md\tconfig.md\n```\n\n[1]: https://gerrit-review.googlesource.com/plugins/reviewers/Documentation/about.html\n[2]: https://gerrit-review.googlesource.com/plugins/reviewers/Documentation/config.html",
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14e6f1b7_94ad9e5f",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-25T11:20:43Z",
+      "side": 1,
+      "message": "Nit: Gerrit uses Bazel version 7.6.1.\n\nThe latest Bazelisk version is: 1.28.1, see: [1].\n\n[1]: https://github.com/bazelbuild/bazelisk/releases/tag/v1.28.1",
+      "range": {
+        "startLine": 21,
+        "startChar": 29,
+        "endLine": 21,
         "endChar": 43
       },
       "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
