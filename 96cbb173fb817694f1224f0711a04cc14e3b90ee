@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46f838cc_77a53591",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-25T07:46:18Z",
+      "side": 1,
+      "message": "Maybe also add the `Jenkinsfile` for validating the plugin changes against CI?",
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a32d0b0_dd7a2445",
         "filename": "BUILD",
         "patchSetId": 1
