@@ -59,6 +59,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1094fd62_4f90daf5",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eae36d83_976f56a3",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 0
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa1ea563_3d35c72a",
@@ -72,6 +96,30 @@
       "writtenOn": "2026-03-25T11:20:43Z",
       "side": 1,
       "message": "This can be removed?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfee7dbf_c4119f67",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "Marked as resolved.",
+      "parentUuid": "fa1ea563_3d35c72a",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -99,6 +147,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e3c74f4_e0a6a377",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4178e5b_b4b62d62",
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ca8da74_1c1a7cb4",
@@ -112,6 +178,24 @@
       "writtenOn": "2026-03-25T11:20:43Z",
       "side": 1,
       "message": "Use: `gerrit_plugin_tests`?",
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb0ecdcc_7b883566",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ca8da74_1c1a7cb4",
       "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -163,6 +247,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2d03ead_5b5d603a",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "sorry I haven\u0027t noticed that I have merged it accidentally here - will move it to the change where it matters",
+      "parentUuid": "20e00db1_76c4cd50",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 43
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2562fc9c_51c9cc17",
@@ -176,6 +284,30 @@
       "writtenOn": "2026-03-25T11:20:43Z",
       "side": 1,
       "message": "Not needed?",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d4f90ff_585a4946",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2562fc9c_51c9cc17",
       "range": {
         "startLine": 33,
         "startChar": 4,
@@ -209,6 +341,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fd3618f_52b9b83c",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "❤️",
+      "parentUuid": "df9c54f7_106abab7",
+      "range": {
+        "startLine": 34,
+        "startChar": 11,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bc794ec_9ef0abe0",
@@ -222,6 +378,24 @@
       "writtenOn": "2026-03-25T11:20:43Z",
       "side": 1,
       "message": "It would be nice to add this to the plugin under resources, see for example high-availability plugin. Then this documentation would be shipped in plug-in JAR and available live in gerrit_site.\n\nSee example for documentation of reviewers plugin on googlesource.com: [1], [2].\n\n\nor also high-availability plugin:\n\n```\n✔ ~/projects/high-availability [master|…1]\n12:14 $ ls src/main/resources/Documentation/\nabout.md\tbuild.md\tconfig.md\n```\n\n[1]: https://gerrit-review.googlesource.com/plugins/reviewers/Documentation/about.html\n[2]: https://gerrit-review.googlesource.com/plugins/reviewers/Documentation/config.html",
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4584e9d4_fa838b41",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "This plugin is not meant to be exposed as plugin - it will be linked from `lib` dir for the time being so I guess it is not needed ;)",
+      "parentUuid": "7bc794ec_9ef0abe0",
       "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -249,6 +423,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7df82db_c979c7da",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14e6f1b7_94ad9e5f",
+      "range": {
+        "startLine": 21,
+        "startChar": 29,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6011e4f_85cda25b",
@@ -262,6 +460,24 @@
       "writtenOn": "2026-03-26T08:46:49Z",
       "side": 1,
       "message": "Mention also the dependency on secure-config plugin, and that it must be installed as Gerrit lib modules?",
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5360334f_f7331461",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-26T11:38:31Z",
+      "side": 1,
+      "message": "will add it in the change when it gets added",
+      "parentUuid": "d6011e4f_85cda25b",
       "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
