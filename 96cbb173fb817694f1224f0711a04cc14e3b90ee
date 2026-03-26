@@ -141,6 +141,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20e00db1_76c4cd50",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-26T07:20:29Z",
+      "side": 1,
+      "message": "There are only single test.\n\nThere is also this utility class:\n\nTestAiReviewProviderModule.java\n\nthat does not contain any test methods and also not excluded with @Ignore annotation, so that if we change the glob to:\n\n```\ngerrit_plugin_tests(\n    name \u003d \"ai-review-agent-provider_tests\",\n    srcs \u003d glob([\"src/test/java/**/*.java\"]),\n[...]\n```\n\nthe tests in follow-up change would fail with:\n\n```\nThere was 1 failure:\n1) initializationError(com.gerritforge.gerrit.plugins.ai.provider.TestAiReviewProviderModule)\norg.junit.runners.model.InvalidTestClassError: Invalid test class \u0027com.gerritforge.gerrit.plugins.ai.provider.TestAiReviewProviderModule\u0027:\n  1. No runnable methods\n```",
+      "parentUuid": "2a32d0b0_dd7a2445",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 43
+      },
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2562fc9c_51c9cc17",
         "filename": "BUILD",
         "patchSetId": 1
