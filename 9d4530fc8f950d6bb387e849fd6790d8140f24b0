@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0f845dc_6a47163a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-26T08:48:09Z",
+      "side": 1,
+      "message": "Overall this series looks good.\nI have not tested it end to end.",
+      "revId": "9d4530fc8f950d6bb387e849fd6790d8140f24b0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bf2fdb6_958d4d35",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-26T08:48:09Z",
+      "side": 1,
+      "message": "Does it really worth it to split the test rules for performance reasons? We did it in replication plugin, because it was running too long.\n\nHere the tests are trivial and take only a couple of seconds:\n\n```\n//plugins/ai-review-agent-provider:AddTokenIT                            PASSED in 10.8s\n//plugins/ai-review-agent-provider:GetTokenIT                            PASSED in 10.9s\n```\n\nAlternatively, as suggested in another comment just merge the two classes into single TokenIT to exercise token lifecycle tests, and reduce overhead to initialise separate plugin instances for the tests.",
+      "revId": "9d4530fc8f950d6bb387e849fd6790d8140f24b0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c2af8fc_634c9a05",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/GetTokenIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-26T08:48:09Z",
+      "side": 1,
+      "message": "Instead of two separate test classes for AddTokenIT and GetTokenIT use a single consolidated System Under Test (SUT) e.g.: TokenIT, where it would be possible exercise token lifecycle, something like:\n\n```java\n\n@Test\npublic void testTokenLifecycle() throws Exception {\n    // 1. Store the token\n    AddToken.Input input \u003d new AddToken.Input();\n    userRestSession(getAddTokenUri(\"self\"), input).assertOK();\n    \n    // 2. Read the token back\n    RestResponse response \u003d userRestSession(etAddTokenUri(\"self\");\n    response.assertOK();\n    \n    // 3. Verify content\n    Output out \u003d json.fromJson(response.getReader(), Output.class);\n    assertThat(out.token).isEqualTo(expectedDecodedToken);\n}\n```\n\nThen remove and read and validate, etc.",
+      "revId": "9d4530fc8f950d6bb387e849fd6790d8140f24b0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
