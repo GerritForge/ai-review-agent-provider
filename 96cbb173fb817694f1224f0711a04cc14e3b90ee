@@ -247,6 +247,23 @@
       },
       "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6011e4f_85cda25b",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-26T08:46:49Z",
+      "side": 1,
+      "message": "Mention also the dependency on secure-config plugin, and that it must be installed as Gerrit lib modules?",
+      "revId": "96cbb173fb817694f1224f0711a04cc14e3b90ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
