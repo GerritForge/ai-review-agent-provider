@@ -14,7 +14,9 @@ gerrit_plugin(
         "Gerrit-Module: com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
         "Gerrit-ApiModule: com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule",
     ],
-    resources = glob(["src/main/resources/**/*"]),
+    resource_jars = ["//plugins/ai-review-agent-provider/web:ai-review-agent-provider"],
+    resource_strip_prefix = "plugins/ai-review-agent-provider/resources",
+    resources = glob(["resources/**/*"]),
     deps = [
         ":secure-config-neverlink",
         "//lib/errorprone:annotations",
