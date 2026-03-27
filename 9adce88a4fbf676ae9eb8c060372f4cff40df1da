@@ -71,6 +71,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8680808_d3930e95",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AddToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T09:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81c9e7d3_cf98d8af",
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "193eb2fd_ab954b12",
@@ -202,6 +220,30 @@
       "side": 1,
       "message": "This plugin depends on Gerrit API, which *should* be documented in the documentation that isn\u0027t there yet 😆",
       "parentUuid": "02aa06aa_968c38ae",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12d9011f_d20ac6b9",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/VersionedAiUserData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T09:40:57Z",
+      "side": 1,
+      "message": "This change does not include the UI part yet, the documentation should come *when* the UI integration with the Gerrit frontend becomes part of this plugin.",
+      "parentUuid": "5acfa14f_a7c8274d",
       "range": {
         "startLine": 39,
         "startChar": 2,
