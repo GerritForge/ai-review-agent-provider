@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51668f44_74e52c4f",
+        "filename": "Jenkinsfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T08:36:12Z",
+      "side": 1,
+      "message": "This should be a separate change IMHO.",
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d990a9e_9cb85a58",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AddToken.java",
         "patchSetId": 1
