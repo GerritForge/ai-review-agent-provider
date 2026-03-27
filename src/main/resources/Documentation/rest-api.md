@@ -40,11 +40,9 @@ If the API Token is empty or invalid, the request will fail with:
 
 **GET** `/a/accounts/self/ai-review-agent-provider~apiProviders`
 
-Retrieves the map of AI providers installed, keyed on the plugin name, and with an
-API key inserted and available to use.
-
-> **NOTE**: AI providers that are installed but not having an API key for the current user
-> will not be returned.
+Retrieves the list of AI providers installed, keyed on the plugin name.
+Each provider includes an `enabled` field indicating whether the current
+user has configured an API token for it.
 
 #### Response
 
