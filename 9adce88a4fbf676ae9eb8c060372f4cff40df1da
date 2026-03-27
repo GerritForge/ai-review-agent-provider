@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20e40291_c70bb334",
+        "filename": "Jenkinsfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T08:46:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51668f44_74e52c4f",
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d990a9e_9cb85a58",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-26T08:46:58Z",
       "side": 1,
       "message": "Should we also document the Rest API? See example in reviewers plugin: [1].\n\n[1]: https://gerrit.googlesource.com/plugins/reviewers/+/refs/heads/master/src/main/resources/Documentation/rest-api.md",
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c9e7d3_cf98d8af",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AddToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T08:46:23Z",
+      "side": 1,
+      "message": "It should be documented already in the documentation that wasn\u0027t copied over and doesn\u0027t exist yet ;-)",
+      "parentUuid": "1d990a9e_9cb85a58",
       "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -58,6 +94,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f83206af_dd5c3056",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AddToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T08:46:23Z",
+      "side": 1,
+      "message": "We\u0027re just moving the current implementation from the ai-review-agent-gemini into this one. We don\u0027t want to change it for now.",
+      "parentUuid": "193eb2fd_ab954b12",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 5
+      },
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3210de6d_7d8cf790",
@@ -71,6 +131,30 @@
       "writtenOn": "2026-03-26T08:46:58Z",
       "side": 1,
       "message": "May be just \"token\"? Camel case is for endpoint naming? Or `api-token\"?",
+      "range": {
+        "startLine": 21,
+        "startChar": 44,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "204ba880_62ebffc4",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiReviewProviderModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T08:46:23Z",
+      "side": 1,
+      "message": "We\u0027re just moving the current implementation from the ai-review-agent-gemini into this one. We don\u0027t want to change it for now.",
+      "parentUuid": "3210de6d_7d8cf790",
       "range": {
         "startLine": 21,
         "startChar": 44,
@@ -106,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5acfa14f_a7c8274d",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/VersionedAiUserData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T08:46:23Z",
+      "side": 1,
+      "message": "This plugin depends on Gerrit API, which *should* be documented in the documentation that isn\u0027t there yet 😆",
+      "parentUuid": "02aa06aa_968c38ae",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b77dd46_6a0f5378",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/VersionedAiUserData.java",
         "patchSetId": 1
@@ -117,6 +225,24 @@
       "writtenOn": "2026-03-26T08:46:58Z",
       "side": 1,
       "message": "Would it make sense to set specific commit message, e.g. \"Add AI review token for provider: \u003cprovider\u003e\"?",
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "355a19fa_e02c4ccd",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/VersionedAiUserData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T08:46:23Z",
+      "side": 1,
+      "message": "We\u0027re just moving the current implementation from the ai-review-agent-gemini into this one. We don\u0027t want to change it for now.",
+      "parentUuid": "8b77dd46_6a0f5378",
       "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -134,6 +260,24 @@
       "writtenOn": "2026-03-26T08:46:58Z",
       "side": 1,
       "message": "Same here, use specific commit message for removal?",
+      "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef00c7b6_a719c5d5",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/VersionedAiUserData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T08:46:23Z",
+      "side": 1,
+      "message": "We\u0027re just moving the current implementation from the ai-review-agent-gemini into this one. We don\u0027t want to change it for now.",
+      "parentUuid": "2450c911_72bae72e",
       "revId": "9adce88a4fbf676ae9eb8c060372f4cff40df1da",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
