@@ -11,6 +11,7 @@ gerrit_plugin(
         "Gerrit-PluginName: ai-review-agent-provider",
         "Implementation-Title: AI Review Agent shared provider library",
         "Implementation-URL: https://github.com/GerritForge/ai-review-agent-provider",
+        "Gerrit-Module: com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
     ],
     resources = glob(["src/main/resources/**/*"]),
     deps = [
