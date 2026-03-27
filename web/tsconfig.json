@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig-plugins-base.json",
+  "compilerOptions": {
+    "outDir": "../../../.ts-out/plugins/ai-review-agent-gemini", /* overridden by bazel */
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2021",
+      "webworker"
+    ]
+  },
+  "include": [
+    "**/*.ts"
+  ],
+}
