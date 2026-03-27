@@ -6,11 +6,13 @@ load(
 
 gerrit_plugin(
     name = "ai-review-agent-provider",
-    srcs = glob(["src/main/java/com/gerritforge/gerrit/plugins/ai/provider/*.java"]),
+    srcs = glob(["src/main/java/**/*.java"]),
     manifest_entries = [
         "Gerrit-PluginName: ai-review-agent-provider",
         "Implementation-Title: AI Review Agent shared provider library",
         "Implementation-URL: https://github.com/GerritForge/ai-review-agent-provider",
+        "Gerrit-Module: com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
+        "Gerrit-ApiModule: com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule",
     ],
     resources = glob(["src/main/resources/**/*"]),
     deps = [

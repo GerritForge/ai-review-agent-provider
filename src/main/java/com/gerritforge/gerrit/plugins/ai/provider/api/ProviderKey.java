@@ -9,16 +9,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.gerritforge.gerrit.plugins.ai.provider;
+package com.gerritforge.gerrit.plugins.ai.provider.api;
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import com.google.inject.BindingAnnotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-@Target({ElementType.PARAMETER, ElementType.FIELD})
-@Retention(RUNTIME)
-@BindingAnnotation
-@interface ProviderKey {}
+public interface ProviderKey {
+	String key();
+}

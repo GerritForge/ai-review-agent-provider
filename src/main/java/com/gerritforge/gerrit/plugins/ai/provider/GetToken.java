@@ -11,8 +11,11 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider;
 
+import com.gerritforge.gerrit.plugins.ai.provider.api.ProviderKey;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.extensions.restapi.AuthException;
+import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
@@ -26,7 +29,7 @@ import com.googlesource.gerrit.plugins.secureconfig.Codec;
 
 @Singleton
 public class GetToken implements RestReadView<AccountResource> {
-  private final String providerKey;
+  private final DynamicItem<ProviderKey> providerKey;
   private final Provider<CurrentUser> currentUser;
   private final VersionedAiUserData.Factory tokenDataFactory;
   private final Codec codec;
@@ -37,7 +40,7 @@ public class GetToken implements RestReadView<AccountResource> {
 
   @Inject
   GetToken(
-      @ProviderKey String providerKey,
+      DynamicItem<ProviderKey> providerKey,
       Provider<CurrentUser> currentUser,
       VersionedAiUserData.Factory tokenDataFactory,
       Codec codec) {
@@ -49,6 +52,10 @@ public class GetToken implements RestReadView<AccountResource> {
 
   @Override
   public Response<Output> apply(AccountResource resource) throws Exception {
+    if (providerKey.get() == null) {
+      throw new BadRequestException("No AI review agent providers registered");
+    }
+
     IdentifiedUser iu = resource.getUser();
     Account.Id accountId = iu.getAccountId();
 
@@ -60,7 +67,7 @@ public class GetToken implements RestReadView<AccountResource> {
         tokenDataFactory
             .create(accountId)
             .load()
-            .getToken(providerKey)
+            .getToken(providerKey.get().key())
             .orElseThrow(() -> new ResourceNotFoundException("Token not set"));
     Output out = new Output();
     out.token = codec.decode(storedToken);
