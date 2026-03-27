@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0344cc3_5e02861c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-27T16:07:25Z",
+      "side": 1,
+      "message": "Doesn\u0027t work E2E: the provider key needs to be defined now as a `DynamicItem\u003c\u003e` and implemented by another provider (e.g. Gemini).",
+      "revId": "98005f33f498ac25a73fe9fa19824af4023b7c39",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
