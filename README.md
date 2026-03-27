@@ -1,6 +1,6 @@
 # Gerrit AI Review Agent Provider
 
-Shared library plugin for managing AI API tokens across Gerrit's
+Gerrit Code Review plugin for managing AI API tokens across Gerrit's
 AI Code Review Agent provider plugins (e.g., ai-review-agent-gemini).
 
 ## License
@@ -41,6 +41,6 @@ The build output is:
 
 ## Usage
 
-This plugin is not installed directly into Gerrit. It is a compile-time
-dependency for AI review agent provider plugins (e.g., `ai-review-agent-gemini`)
-that need shared token management.
+This plugin can be installed directly into Gerrit into the `$GERRIT_SITE/plugins` and can
+be used with any other implementation of the AI agent provider LLMs (e.g., `ai-review-agent-gemini`)
+that need a shared token management.

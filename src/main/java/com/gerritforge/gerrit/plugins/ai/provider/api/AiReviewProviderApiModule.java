@@ -9,17 +9,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.gerritforge.gerrit.plugins.ai.provider;
+package com.gerritforge.gerrit.plugins.ai.provider.api;
 
-import com.google.inject.AbstractModule;
-import org.junit.Ignore;
+import com.google.gerrit.extensions.registration.DynamicItem;
+import com.google.gerrit.extensions.restapi.RestApiModule;
 
-@Ignore
-public class TestAiReviewProviderModule extends AbstractModule {
-  static final String TEST_PROVIDER_KEY = "test-provider";
+public class AiReviewProviderApiModule extends RestApiModule {
 
-  @Override
-  protected void configure() {
-    install(new AiReviewProviderModule(TEST_PROVIDER_KEY));
-  }
+	@Override
+	protected void configure() {
+		DynamicItem.itemOf(binder(), ProviderKey.class);
+	}
 }

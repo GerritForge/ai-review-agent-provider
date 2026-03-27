@@ -14,31 +14,19 @@ package com.gerritforge.gerrit.plugins.ai.provider;
 import static com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule.API_TOKEN_ENDPOINT;
 import static com.google.common.truth.Truth.assertThat;
 
-import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.RestResponse;
+import com.google.gerrit.acceptance.Sandboxed;
 import com.google.gerrit.acceptance.TestPlugin;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gson.Gson;
-import com.google.inject.Key;
-import com.googlesource.gerrit.plugins.secureconfig.Codec;
-import org.junit.Before;
 import org.junit.Test;
 
 @TestPlugin(
     name = "ai-review-agent-provider",
-    sysModule = "com.gerritforge.gerrit.plugins.ai.provider.TestAiReviewProviderModule")
-public class GetTokenIT extends LightweightPluginDaemonTest {
+    sysModule = "com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
+    apiModule = "com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule")
+@Sandboxed
+public class GetTokenIT extends AbstractTokenIT {
   private final Gson gson = new Gson();
-  private String pluginName;
-  private VersionedAiUserData.Factory tokenDataFactory;
-  private Codec codec;
-
-  @Before
-  public void setUp() {
-    pluginName = plugin.getSysInjector().getInstance(Key.get(String.class, PluginName.class));
-    tokenDataFactory = plugin.getSysInjector().getInstance(VersionedAiUserData.Factory.class);
-    codec = plugin.getSysInjector().getInstance(Codec.class);
-  }
 
   @Test
   public void shouldGetTokenForSelf() throws Exception {

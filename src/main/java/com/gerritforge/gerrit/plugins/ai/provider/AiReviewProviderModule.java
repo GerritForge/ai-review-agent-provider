@@ -20,16 +20,8 @@ import com.googlesource.gerrit.plugins.secureconfig.PBECodec;
 public class AiReviewProviderModule extends RestApiModule {
   static final String API_TOKEN_ENDPOINT = "apiToken";
 
-  private final String providerKey;
-
-  public AiReviewProviderModule(String providerKey) {
-    this.providerKey = providerKey;
-  }
-
   @Override
   protected void configure() {
-    bind(String.class).annotatedWith(ProviderKey.class).toInstance(providerKey);
-
     get(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(GetToken.class);
     put(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(AddToken.class);
 
