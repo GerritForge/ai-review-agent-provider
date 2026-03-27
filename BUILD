@@ -12,8 +12,11 @@ gerrit_plugin(
         "Implementation-Title: AI Review Agent shared provider library",
         "Implementation-URL: https://github.com/GerritForge/ai-review-agent-provider",
         "Gerrit-Module: com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
+        "Gerrit-HttpModule: com.gerritforge.gerrit.plugins.ai.provider.HttpModule",
     ],
-    resources = glob(["src/main/resources/**/*"]),
+    resource_jars = ["//plugins/ai-review-agent-provider/web:ai-review-agent-provider"],
+    resource_strip_prefix = "plugins/ai-review-agent-provider/resources",
+    resources = glob(["resources/**/*"]),
     deps = [
         ":secure-config-neverlink",
         "//lib/errorprone:annotations",
