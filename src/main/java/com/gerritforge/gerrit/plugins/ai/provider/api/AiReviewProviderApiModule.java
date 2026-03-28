@@ -16,8 +16,8 @@ import com.google.gerrit.extensions.restapi.RestApiModule;
 
 public class AiReviewProviderApiModule extends RestApiModule {
 
-	@Override
-	protected void configure() {
-		DynamicItem.itemOf(binder(), ProviderKey.class);
-	}
+  @Override
+  protected void configure() {
+    DynamicItem.itemOf(binder(), AiReviewProvider.class);
+  }
 }
