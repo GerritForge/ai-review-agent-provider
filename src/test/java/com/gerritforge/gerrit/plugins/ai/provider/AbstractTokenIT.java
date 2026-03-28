@@ -1,6 +1,6 @@
 package com.gerritforge.gerrit.plugins.ai.provider;
 
-import com.gerritforge.gerrit.plugins.ai.provider.api.ProviderKey;
+import com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProvider;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.registration.DynamicItem;
@@ -38,7 +38,22 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
   static class FakeAiReviewAgentModule extends AbstractModule {
     @Override
     protected void configure() {
-      DynamicItem.bind(binder(), ProviderKey.class).toInstance(() -> TEST_PROVIDER_KEY);
+      DynamicItem.bind(binder(), AiReviewProvider.class).toInstance(FakeAiReviewProvider.INSTANCE);
+    }
+  }
+
+  static class FakeAiReviewProvider implements AiReviewProvider {
+
+    public static final FakeAiReviewProvider INSTANCE = new FakeAiReviewProvider();
+
+    @Override
+    public String key() {
+      return TEST_PROVIDER_KEY;
+    }
+
+    @Override
+    public String review(String apiToken, String model, String prompt) {
+      return "";
     }
   }
 }

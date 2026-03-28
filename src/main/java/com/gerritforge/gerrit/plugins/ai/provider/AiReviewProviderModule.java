@@ -12,18 +12,27 @@
 package com.gerritforge.gerrit.plugins.ai.provider;
 
 import com.google.gerrit.extensions.restapi.RestApiModule;
+import com.google.gerrit.extensions.restapi.RestView;
+import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.server.account.AccountResource;
+import com.google.gerrit.server.change.ChangeResource;
+import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlesource.gerrit.plugins.secureconfig.Codec;
 import com.googlesource.gerrit.plugins.secureconfig.PBECodec;
 
 public class AiReviewProviderModule extends RestApiModule {
-  static final String API_TOKEN_ENDPOINT = "apiToken";
+  public static final String API_TOKEN_ENDPOINT = "apiToken";
+  public static final String AI_REVIEW_ENDPOINT = "aiReview";
+  public static final TypeLiteral<RestView<TopLevelResource>> TOP_LEVEL_KIND =
+      new TypeLiteral<>() {};
 
   @Override
   protected void configure() {
     get(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(GetToken.class);
     put(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(AddToken.class);
+
+    post(ChangeResource.CHANGE_KIND, AI_REVIEW_ENDPOINT).to(AiCodeReview.class);
 
     install(new FactoryModuleBuilder().build(VersionedAiUserData.Factory.class));
     bind(Codec.class).to(PBECodec.class);

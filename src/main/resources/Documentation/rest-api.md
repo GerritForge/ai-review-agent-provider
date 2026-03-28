@@ -69,6 +69,47 @@ Enforce token privacy:
   Content-Type: application/json; charset=UTF-8
 ```
 
+### Request AI Code Review
+
+**POST** `/a/changes/<change-id>/ai-review-agent-gemini~aiReview`
+
+Request an AI-generated code review for the current change with the associated
+prompt.
+
+#### Request Body
+
+```json
+{
+  "model": "ai-review-model/1.0",
+  "prompt": "Review the current change"
+}
+```
+
+#### Response
+
+```
+  200 OK
+  Content-Type: application/json; charset=UTF-8
+  {
+    "text": "AI-generated review for the change"
+  }
+```
+on success.
+
+If there is AI review agent available:
+
+```
+400 Bad Request
+```
+
+If there is no AI api key present in the user's profile:
+
+```
+404 NOT FOUND
+```
+
+---
+
 ## Security Considerations
 
 - Only the authenticated user can manage their own key.
