@@ -32,6 +32,7 @@ public class AddTokenIT extends AbstractTokenIT {
   public void shouldAddTokenForSelf() throws Exception {
     AddToken.Input input = new AddToken.Input();
     input.token = "my-secret-token";
+    input.plugin = TEST_PROVIDER_PLUGIN_NAME;
 
     userRestSession.put(getAddTokenUri("self"), input).assertCreated();
 
@@ -42,6 +43,7 @@ public class AddTokenIT extends AbstractTokenIT {
   public void shouldUpdateTokenForSelf() throws Exception {
     AddToken.Input input = new AddToken.Input();
     input.token = "my-initial-token";
+    input.plugin = TEST_PROVIDER_PLUGIN_NAME;
 
     userRestSession.put(getAddTokenUri("self"), input).assertCreated();
     assertTokenCorrectlySet(user.id(), "my-initial-token");
@@ -55,6 +57,7 @@ public class AddTokenIT extends AbstractTokenIT {
   public void adminShouldAddTokenForOtherUser() throws Exception {
     AddToken.Input input = new AddToken.Input();
     input.token = "my-secret-token";
+    input.plugin = TEST_PROVIDER_PLUGIN_NAME;
 
     adminRestSession.put(getAddTokenUri(user.id().toString()), input).assertCreated();
 
@@ -65,6 +68,7 @@ public class AddTokenIT extends AbstractTokenIT {
   public void shouldReturnForbiddenWhenModifyingAnotherUser() throws Exception {
     AddToken.Input input = new AddToken.Input();
     input.token = "token";
+    input.plugin = TEST_PROVIDER_PLUGIN_NAME;
 
     userRestSession.put(getAddTokenUri(admin.id().toString()), input).assertForbidden();
   }
@@ -87,7 +91,7 @@ public class AddTokenIT extends AbstractTokenIT {
 
   private void assertTokenCorrectlySet(Account.Id accountId, String token)
       throws IOException, ConfigInvalidException {
-    assertThat(tokenDataFactory.create(accountId).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(tokenDataFactory.create(accountId).load().getToken(TEST_PROVIDER_PLUGIN_NAME))
         .hasValue(codec.encode(token));
   }
 

@@ -1,9 +1,9 @@
 package com.gerritforge.gerrit.plugins.ai.provider;
 
-import com.gerritforge.gerrit.plugins.ai.provider.api.ProviderKey;
+import com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProvider;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
+import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.annotations.PluginName;
-import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.inject.AbstractModule;
 import com.google.inject.Key;
 import com.googlesource.gerrit.plugins.secureconfig.Codec;
@@ -13,7 +13,8 @@ import org.junit.Ignore;
 
 @Ignore
 public class AbstractTokenIT extends LightweightPluginDaemonTest {
-  protected static final String TEST_PROVIDER_KEY = "test";
+  protected static final String TEST_PROVIDER_PLUGIN_NAME = "test";
+  protected static final String TEST_PROVIDER_MODEL_NAME = "testModel";
   protected String pluginName;
   protected Codec codec;
   protected VersionedAiUserData.Factory tokenDataFactory;
@@ -25,7 +26,7 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
     tokenDataFactory = plugin.getSysInjector().getInstance(VersionedAiUserData.Factory.class);
     pluginName = plugin.getSysInjector().getInstance(Key.get(String.class, PluginName.class));
 
-    aiProviderTest = installPlugin("fake-ai-review-agent", FakeAiReviewAgentModule.class);
+    aiProviderTest = installPlugin(TEST_PROVIDER_PLUGIN_NAME, FakeAiReviewAgentModule.class);
   }
 
   @After
@@ -38,7 +39,18 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
   static class FakeAiReviewAgentModule extends AbstractModule {
     @Override
     protected void configure() {
-      DynamicItem.bind(binder(), ProviderKey.class).toInstance(() -> TEST_PROVIDER_KEY);
+      bind(AiReviewProvider.class)
+          .annotatedWith(Exports.named(TEST_PROVIDER_MODEL_NAME))
+          .toInstance(FakeAiReviewProvider.INSTANCE);
+    }
+  }
+
+  static class FakeAiReviewProvider implements AiReviewProvider {
+    public static final FakeAiReviewProvider INSTANCE = new FakeAiReviewProvider();
+
+    @Override
+    public String review(String apiToken, String model, String prompt) {
+      return "";
     }
   }
 }

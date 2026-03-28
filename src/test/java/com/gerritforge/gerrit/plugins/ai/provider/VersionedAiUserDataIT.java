@@ -35,7 +35,7 @@ public class VersionedAiUserDataIT extends AbstractTokenIT {
 
   @Test
   public void getTokenReturnsEmptyIfUnset() throws Exception {
-    assertThat(geminiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(geminiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_PLUGIN_NAME))
         .isEqualTo(Optional.empty());
   }
 
@@ -44,21 +44,21 @@ public class VersionedAiUserDataIT extends AbstractTokenIT {
     String encryptedToken = "encrypted-token";
 
     VersionedAiUserData geminiToken = geminiTokenFactory.create(user.id()).load();
-    geminiToken.setToken(TEST_PROVIDER_KEY, encryptedToken);
+    geminiToken.setToken(TEST_PROVIDER_PLUGIN_NAME, encryptedToken);
 
-    assertThat(geminiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(geminiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_PLUGIN_NAME))
         .hasValue(encryptedToken);
   }
 
   @Test
   public void setTokenOverwritesExistingValue() throws Exception {
     VersionedAiUserData geminiToken = geminiTokenFactory.create(user.id()).load();
-    geminiToken.setToken(TEST_PROVIDER_KEY, "old-token");
+    geminiToken.setToken(TEST_PROVIDER_PLUGIN_NAME, "old-token");
 
     geminiToken = geminiTokenFactory.create(user.id()).load();
-    geminiToken.setToken(TEST_PROVIDER_KEY, "new-token");
+    geminiToken.setToken(TEST_PROVIDER_PLUGIN_NAME, "new-token");
 
-    assertThat(geminiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(geminiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_PLUGIN_NAME))
         .hasValue("new-token");
   }
 }
