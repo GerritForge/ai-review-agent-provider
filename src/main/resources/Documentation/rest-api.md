@@ -16,12 +16,14 @@ All endpoints require authentication.
 
 **PUT** `/a/accounts/self/ai-review-agent-provider~apiToken`
 
-Updates the API Token for the current user.
+Creates/Updates the API Token for the current user to use the AI code-review in Gerrit AI chat
+with an LLM backend provided by a plugin.
 
 #### Request Body
 
 ```json
 {
+  "plugin": "ai-backend-plugin",
   "token": "your-api-token"
 }
 ```
@@ -36,39 +38,47 @@ If the API Token is empty or invalid, the request will fail with:
 
 ---
 
-### Get API Token
+### Request AI Code Review
 
-**GET** `/a/accounts/self/ai-review-agent-provider~apiToken`
+**POST** `/a/changes/<change-id>/ai-review-agent-provider~aiReview`
 
-Retrieves the currently set API token for the user.
+Request an AI-generated code review for the current change with the associated
+prompt.
 
-**Request:**
-```http
-  GET /a/accounts/self/ai-review-agent-provider~apiToken HTTP/1.0
-```
+#### Request Body
 
-**Response:**
-```http
-  HTTP/1.1 200 OK
-  Content-Type: application/json; charset=UTF-8
-
+```json
 {
-  "token": "your-api-token"
+  "plugin": "ai-backend-plugin",
+  "model": "ai-review-model/1.0",
+  "prompt": "Review the current change"
 }
 ```
 
-Enforce token privacy:
+#### Response
 
-**Request:**
-```http
-  GET /a/accounts/<other-user-accountid>/ai-review-agent-provider~apiToken HTTP/1.0
 ```
-
-**Response:**
-```http
-  HTTP/1.1 403 FORBIDDEN
+  200 OK
   Content-Type: application/json; charset=UTF-8
+  {
+    "text": "AI-generated review for the change"
+  }
 ```
+on success.
+
+If there is AI review agent available:
+
+```
+400 Bad Request
+```
+
+If there is no AI api key present in the user's profile:
+
+```
+404 NOT FOUND
+```
+
+---
 
 ## Security Considerations
 
