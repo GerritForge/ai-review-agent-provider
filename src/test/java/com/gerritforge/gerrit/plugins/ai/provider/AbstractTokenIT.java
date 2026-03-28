@@ -1,19 +1,29 @@
 package com.gerritforge.gerrit.plugins.ai.provider;
 
-import com.gerritforge.gerrit.plugins.ai.provider.api.ProviderKey;
+import static com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule.API_TOKEN_ENDPOINT;
+
+import com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProvider;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
+import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.extensions.annotations.PluginName;
-import com.google.gerrit.extensions.registration.DynamicItem;
+import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.gson.Strictness;
+import com.google.gson.stream.JsonReader;
 import com.google.inject.AbstractModule;
 import com.google.inject.Key;
 import com.googlesource.gerrit.plugins.secureconfig.Codec;
+import java.util.Set;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 
 @Ignore
 public class AbstractTokenIT extends LightweightPluginDaemonTest {
-  protected static final String TEST_PROVIDER_KEY = "test";
+  protected static final String TEST_PROVIDER_PLUGIN_NAME = "test";
+  protected static final String FAKE_NUTS_MODEL = "nuts-1.0";
+  protected static final String FAKE_PEARS_MODEL = "pears-experimental";
+  public static final String AI_FEEDBACK_THIS_IS_A_REALLY_COOL_CODE_LGTM =
+      "This is a really cool code, LGTM";
   protected String pluginName;
   protected Codec codec;
   protected VersionedAiUserData.Factory tokenDataFactory;
@@ -25,7 +35,7 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
     tokenDataFactory = plugin.getSysInjector().getInstance(VersionedAiUserData.Factory.class);
     pluginName = plugin.getSysInjector().getInstance(Key.get(String.class, PluginName.class));
 
-    aiProviderTest = installPlugin("fake-ai-review-agent", FakeAiReviewAgentModule.class);
+    aiProviderTest = installPlugin(TEST_PROVIDER_PLUGIN_NAME, FakeAiReviewAgentModule.class);
   }
 
   @After
@@ -35,10 +45,41 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
     }
   }
 
+  protected String getAddTokenUri(String account) {
+    return String.join("/", "/accounts", account, pluginName) + "~" + API_TOKEN_ENDPOINT;
+  }
+
+  protected <T> T readContentFromJson(RestResponse r, Class<T> clazz) throws Exception {
+    r.assertOK();
+    try (JsonReader jsonReader = new JsonReader(r.getReader())) {
+      jsonReader.setStrictness(Strictness.LENIENT);
+      return newGson().fromJson(jsonReader, clazz);
+    }
+  }
+
   static class FakeAiReviewAgentModule extends AbstractModule {
     @Override
     protected void configure() {
-      DynamicItem.bind(binder(), ProviderKey.class).toInstance(() -> TEST_PROVIDER_KEY);
+      DynamicSet.bind(binder(), AiReviewProvider.class).toInstance(FakeAiReviewProvider.INSTANCE);
+    }
+  }
+
+  static class FakeAiReviewProvider implements AiReviewProvider {
+    public static final FakeAiReviewProvider INSTANCE = new FakeAiReviewProvider();
+
+    @Override
+    public String getDisplayName() {
+      return "Fake AI";
+    }
+
+    @Override
+    public Set<String> getModels() {
+      return Set.of(FAKE_NUTS_MODEL, FAKE_PEARS_MODEL);
+    }
+
+    @Override
+    public String review(String apiToken, String model, String prompt) {
+      return AI_FEEDBACK_THIS_IS_A_REALLY_COOL_CODE_LGTM;
     }
   }
 }
