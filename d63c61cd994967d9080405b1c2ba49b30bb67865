@@ -16,6 +16,24 @@
       "message": "this is used in AiReviewProviderApiModule",
       "revId": "d63c61cd994967d9080405b1c2ba49b30bb67865",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b5b5d7_28a80bbc",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/ProviderKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-28T13:35:53Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "d0c8afd7_40f9beb2",
+      "revId": "d63c61cd994967d9080405b1c2ba49b30bb67865",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
