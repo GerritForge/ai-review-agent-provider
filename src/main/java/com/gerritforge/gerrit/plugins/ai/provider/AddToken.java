@@ -11,9 +11,9 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider;
 
-import com.gerritforge.gerrit.plugins.ai.provider.api.ProviderKey;
+import com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProvider;
 import com.google.gerrit.entities.Account;
-import com.google.gerrit.extensions.registration.DynamicItem;
+import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
@@ -29,24 +29,25 @@ import com.googlesource.gerrit.plugins.secureconfig.Codec;
 
 @Singleton
 public class AddToken implements RestModifyView<AccountResource, AddToken.Input> {
-  private final DynamicItem<ProviderKey> providerKey;
+  private final DynamicSet<AiReviewProvider> aiReviewProvidersSet;
   private final Provider<CurrentUser> currentUser;
   private final VersionedAiUserData.Factory tokenDataFactory;
   private final Codec codec;
   private final PermissionBackend permissionBackend;
 
   public static class Input {
+    public String plugin;
     public String token;
   }
 
   @Inject
   AddToken(
-      DynamicItem<ProviderKey> providerKey,
+      DynamicSet<AiReviewProvider> aiReviewProvidersSet,
       Provider<CurrentUser> currentUser,
       VersionedAiUserData.Factory tokenDataFactory,
       Codec codec,
       PermissionBackend permissionBackend) {
-    this.providerKey = providerKey;
+    this.aiReviewProvidersSet = aiReviewProvidersSet;
     this.currentUser = currentUser;
     this.tokenDataFactory = tokenDataFactory;
     this.codec = codec;
@@ -54,13 +55,13 @@ public class AddToken implements RestModifyView<AccountResource, AddToken.Input>
   }
 
   @Override
-  public Response<?> apply(AccountResource resource, AddToken.Input input) throws Exception {
-    if (providerKey.get() == null) {
-      throw new BadRequestException("No AI review agent providers registered");
-    }
-
+  public Response<?> apply(AccountResource resource, Input input) throws Exception {
     if (input.token == null || input.token.isBlank()) {
       throw new BadRequestException("token must be present and non-empty");
+    }
+    if (!aiReviewProvidersSet.plugins().contains(input.plugin)) {
+      throw new BadRequestException(
+          "token refers to a non-existent or not-loaded ai-review-provider plugin");
     }
 
     IdentifiedUser iu = resource.getUser();
@@ -72,7 +73,7 @@ public class AddToken implements RestModifyView<AccountResource, AddToken.Input>
 
     String encryptedToken = codec.encode(input.token.trim());
     VersionedAiUserData tokenData = tokenDataFactory.create(accountId).load();
-    tokenData.setToken(providerKey.get().key(), encryptedToken);
+    tokenData.setToken(input.plugin, encryptedToken);
 
     return Response.created();
   }
