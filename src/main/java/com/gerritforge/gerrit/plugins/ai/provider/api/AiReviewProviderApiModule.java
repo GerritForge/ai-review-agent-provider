@@ -11,13 +11,13 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider.api;
 
-import com.google.gerrit.extensions.registration.DynamicItem;
+import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 
 public class AiReviewProviderApiModule extends RestApiModule {
 
-	@Override
-	protected void configure() {
-		DynamicItem.itemOf(binder(), ProviderKey.class);
-	}
+  @Override
+  protected void configure() {
+    DynamicSet.setOf(binder(), AiReviewProvider.class);
+  }
 }
