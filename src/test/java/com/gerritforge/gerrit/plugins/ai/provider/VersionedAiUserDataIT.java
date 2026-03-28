@@ -35,7 +35,7 @@ public class VersionedAiUserDataIT extends AbstractTokenIT {
 
   @Test
   public void getTokenReturnsEmptyIfUnset() throws Exception {
-    assertThat(aiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(aiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_PLUGIN_NAME))
         .isEqualTo(Optional.empty());
   }
 
@@ -44,21 +44,21 @@ public class VersionedAiUserDataIT extends AbstractTokenIT {
     String encryptedToken = "encrypted-token";
 
     VersionedAiUserData aiToken = aiTokenFactory.create(user.id()).load();
-    aiToken.setToken(TEST_PROVIDER_KEY, encryptedToken);
+    aiToken.setToken(TEST_PROVIDER_PLUGIN_NAME, encryptedToken);
 
-    assertThat(aiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(aiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_PLUGIN_NAME))
         .hasValue(encryptedToken);
   }
 
   @Test
   public void setTokenOverwritesExistingValue() throws Exception {
     VersionedAiUserData aiToken = aiTokenFactory.create(user.id()).load();
-    aiToken.setToken(TEST_PROVIDER_KEY, "old-token");
+    aiToken.setToken(TEST_PROVIDER_PLUGIN_NAME, "old-token");
 
     aiToken = aiTokenFactory.create(user.id()).load();
-    aiToken.setToken(TEST_PROVIDER_KEY, "new-token");
+    aiToken.setToken(TEST_PROVIDER_PLUGIN_NAME, "new-token");
 
-    assertThat(aiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(aiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_PLUGIN_NAME))
         .hasValue("new-token");
   }
 }
