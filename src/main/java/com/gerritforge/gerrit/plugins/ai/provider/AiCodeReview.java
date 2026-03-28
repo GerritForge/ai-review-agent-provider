@@ -11,66 +11,77 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider;
 
-import com.gerritforge.gerrit.plugins.ai.provider.api.ProviderKey;
+import com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProvider;
 import com.google.gerrit.entities.Account;
-import com.google.gerrit.extensions.registration.DynamicItem;
+import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
+import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
-import com.google.gerrit.extensions.restapi.RestReadView;
+import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.CurrentUser;
-import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.account.AccountResource;
+import com.google.gerrit.server.change.ChangeResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.secureconfig.Codec;
 
-@Singleton
-public class GetToken implements RestReadView<AccountResource> {
-  private final DynamicItem<ProviderKey> providerKey;
+public class AiCodeReview implements RestModifyView<ChangeResource, AiCodeReview.Input> {
+
+  public static class Input {
+    String plugin;
+    String model;
+    String prompt;
+  }
+
+  public static class Output {
+    String text;
+  }
+
+  private final DynamicMap<AiReviewProvider> aiReviewProvidersMap;
   private final Provider<CurrentUser> currentUser;
   private final VersionedAiUserData.Factory tokenDataFactory;
   private final Codec codec;
 
-  public static class Output {
-    public String token;
-  }
-
   @Inject
-  GetToken(
-      DynamicItem<ProviderKey> providerKey,
+  AiCodeReview(
+      DynamicMap<AiReviewProvider> aiReviewProvidersMap,
       Provider<CurrentUser> currentUser,
       VersionedAiUserData.Factory tokenDataFactory,
       Codec codec) {
-    this.providerKey = providerKey;
+    this.aiReviewProvidersMap = aiReviewProvidersMap;
     this.currentUser = currentUser;
     this.tokenDataFactory = tokenDataFactory;
     this.codec = codec;
   }
 
   @Override
-  public Response<Output> apply(AccountResource resource) throws Exception {
-    if (providerKey.get() == null) {
+  public Response<?> apply(ChangeResource resource, Input input)
+      throws AuthException, BadRequestException, ResourceConflictException, Exception {
+    AiReviewProvider aiReviewProvider = aiReviewProvidersMap.get(input.plugin, input.model);
+
+    if (aiReviewProvider == null) {
       throw new BadRequestException("No AI review agent providers registered");
     }
 
-    IdentifiedUser iu = resource.getUser();
+    CurrentUser iu = resource.getUser();
     Account.Id accountId = iu.getAccountId();
 
     if (!iu.hasSameAccountId(currentUser.get())) {
-      throw new AuthException("Cannot read another user's token");
+      throw new AuthException("Cannot access another user's token");
     }
 
     String storedToken =
         tokenDataFactory
             .create(accountId)
             .load()
-            .getToken(providerKey.get().key())
+            .getToken(input.plugin)
             .orElseThrow(() -> new ResourceNotFoundException("Token not set"));
-    Output out = new Output();
-    out.token = codec.decode(storedToken);
-    return Response.ok(out);
+    String token = codec.decode(storedToken);
+
+    AiCodeReview.Output resp = new AiCodeReview.Output();
+    resp.text = aiReviewProvider.review(token, input.model, input.prompt);
+
+    return Response.ok(resp);
   }
 }
