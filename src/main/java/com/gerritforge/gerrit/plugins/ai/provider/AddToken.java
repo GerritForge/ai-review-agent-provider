@@ -11,9 +11,7 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider;
 
-import com.gerritforge.gerrit.plugins.ai.provider.api.ProviderKey;
 import com.google.gerrit.entities.Account;
-import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
@@ -29,24 +27,22 @@ import com.googlesource.gerrit.plugins.secureconfig.Codec;
 
 @Singleton
 public class AddToken implements RestModifyView<AccountResource, AddToken.Input> {
-  private final DynamicItem<ProviderKey> providerKey;
   private final Provider<CurrentUser> currentUser;
   private final VersionedAiUserData.Factory tokenDataFactory;
   private final Codec codec;
   private final PermissionBackend permissionBackend;
 
   public static class Input {
+    public String plugin;
     public String token;
   }
 
   @Inject
   AddToken(
-      DynamicItem<ProviderKey> providerKey,
       Provider<CurrentUser> currentUser,
       VersionedAiUserData.Factory tokenDataFactory,
       Codec codec,
       PermissionBackend permissionBackend) {
-    this.providerKey = providerKey;
     this.currentUser = currentUser;
     this.tokenDataFactory = tokenDataFactory;
     this.codec = codec;
@@ -55,10 +51,6 @@ public class AddToken implements RestModifyView<AccountResource, AddToken.Input>
 
   @Override
   public Response<?> apply(AccountResource resource, AddToken.Input input) throws Exception {
-    if (providerKey.get() == null) {
-      throw new BadRequestException("No AI review agent providers registered");
-    }
-
     if (input.token == null || input.token.isBlank()) {
       throw new BadRequestException("token must be present and non-empty");
     }
@@ -72,7 +64,7 @@ public class AddToken implements RestModifyView<AccountResource, AddToken.Input>
 
     String encryptedToken = codec.encode(input.token.trim());
     VersionedAiUserData tokenData = tokenDataFactory.create(accountId).load();
-    tokenData.setToken(providerKey.get().key(), encryptedToken);
+    tokenData.setToken(input.plugin, encryptedToken);
 
     return Response.created();
   }
