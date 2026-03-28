@@ -24,6 +24,7 @@ import type {
   ChatResponseListener,
   Models,
 } from '@gerritcodereview/typescript-api/ai-code-review';
+import type {NumericChangeId} from '@gerritcodereview/typescript-api/rest-api';
 import type {DiffInfo} from '@gerritcodereview/typescript-api/diff';
 import {
   HELP_ME_REVIEW_PROMPT,
@@ -60,7 +61,7 @@ async function fetchApiKeyFromBackend(
     return {token: res.token.trim()};
   } catch (e) {
     return {
-      error: `Cannot retrieve Gemini API key. ${e}`,
+      error: `Cannot retrieve AiProvider API key. ${e}`,
     };
   }
 }
@@ -86,71 +87,27 @@ function buildChatResponse(text: string): ChatResponse {
   };
 }
 
-async function callGeminiGenerateContent(args: {
-  apiKey: string;
+async function callAiProviderGenerateContent(args: {
+  plugin: PluginApi;
+  changeId: NumericChangeId;
   model: string;
   prompt: string;
 }): Promise<string> {
-  const {apiKey, model, prompt} = args;
+  const {plugin, changeId, model, prompt} = args;
 
-  const url =
-    `https://generativelanguage.googleapis.com/v1beta/models/` +
-    `${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(
-      apiKey
-    )}`;
+  const url = `/changes/${changeId}/ai-review-agent-provider\~aiReview`;
 
   const body = {
-    contents: [
-      {
-        role: 'user',
-        parts: [{text: prompt}],
-      },
-    ],
+        model: model,
+        prompt: prompt,
   };
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(body),
-  });
+  const res: string = await plugin.restApi().post(url, body);
 
-  if (!res.ok) {
-    const errText = await res.text().catch(() => '');
-    throw new Error(
-      `Gemini error ${res.status}: ${errText || res.statusText}`
-    );
-  }
-
-  const json: any = await res.json();
-
-  // The response from the API looks like:
-  //  {
-  //   "candidates": [
-  //     {
-  //       "content": {
-  //         "parts": [
-  //           { "text": "Hello " },
-  //           { "text": "world" }
-  //         ]
-  //       }
-  //     }
-  //   ]
-  // }
-  //
-  // The following code take the first candidate, extract all text parts, ignore anything weird or missing,
-  // and glue the text together into a single string.
-  const parts: any[] =
-     json?.candidates?.[0]?.content?.parts ?? [];
-
-  const text = parts
-    .map(p => (typeof p?.text === 'string' ? p.text : ''))
-    .filter(Boolean)
-    .join('');
-
-  return text || '(No text returned by Gemini)';
+  return res || '(No text returned by AiProvider)';
 }
 
-class GeminiAiProvider implements AiCodeReviewProvider {
+class AiProviderAiProvider implements AiCodeReviewProvider {
   // The provider does not support the "add extra context" feature (e.g., attaching additional files or notes beyond what Gerrit already sends)
   supports_add_context = false;
   // The provider does not maintain or accept chat history. Each request is treated as a fresh, stateless call
@@ -195,7 +152,7 @@ class GeminiAiProvider implements AiCodeReviewProvider {
   }
 
   getActions(): Promise<Actions> {
-    console.log('Gemini Plugin: getActions called');
+    console.log('AiProvider Plugin: getActions called');
     return Promise.resolve({
       actions: [
         {
@@ -226,9 +183,10 @@ class GeminiAiProvider implements AiCodeReviewProvider {
     const apiKey = await requireApiKey(this.plugin, listener);
     if (!apiKey) return;
 
-    listener.emitResponse(buildChatResponse('_Gathering file contents and calling Gemini...'));
+    listener.emitResponse(buildChatResponse('_Gathering file contents and calling AiProvider...'));
 
     try {
+      const plugin: PluginApi = this.plugin;
       const changeId = req.change?._number;
       // We'll take the first 10 files to avoid hitting token limits or browser timeouts
       const filesToReview = (req.files || []).slice(0, 10);
@@ -260,7 +218,7 @@ class GeminiAiProvider implements AiCodeReviewProvider {
         `Context: This is a code review for change ${changeId}.\n` +
         `Code Content:\n${diffContext}`;
       const model = req.model_name || DEFAULT_MODEL;
-      const text = await callGeminiGenerateContent({apiKey, model, prompt});
+      const text = await callAiProviderGenerateContent({plugin, changeId, model, prompt});
 
       listener.emitResponse(buildChatResponse(text));
       listener.done();
@@ -289,7 +247,7 @@ class GrGeminiApiToken extends LitElement {
         this.token = res.token;
       }
     } catch (e) {
-      console.warn('Gemini token not set yet');
+      console.warn('AiProvider token not set yet');
     }
   }
 
@@ -407,7 +365,7 @@ class GrGeminiApiToken extends LitElement {
 void GrGeminiApiToken;
 
 function install(plugin: PluginApi) {
-  const provider = new GeminiAiProvider(plugin);
+  const provider = new AiProviderAiProvider(plugin);
 
   // Override the chat method to pass the plugin instance
   provider.chat = (req, listener) => {
