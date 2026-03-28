@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b35bd5e_5a28b95f",
+        "filename": "BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-28T08:28:39Z",
+      "side": 1,
+      "message": "I guess we have to solve the following puzzle: what should be exposed by the provider:\n1. personal token REST API could be, provided that each plugin would use its section parameter (e.g. `gemini`) either as Input parameter or path to the corresponding endpoints\n2. frontend part - similar problem: we want to know that this is token for Gemini - here I would argue that the common part shouldn\u0027t be loaded by provider when gets started but should be _available_ to the implementing plugin so that it could customise it with its dedicated settings (e.g. give the Germini label, prefix to call REST API etc)\n3. finally provider could export some common structures/machinery to call agent API from Gerrit but the real plugin should actually implement the call as it will be the model specific e.g. Gemini will be different than Claude etc...",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 83
+      },
+      "revId": "8368f9adf250fd8d0da4f511b5cec74e4da945cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}

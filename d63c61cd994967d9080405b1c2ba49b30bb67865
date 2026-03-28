@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0c8afd7_40f9beb2",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/ProviderKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-03-28T08:28:39Z",
+      "side": 0,
+      "message": "this is used in AiReviewProviderApiModule",
+      "revId": "d63c61cd994967d9080405b1c2ba49b30bb67865",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
