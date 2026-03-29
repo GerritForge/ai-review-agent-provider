@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "136a56ac_76627e45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-29T17:53:27Z",
+      "side": 1,
+      "message": "I tested this end-to-end with the experiment enabled in Gerrit core and both plugins (`ai-review-agent-provider` and the `ai-review-agent-gemini`) installed.\n\nThe request is successfully processed by the AI provider — I can see a valid response returned in the browser’s network tab.\n\nHowever, the UI does not render the actual response. Instead, it only shows:\n\n```\n_Gathering file contents and calling AiProvider...[object Object]\n```\n\nSo it looks like the backend + provider integration is working, but the frontend is not correctly displaying the returned response",
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e46a62c8_9eb9053c",
+        "filename": "src/main/resources/Documentation/rest-api.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-29T17:53:27Z",
+      "side": 1,
+      "message": "Should this be `provider` after it was copied from `gemini` agent? Here and in all other places.",
+      "range": {
+        "startLine": 74,
+        "startChar": 49,
+        "endLine": 74,
+        "endChar": 55
+      },
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "429bcd1c_35d368f3",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-29T17:53:27Z",
+      "side": 1,
+      "message": "This is hard coded yet.",
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c29356_0ef42725",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-29T17:53:27Z",
+      "side": 1,
+      "message": "This still looks agent-specific to me.\n\nI wonder whether `DynamicItem\u003cAiReviewProvider\u003e` is the right abstraction here, or whether this should become a `DynamicSet\u003cAiReviewProvider\u003e` instead.\n\nWith a set, Gerrit could expose multiple registered AI providers at the same time, rather than assuming there is only one active provider. That would also make the model list more natural: one agent could contribute several models (for example Gemini), while another agent could contribute a different set of models (for example Claude).\n\nThat seems like a better match for the generic provider design than keeping a single `DynamicItem`.",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 134,
+        "endChar": 8
+      },
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de857c99_7c541bf6",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-29T17:53:27Z",
+      "side": 1,
+      "message": "GrProviderApiToken?",
+      "range": {
+        "startLine": 363,
+        "startChar": 38,
+        "endLine": 363,
+        "endChar": 54
+      },
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fcc34db_daad9fec",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-29T17:53:27Z",
+      "side": 1,
+      "message": "\u0027gr-provider-api-token\u0027?",
+      "range": {
+        "startLine": 377,
+        "startChar": 45,
+        "endLine": 377,
+        "endChar": 64
+      },
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}

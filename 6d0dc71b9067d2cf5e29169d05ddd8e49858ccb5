@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f130f63_a4ce9cd2",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiReviewProviderApiModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-29T17:53:27Z",
+      "side": 0,
+      "message": "This is the last usage of this interface, remove the interface `ProviderKey.java` in this change as well?",
+      "range": {
+        "startLine": 21,
+        "startChar": 31,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "6d0dc71b9067d2cf5e29169d05ddd8e49858ccb5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
