@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d3ced7e_882e68ae",
+        "filename": "BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-03-29T18:08:21Z",
+      "side": 1,
+      "message": "Would it make sense to split out a separate `ai-review-agent-provider-api` target here, similar to how `replication` exposes exposes its shared API in Gerrit core as `replication-api`?\n\nThat would let agent-specific plugins depend only on the provider API, instead of depending on the full `ai-review-agent-provider` plugin implementation.\n\nSomething along these lines:\n\n```python id\u003d\"2rj3v7\"\ngerrit_plugin(\n    name \u003d \"ai-review-agent-provider-api\",\n    srcs \u003d glob([\"src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/*.java\"]),\n    dir_name \u003d \"ai-review-agent-provider\",\n    manifest_entries \u003d [\n        \"Gerrit-PluginName: ai-review-agent-provider-api\",\n        \"Implementation-Title: AI Review Agent shared provider API\",\n        \"Implementation-URL: https://github.com/GerritForge/ai-review-agent-provider\",\n        \"Gerrit-ApiModule: com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule\",\n    ],\n)\n```\n\nThen the agent-specific plugins could depend only on that API target, for example:\n\n```diff id\u003d\"g0vwt4\"\ndiff --git a/BUILD b/BUILD\nindex 52137b0..f4dcfd3 100644\n--- a/BUILD\n+++ b/BUILD\n@@ -12,7 +12,7 @@ gerrit_plugin(\n     ],\n     resources \u003d glob([\"src/main/resources/**/*\"]),\n     deps \u003d [\n-        \":ai-review-agent-provider-neverlink\",\n+        \":ai-review-agent-provider-api-neverlink\",\n         \"//lib/errorprone:annotations\",\n         \"@google-api-common//jar\",\n         \"@google-gemini//jar\",\n@@ -30,7 +30,7 @@ gerrit_plugin(\n )\n \n java_library(\n-    name \u003d \"ai-review-agent-provider-neverlink\",\n+    name \u003d \"ai-review-agent-provider-api-neverlink\",\n     neverlink \u003d True,\n-    exports \u003d [\"//plugins/ai-review-agent-provider\"],\n+    exports \u003d [\"//plugins/ai-review-agent-provider:ai-review-agent-provider-api\"],\n )\n```\n\nThat seems like a cleaner dependency boundary to me: the provider plugin would expose the shared API, while the concrete agent plugins would only consume that API rather than the whole plugin.",
+      "revId": "8368f9adf250fd8d0da4f511b5cec74e4da945cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b35bd5e_5a28b95f",
         "filename": "BUILD",
         "patchSetId": 2
