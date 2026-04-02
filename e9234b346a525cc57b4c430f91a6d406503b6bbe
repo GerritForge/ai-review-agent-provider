@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6518f3d7_11c69ae1",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AddToken.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T21:51:10Z",
+      "side": 0,
+      "message": "This should be replaced with a check that the `DynamicSet\u003cAiReviewProvider\u003e` contains a registration for the `input.plugin`.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "e9234b346a525cc57b4c430f91a6d406503b6bbe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
