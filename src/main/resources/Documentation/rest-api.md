@@ -36,6 +36,39 @@ If the API Token is empty or invalid, the request will fail with:
 
 - `400 Bad Request`
 
+### Retrieve the AI providers available to use
+
+**GET** `/a/accounts/self/ai-review-agent-provider~apiProviders`
+
+Retrieves the map of AI providers installed, keyed on the plugin name, and with an
+API key inserted and available to use.
+
+> **NOTE**: AI providers that are installed but not having an API key for the current user
+> will not be returned.
+
+#### Response
+
+```
+200 OK
+Content-Type: application/json; charset=UTF-8
+
+{ 
+  "providers" : [
+    {
+      "plugin" : ai-review-provider-gemini",
+      "displayName": "Gemini",
+      "models": ["gemini-2.5-pro", "gemini-2.5-flash"]
+    },
+    {
+      "plugin" : "another-ai-plugin",
+      "displayName": "Another AI Provider",
+      "models": ["model-a", "model-b"]
+    }
+  ]
+}
+```
+on success.
+
 ---
 
 ### Request AI Code Review
