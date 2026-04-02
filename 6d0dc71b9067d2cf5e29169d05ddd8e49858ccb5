@@ -22,6 +22,30 @@
       },
       "revId": "6d0dc71b9067d2cf5e29169d05ddd8e49858ccb5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae829cd6_24c2fa33",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiReviewProviderApiModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T13:31:26Z",
+      "side": 0,
+      "message": "The `ProviderKey` is now removed.",
+      "parentUuid": "9f130f63_a4ce9cd2",
+      "range": {
+        "startLine": 21,
+        "startChar": 31,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "6d0dc71b9067d2cf5e29169d05ddd8e49858ccb5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c5d08a0_31721e23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T13:31:26Z",
+      "side": 1,
+      "message": "Not needed anymore in this change.",
+      "parentUuid": "136a56ac_76627e45",
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e46a62c8_9eb9053c",
@@ -95,6 +113,30 @@
       "side": 1,
       "message": "+1 to set, I was thinking that bigger sites like for instance gerrithub could allow usage of whatever provider you need - same would apply for on-prem with probably configuration of which providers are available to which project trees 😉",
       "parentUuid": "01c29356_0ef42725",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 134,
+        "endChar": 8
+      },
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f1ced48_06115d76",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T13:31:26Z",
+      "side": 1,
+      "message": "Not relevant anymore for this change.",
+      "parentUuid": "c166c44f_309211db",
       "range": {
         "startLine": 128,
         "startChar": 6,
