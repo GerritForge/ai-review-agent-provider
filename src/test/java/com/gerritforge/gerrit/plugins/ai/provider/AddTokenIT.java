@@ -11,12 +11,16 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider;
 
+import static com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule.API_PROVIDERS_ENDPOINT;
 import static com.google.common.truth.Truth.assertThat;
 
+import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.acceptance.Sandboxed;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.entities.Account;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
+import java.util.Map;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.junit.Test;
 
@@ -36,6 +40,14 @@ public class AddTokenIT extends AbstractTokenIT {
     userRestSession.put(getAddTokenUri("self"), input).assertCreated();
 
     assertTokenCorrectlySet(user.id(), "my-secret-token");
+
+    assertThat(getAiProvidersMap(userRestSession.get(getTokenProvidersUri("self"))))
+        .containsEntry(TEST_PROVIDER_PLUGIN_NAME, FAKE_PROVIDER_INFO);
+  }
+
+  @Test
+  public void shouldNotHaveTokenProvidersByDefault() throws Exception {
+    assertThat(getAiProvidersMap(userRestSession.get(getTokenProvidersUri("self")))).isEmpty();
   }
 
   @Test
@@ -61,6 +73,9 @@ public class AddTokenIT extends AbstractTokenIT {
     adminRestSession.put(getAddTokenUri(user.id().toString()), input).assertCreated();
 
     assertTokenCorrectlySet(user.id(), "my-secret-token");
+
+    assertThat(getAiProvidersMap(userRestSession.get(getTokenProvidersUri("self"))))
+        .containsEntry(TEST_PROVIDER_PLUGIN_NAME, FAKE_PROVIDER_INFO);
   }
 
   @Test
@@ -70,6 +85,7 @@ public class AddTokenIT extends AbstractTokenIT {
     input.plugin = TEST_PROVIDER_PLUGIN_NAME;
 
     userRestSession.put(getAddTokenUri(admin.id().toString()), input).assertForbidden();
+    userRestSession.get(getTokenProvidersUri(admin.id().toString())).assertForbidden();
   }
 
   @Test
@@ -98,8 +114,23 @@ public class AddTokenIT extends AbstractTokenIT {
   }
 
   private void assertTokenCorrectlySet(Account.Id accountId, String token)
+      throws ConfigInvalidException, IOException {
+    assertTokenCorrectlySet(accountId, token, TEST_PROVIDER_PLUGIN_NAME);
+  }
+
+  private void assertTokenCorrectlySet(Account.Id accountId, String token, String provider)
       throws IOException, ConfigInvalidException {
-    assertThat(tokenDataFactory.create(accountId).load().getToken(TEST_PROVIDER_PLUGIN_NAME))
+    assertThat(tokenDataFactory.create(accountId).load().getToken(provider))
         .hasValue(codec.encode(token));
+  }
+
+  private Map<String, GetAiProviders.ProviderInfo> getAiProvidersMap(RestResponse tokenProviders)
+      throws Exception {
+    tokenProviders.assertOK();
+    return readContentFromJson(tokenProviders, new TypeToken<>() {});
+  }
+
+  private String getTokenProvidersUri(String account) {
+    return String.join("/", "/accounts", account, pluginName) + "~" + API_PROVIDERS_ENDPOINT;
   }
 }
