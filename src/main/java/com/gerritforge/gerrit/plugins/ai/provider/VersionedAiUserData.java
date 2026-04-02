@@ -26,6 +26,7 @@ import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.Set;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.CommitBuilder;
 import org.eclipse.jgit.lib.Config;
@@ -114,5 +115,9 @@ public class VersionedAiUserData extends VersionedMetaData {
         metaDataUpdateFactory.get().create(allUsersName, userFactory.create(accountId))) {
       commit(md, true);
     }
+  }
+
+  public Set<String> getProviders() {
+    return cfg.getSubsections(SECTION);
   }
 }
