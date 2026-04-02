@@ -34,6 +34,24 @@
       "parentUuid": "37df5458_4741d8a0",
       "revId": "21b2886963c986876b4204ab2697a8db69255e0b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c90f6825_a42b3ea7",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiReviewProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T19:33:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80e4c120_fbbbfa12",
+      "revId": "21b2886963c986876b4204ab2697a8db69255e0b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
