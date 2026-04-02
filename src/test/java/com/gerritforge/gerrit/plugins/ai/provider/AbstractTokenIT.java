@@ -8,6 +8,7 @@ import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gson.Strictness;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.inject.AbstractModule;
 import com.google.inject.Key;
@@ -22,6 +23,11 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
   protected static final String TEST_PROVIDER_PLUGIN_NAME = "test";
   protected static final String FAKE_NUTS_MODEL = "nuts-1.0";
   protected static final String FAKE_PEARS_MODEL = "pears-experimental";
+  public static final String FAKE_AI_DISPLAY_NAME = "Fake AI";
+  public static final Set<String> FAKE_AI_MODELS = Set.of(FAKE_NUTS_MODEL, FAKE_PEARS_MODEL);
+  protected static GetAiProviders.ProviderInfo FAKE_PROVIDER_INFO =
+      new GetAiProviders.ProviderInfo(
+          TEST_PROVIDER_PLUGIN_NAME, FAKE_AI_DISPLAY_NAME, FAKE_AI_MODELS);
   public static final String AI_FEEDBACK_THIS_IS_A_REALLY_COOL_CODE_LGTM =
       "This is a really cool code, LGTM";
   protected String pluginName;
@@ -57,6 +63,14 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
     }
   }
 
+  protected <T> T readContentFromJson(RestResponse r, TypeToken<T> typeToken) throws Exception {
+    r.assertOK();
+    try (JsonReader jsonReader = new JsonReader(r.getReader())) {
+      jsonReader.setStrictness(Strictness.LENIENT);
+      return newGson().fromJson(jsonReader, typeToken.getType());
+    }
+  }
+
   static class FakeAiReviewAgentModule extends AbstractModule {
     @Override
     protected void configure() {
@@ -69,12 +83,12 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
 
     @Override
     public String getDisplayName() {
-      return "Fake AI";
+      return FAKE_AI_DISPLAY_NAME;
     }
 
     @Override
     public Set<String> getModels() {
-      return Set.of(FAKE_NUTS_MODEL, FAKE_PEARS_MODEL);
+      return FAKE_AI_MODELS;
     }
 
     @Override
