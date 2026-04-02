@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94f536c_47596db2",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiReviewProviderModule.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T13:34:46Z",
+      "side": 1,
+      "message": "Not needed anymore.",
+      "revId": "215626198cf27059ccfb05f058b06111c73dab18",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
