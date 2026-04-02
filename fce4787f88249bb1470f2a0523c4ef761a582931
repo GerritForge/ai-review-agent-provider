@@ -59,6 +59,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f9b3d47_db9d947b",
+        "filename": "src/main/resources/Documentation/rest-api.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T13:33:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e46a62c8_9eb9053c",
+      "range": {
+        "startLine": 74,
+        "startChar": 49,
+        "endLine": 74,
+        "endChar": 55
+      },
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "429bcd1c_35d368f3",
@@ -72,6 +96,24 @@
       "writtenOn": "2026-03-29T17:53:27Z",
       "side": 1,
       "message": "This is hard coded yet.",
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dff1eca0_3af97d9e",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T13:33:05Z",
+      "side": 1,
+      "message": "Not relevant anymore.",
+      "parentUuid": "429bcd1c_35d368f3",
       "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -170,6 +212,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d15a607_d259fd75",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T13:33:05Z",
+      "side": 1,
+      "message": "Not relevant anymore.",
+      "parentUuid": "de857c99_7c541bf6",
+      "range": {
+        "startLine": 363,
+        "startChar": 38,
+        "endLine": 363,
+        "endChar": 54
+      },
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fcc34db_daad9fec",
@@ -183,6 +249,30 @@
       "writtenOn": "2026-03-29T17:53:27Z",
       "side": 1,
       "message": "\u0027gr-provider-api-token\u0027?",
+      "range": {
+        "startLine": 377,
+        "startChar": 45,
+        "endLine": 377,
+        "endChar": 64
+      },
+      "revId": "fce4787f88249bb1470f2a0523c4ef761a582931",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb0dcfd_62190f4e",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T13:33:05Z",
+      "side": 1,
+      "message": "Not relevant anymore.",
+      "parentUuid": "6fcc34db_daad9fec",
       "range": {
         "startLine": 377,
         "startChar": 45,
