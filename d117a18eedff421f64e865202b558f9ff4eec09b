@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc6230bd_b35a2251",
+        "filename": "src/main/resources/Documentation/rest-api.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T19:04:22Z",
+      "side": 1,
+      "message": "```suggestion\n  \"token\": \"your-api-token\"\n```",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "d117a18eedff421f64e865202b558f9ff4eec09b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e16b67_824661d6",
+        "filename": "src/main/resources/Documentation/rest-api.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T19:04:22Z",
+      "side": 1,
+      "message": "```suggestion\n  \"token\": \"your-api-token\"\n```",
+      "range": {
+        "startLine": 56,
+        "startChar": 17,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "d117a18eedff421f64e865202b558f9ff4eec09b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
