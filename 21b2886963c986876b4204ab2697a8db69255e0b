@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37df5458_4741d8a0",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiReviewProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T16:47:03Z",
+      "side": 1,
+      "message": "We should also add two methods:\n\n- `Set\u003cString\u003e getModels()` for returning the list of models available to use\n- `String getDisplayName()` for returning the name of the provider to be displayed on the Gerrit UI\n\nFor example, Gemini may return:\n- `getModels()` \u003d\u003e `Set.of(\"2.5-flash\", \"2.5-pro\")`\n- `getDisplayName()` \u003d\u003e `Gemini`\n\nTherefore, the UI will be able to represent in a friendly way.",
+      "revId": "21b2886963c986876b4204ab2697a8db69255e0b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
