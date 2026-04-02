@@ -1,27 +1,28 @@
 Rest API
 ========
 
-## User Gemini API Key Endpoints
+## User API Token Endpoints
 
 This plugin exposes REST endpoints to allow users to manage their personal
-Gemini API key. The API key is stored on a per-user basis in the account
-preferences file `ai-user-data.config`.
+API Token for connecting with the AI LLMs providers.
+The API Token is stored on a per-user basis in the account preferences file
+`ai-user-data.config`.
 
 All endpoints require authentication.
 
 ---
 
-### Set / Update Gemini API Key
+### Set / Update AI API Token
 
-**PUT** `/a/accounts/self/ai-review-agent-gemini~apiToken`
+**PUT** `/a/accounts/self/ai-review-agent-provider~apiToken`
 
-Updates the Gemini API key for the current user.
+Updates the API Token for the current user.
 
 #### Request Body
 
 ```json
 {
-  "token": "your-gemini-api-key"
+  "token": "your-ai-api-key"
 }
 ```
 
@@ -35,15 +36,15 @@ If the key is empty or invalid, the request will fail with:
 
 ---
 
-### Get Gemini API Key
+### Get AI API Token
 
-**GET** `/a/accounts/self/ai-review-agent-gemini~apiToken`
+**GET** `/a/accounts/self/ai-review-agent-provider~apiToken`
 
-Retrieves the currently set Gemini API token for the user.
+Retrieves the currently set API token for the user.
 
 **Request:**
 ```http
-  GET /a/accounts/self/ai-review-agent-gemini~apiToken HTTP/1.0
+  GET /a/accounts/self/ai-review-agent-provider~apiToken HTTP/1.0
 ```
 
 **Response:**
@@ -52,7 +53,7 @@ Retrieves the currently set Gemini API token for the user.
   Content-Type: application/json; charset=UTF-8
 
 {
-  "token": "your-gemini-api-key"
+  "token": "your-ai-api-key"
 }
 ```
 
@@ -60,7 +61,7 @@ Enforce token privacy:
 
 **Request:**
 ```http
-  GET /a/accounts/<other-user-accountid>/ai-review-agent-gemini~apiToken HTTP/1.0
+  GET /a/accounts/<other-user-accountid>/ai-review-agent-provider~apiToken HTTP/1.0
 ```
 
 **Response:**

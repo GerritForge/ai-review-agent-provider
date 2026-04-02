@@ -25,40 +25,40 @@ import org.junit.Test;
     apiModule = "com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule")
 @Sandboxed
 public class VersionedAiUserDataIT extends AbstractTokenIT {
-  private VersionedAiUserData.Factory geminiTokenFactory;
+  private VersionedAiUserData.Factory aiTokenFactory;
 
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    geminiTokenFactory = plugin.getSysInjector().getInstance(VersionedAiUserData.Factory.class);
+    aiTokenFactory = plugin.getSysInjector().getInstance(VersionedAiUserData.Factory.class);
   }
 
   @Test
   public void getTokenReturnsEmptyIfUnset() throws Exception {
-    assertThat(geminiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(aiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
         .isEqualTo(Optional.empty());
   }
 
   @Test
-  public void setTokenPersistsGeminiConfig() throws Exception {
+  public void setTokenPersistsaiConfig() throws Exception {
     String encryptedToken = "encrypted-token";
 
-    VersionedAiUserData geminiToken = geminiTokenFactory.create(user.id()).load();
-    geminiToken.setToken(TEST_PROVIDER_KEY, encryptedToken);
+    VersionedAiUserData aiToken = aiTokenFactory.create(user.id()).load();
+    aiToken.setToken(TEST_PROVIDER_KEY, encryptedToken);
 
-    assertThat(geminiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(aiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
         .hasValue(encryptedToken);
   }
 
   @Test
   public void setTokenOverwritesExistingValue() throws Exception {
-    VersionedAiUserData geminiToken = geminiTokenFactory.create(user.id()).load();
-    geminiToken.setToken(TEST_PROVIDER_KEY, "old-token");
+    VersionedAiUserData aiToken = aiTokenFactory.create(user.id()).load();
+    aiToken.setToken(TEST_PROVIDER_KEY, "old-token");
 
-    geminiToken = geminiTokenFactory.create(user.id()).load();
-    geminiToken.setToken(TEST_PROVIDER_KEY, "new-token");
+    aiToken = aiTokenFactory.create(user.id()).load();
+    aiToken.setToken(TEST_PROVIDER_KEY, "new-token");
 
-    assertThat(geminiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
+    assertThat(aiTokenFactory.create(user.id()).load().getToken(TEST_PROVIDER_KEY))
         .hasValue("new-token");
   }
 }
