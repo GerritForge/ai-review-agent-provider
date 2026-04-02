@@ -16,6 +16,24 @@
       "message": "This isn\u0027t very handy, as it would force people to install 2 jars into the `$GERRIT_SITE/plugins` directory.",
       "revId": "4ad16bc910207855110dc7b3396b55c2ad899464",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6028b88f_12de1189",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-02T15:44:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c60389cf_20c1adac",
+      "revId": "4ad16bc910207855110dc7b3396b55c2ad899464",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
