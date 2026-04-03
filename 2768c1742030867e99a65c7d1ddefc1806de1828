@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d064ace6_505bfb31",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-03T20:59:35Z",
+      "side": 1,
+      "message": "This cannot be a singleton, otherwise the `DynamicSet\u003cAiReviewProvider\u003e` will contain only the list of providers available *at load time*, which would be none as this is the first plugin to be loaded, as it contains an `ApiModule`.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 10
+      },
+      "revId": "2768c1742030867e99a65c7d1ddefc1806de1828",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
