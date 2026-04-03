@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bad21f37_3243be70",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AddToken.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-03T12:26:10Z",
+      "side": 1,
+      "message": "nit: provide a plugin name so that in case there are more it is clearly visible which one is broken?",
+      "revId": "ecb93c0c233c7604e1f7e3f81ba53b40152f0e4e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25139af2_55e204fc",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiCodeReview.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-03T12:26:10Z",
+      "side": 1,
+      "message": "Plugins doesn\u0027t sound correct here as we are registering plugin for an online agent that could use multiple models... here is proposal:\n```suggestion\n          \"Multiple AI review agent providers registered for agent \" + input.plugin);\n```",
+      "range": {
+        "startLine": 57,
+        "startChar": 61,
+        "endLine": 57,
+        "endChar": 68
+      },
+      "revId": "ecb93c0c233c7604e1f7e3f81ba53b40152f0e4e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "293ab95a_076e2923",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiReviewProvider.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-03T12:26:10Z",
+      "side": 1,
+      "message": "nit: no longer correct - AFAIU it will be a DynamicSet, right?",
+      "range": {
+        "startLine": 18,
+        "startChar": 13,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "ecb93c0c233c7604e1f7e3f81ba53b40152f0e4e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7fb9f19_adfd17e2",
+        "filename": "src/main/resources/Documentation/rest-api.md",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-03T12:26:10Z",
+      "side": 1,
+      "message": "```suggestion\nIf this AI review agent does not exist, or the model is invalid:\n```",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 11
+      },
+      "revId": "ecb93c0c233c7604e1f7e3f81ba53b40152f0e4e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
