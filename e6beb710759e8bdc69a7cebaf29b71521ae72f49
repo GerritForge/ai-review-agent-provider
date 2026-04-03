@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56a0d81b_20003c65",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-03T16:14:47Z",
+      "side": 1,
+      "message": "This is problematic when used by the frontend: all the Gerrit REST-API assume that the result is an Object and not a Map.\n\nLet\u0027s simply wrap this into an `Output` object.",
+      "range": {
+        "startLine": 55,
+        "startChar": 18,
+        "endLine": 55,
+        "endChar": 43
+      },
+      "revId": "e6beb710759e8bdc69a7cebaf29b71521ae72f49",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b154a449_aed0cfc8",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
         "patchSetId": 10
