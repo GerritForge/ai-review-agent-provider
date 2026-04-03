@@ -22,6 +22,30 @@
       },
       "revId": "e6beb710759e8bdc69a7cebaf29b71521ae72f49",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c095f89_719e437c",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-03T14:59:56Z",
+      "side": 1,
+      "message": "\u003e What about token hierarchy/inheritance (e.g., per user, per project, per site)?\n\u003e Do we expect to support this in the future, or is the current model intentionally flat?\n\nYes, it is planned for the follow-up changes.",
+      "parentUuid": "b154a449_aed0cfc8",
+      "range": {
+        "startLine": 66,
+        "startChar": 76,
+        "endLine": 66,
+        "endChar": 88
+      },
+      "revId": "e6beb710759e8bdc69a7cebaf29b71521ae72f49",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
