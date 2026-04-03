@@ -16,6 +16,24 @@
       "message": "issue: hardcoded gemini model shouldn\u0027t be a part of the universal provider",
       "revId": "6d0dc71b9067d2cf5e29169d05ddd8e49858ccb5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcd47076_7e954f0d",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-03T10:58:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "570f8626_48619906",
+      "revId": "6d0dc71b9067d2cf5e29169d05ddd8e49858ccb5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }

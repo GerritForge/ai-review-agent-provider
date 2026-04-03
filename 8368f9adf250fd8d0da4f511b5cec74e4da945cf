@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8f167df_bfb9a484",
+        "filename": "BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-03T10:58:52Z",
+      "side": 1,
+      "message": "Done in a separate change \u003d\u003e https://review.gerrithub.io/c/GerritForge/ai-review-agent-provider/+/1234897",
+      "parentUuid": "9d3ced7e_882e68ae",
+      "revId": "8368f9adf250fd8d0da4f511b5cec74e4da945cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b35bd5e_5a28b95f",
