@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ddf0668c_5c0fabfb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-04-03T14:12:11Z",
+      "side": 1,
+      "message": "This class isn\u0027t used, rephrase?",
+      "range": {
+        "startLine": 12,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "ecb93c0c233c7604e1f7e3f81ba53b40152f0e4e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bad21f37_3243be70",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AddToken.java",
         "patchSetId": 18
@@ -59,6 +82,29 @@
         "startChar": 13,
         "endLine": 18,
         "endChar": 24
+      },
+      "revId": "ecb93c0c233c7604e1f7e3f81ba53b40152f0e4e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc5d1189_69b02365",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiReviewProvider.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-04-03T14:12:11Z",
+      "side": 1,
+      "message": "Should we enforce uniqueness across different AI providers?",
+      "range": {
+        "startLine": 27,
+        "startChar": 9,
+        "endLine": 27,
+        "endChar": 23
       },
       "revId": "ecb93c0c233c7604e1f7e3f81ba53b40152f0e4e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
