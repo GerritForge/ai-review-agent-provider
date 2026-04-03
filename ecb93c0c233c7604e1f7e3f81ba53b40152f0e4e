@@ -65,6 +65,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "577b7d6f_765a1c88",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AddToken.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-03T16:22:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bad21f37_3243be70",
+      "revId": "ecb93c0c233c7604e1f7e3f81ba53b40152f0e4e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25139af2_55e204fc",
