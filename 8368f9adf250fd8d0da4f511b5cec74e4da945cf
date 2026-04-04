@@ -105,6 +105,30 @@
       },
       "revId": "8368f9adf250fd8d0da4f511b5cec74e4da945cf",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2444e383_a0f94556",
+        "filename": "BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-04T01:18:24Z",
+      "side": 1,
+      "message": "All references to Gemini have been removed now.",
+      "parentUuid": "92644c2a_41e5c722",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 83
+      },
+      "revId": "8368f9adf250fd8d0da4f511b5cec74e4da945cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
