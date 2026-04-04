@@ -34,7 +34,8 @@ public class GetAiProviders implements RestReadView<AccountResource> {
   private final PermissionBackend permissionBackend;
   private final DynamicSet<AiReviewProvider> aiReviewProviders;
 
-  public record ProviderInfo(String plugin, String displayName, Set<String> models) {}
+  public record ProviderInfo(
+      String plugin, String displayName, Set<String> models, boolean enabled) {}
 
   public record Output(Set<ProviderInfo> providers) {}
 
@@ -62,15 +63,17 @@ public class GetAiProviders implements RestReadView<AccountResource> {
 
     Set<ProviderInfo> providersPlugins =
         StreamSupport.stream(aiReviewProviders.entries().spliterator(), false)
-            .filter(ext -> versionedAiUserData.getToken(ext.getPluginName()).isPresent())
-            .map(this::getProviderInfo)
+            .map(
+                ext ->
+                    getProviderInfo(
+                        ext, versionedAiUserData.getToken(ext.getPluginName()).isPresent()))
             .collect(Collectors.toSet());
     return Response.ok(new Output(providersPlugins));
   }
 
-  private ProviderInfo getProviderInfo(Extension<AiReviewProvider> ext) {
+  private ProviderInfo getProviderInfo(Extension<AiReviewProvider> ext, boolean enabled) {
     AiReviewProvider aiProvider = ext.get();
     return new ProviderInfo(
-        ext.getPluginName(), aiProvider.getDisplayName(), aiProvider.getModels());
+        ext.getPluginName(), aiProvider.getDisplayName(), aiProvider.getModels(), enabled);
   }
 }
