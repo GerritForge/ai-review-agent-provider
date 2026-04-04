@@ -27,7 +27,7 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
   public static final Set<String> FAKE_AI_MODELS = Set.of(FAKE_NUTS_MODEL, FAKE_PEARS_MODEL);
   protected static GetAiProviders.ProviderInfo FAKE_PROVIDER_INFO =
       new GetAiProviders.ProviderInfo(
-          TEST_PROVIDER_PLUGIN_NAME, FAKE_AI_DISPLAY_NAME, FAKE_AI_MODELS);
+          TEST_PROVIDER_PLUGIN_NAME, FAKE_AI_DISPLAY_NAME, FAKE_AI_MODELS, true);
   public static final String AI_FEEDBACK_THIS_IS_A_REALLY_COOL_CODE_LGTM =
       "This is a really cool code, LGTM";
   protected String pluginName;

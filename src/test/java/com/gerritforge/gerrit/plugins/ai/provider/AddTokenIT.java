@@ -45,8 +45,10 @@ public class AddTokenIT extends AbstractTokenIT {
   }
 
   @Test
-  public void shouldNotHaveTokenProvidersByDefault() throws Exception {
-    assertThat(getAiProviders(userRestSession.get(getTokenProvidersUri("self")))).isEmpty();
+  public void shouldNotHaveEnabledAiProvidersByDefault() throws Exception {
+    Set<GetAiProviders.ProviderInfo> aiProviders =
+        getAiProviders(userRestSession.get(getTokenProvidersUri("self")));
+    assertThat(aiProviders.stream().filter(GetAiProviders.ProviderInfo::enabled)).isEmpty();
   }
 
   @Test
