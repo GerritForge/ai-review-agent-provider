@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0319528d_e4c87a66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-04T08:13:20Z",
+      "side": 1,
+      "message": "I have just briefly reviewed it and haven\u0027t tested hence CR+1 overall at first glance makes sense",
+      "revId": "ff949e991a06dd8ca3447d4d5dc0d5b0cd5e91d6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2352c5d2_3a187ef1",
+        "filename": "web/index.ts",
+        "patchSetId": 16
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-04T08:13:20Z",
+      "side": 1,
+      "message": "nit: console log?",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 48
+      },
+      "revId": "ff949e991a06dd8ca3447d4d5dc0d5b0cd5e91d6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45bdf2f_0d8921c8",
+        "filename": "web/index.ts",
+        "patchSetId": 16
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-04T08:13:20Z",
+      "side": 1,
+      "message": "question: wouldn\u0027t it be better to inject this part in the backend? Can be done in the follow-up though 😉",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 7
+      },
+      "revId": "ff949e991a06dd8ca3447d4d5dc0d5b0cd5e91d6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
