@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef2d8111_621a1260",
+        "filename": "BUILD",
+        "patchSetId": 18
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-07T18:46:16Z",
+      "side": 1,
+      "message": "issue: by having this definition we are ending up with `AiReviewProviderApiModule` being registered twice: from plugin and from API preventing the coexistence of main plugin and other API implementations",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 101
+      },
+      "revId": "8b50e7e1e93a5f8c8b10d45bebf5127284024918",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf0b5402_b50395bd",
+        "filename": "BUILD",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-07T18:46:16Z",
+      "side": 1,
+      "message": "issue: not sure the rationale behind it but with current state it doesn\u0027t load plugin resources (config.md and rest-api.md) at all - fixed by added `src/main/` to both parts",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "8b50e7e1e93a5f8c8b10d45bebf5127284024918",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3281ac46_5b23eca3",
+        "filename": "BUILD",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-07T18:46:16Z",
+      "side": 1,
+      "message": "issue: the API module has the same name as plugin name hence they are competing during the plugin registration - API typically wins resulting in plugin being not loaded at all",
+      "range": {
+        "startLine": 35,
+        "startChar": 28,
+        "endLine": 35,
+        "endChar": 52
+      },
+      "revId": "8b50e7e1e93a5f8c8b10d45bebf5127284024918",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "429ba341_7f7071d4",
+        "filename": "web/eslint.config.js",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-07T18:46:16Z",
+      "side": 1,
+      "message": "nit: gemini",
+      "range": {
+        "startLine": 18,
+        "startChar": 31,
+        "endLine": 18,
+        "endChar": 37
+      },
+      "revId": "8b50e7e1e93a5f8c8b10d45bebf5127284024918",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a6566b5_88bc19be",
+        "filename": "web/tsconfig.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-04-07T18:46:16Z",
+      "side": 1,
+      "message": "nit: gemini",
+      "range": {
+        "startLine": 4,
+        "startChar": 56,
+        "endLine": 4,
+        "endChar": 62
+      },
+      "revId": "8b50e7e1e93a5f8c8b10d45bebf5127284024918",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
