@@ -25,27 +25,25 @@ import type {
   Models,
 } from '@gerritcodereview/typescript-api/ai-code-review';
 import type {DiffInfo} from '@gerritcodereview/typescript-api/diff';
-import {
-  HELP_ME_REVIEW_PROMPT,
-  IMPROVE_COMMIT_MESSAGE,
-} from './prompts';
+import {HELP_ME_REVIEW_PROMPT, IMPROVE_COMMIT_MESSAGE} from './prompts';
 
 const TOKEN_ENDPOINT = '/accounts/self/ai-review-agent-provider~apiToken';
-const AI_REVIEW_PROVIDERS_ENDPOINT = '/accounts/self/ai-review-agent-provider~apiProviders';
+const AI_REVIEW_PROVIDERS_ENDPOINT =
+  '/accounts/self/ai-review-agent-provider~apiProviders';
 
 declare interface ProviderInfo {
-    plugin: string;
-    display_name: string;
-    models: string[];
-    enabled: boolean;
+  plugin: string;
+  display_name: string;
+  models: string[];
+  enabled: boolean;
 }
 
 declare interface AiCodeReviewOutput {
-    text: string;
+  text: string;
 }
 
 declare interface GetAiProvidersOutput {
-    providers: ProviderInfo[];
+  providers: ProviderInfo[];
 }
 
 function buildChatResponse(text: string): ChatResponse {
@@ -65,14 +63,13 @@ async function callAiModelAndGenerateContent(args: {
 }): Promise<string> {
   const {pluginApi, changeId, model, prompt} = args;
   const url = `/changes/${changeId}/ai-review-agent-provider~aiReview`;
-  const [pluginName, modelName] = model.split('/',2)
+  const [pluginName, modelName] = model.split('/', 2);
 
-  const res : AiCodeReviewOutput = await pluginApi.restApi().post(url,
-      {
-          plugin: pluginName,
-          model: modelName,
-          prompt: prompt
-      });
+  const res: AiCodeReviewOutput = await pluginApi.restApi().post(url, {
+    plugin: pluginName,
+    model: modelName,
+    prompt,
+  });
 
   return res.text || '(No text returned by AI)';
 }
@@ -80,10 +77,13 @@ async function callAiModelAndGenerateContent(args: {
 class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
   // The provider does not support the "add extra context" feature (e.g., attaching additional files or notes beyond what Gerrit already sends)
   supports_add_context = false;
+
   // The provider does not maintain or accept chat history. Each request is treated as a fresh, stateless call
   supports_history = false;
+
   // The provider doesn't expose extra "more" actions beyond the ones defined in getActions()
   supports_more_menu = false;
+
   //  The provider can operate on the current change (e.g., review/explain the active Gerrit change)
   supports_this_change = true;
 
@@ -92,25 +92,35 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
   defaultModel: string = '';
 
   constructor(plugin: PluginApi) {
-      this.plugin = plugin;
+    this.plugin = plugin;
   }
 
   async getModels(): Promise<Models> {
-    const aiReviewProvidersOutput : GetAiProvidersOutput = await this.plugin.restApi().get(AI_REVIEW_PROVIDERS_ENDPOINT);
-    const aiReviewProviders = aiReviewProvidersOutput.providers.filter(p => p.enabled);
+    const aiReviewProvidersOutput: GetAiProvidersOutput = await this.plugin
+      .restApi()
+      .get(AI_REVIEW_PROVIDERS_ENDPOINT);
+    const aiReviewProviders = aiReviewProvidersOutput.providers.filter(
+      p => p.enabled,
+    );
 
-    if (aiReviewProviders.length == 0) {
-        return {
-                models: [],
-                default_model_id: '',
-                documentation_url: 'https://ai.google.dev/api/generate-content',
-                custom_actions: [],
-        }
+    if (aiReviewProviders.length === 0) {
+      return {
+        models: [],
+        default_model_id: '',
+        documentation_url: 'https://ai.google.dev/api/generate-content',
+        custom_actions: [],
+      };
     }
 
-    const providerModels = aiReviewProviders.flatMap((providerInfo) => {
-        return providerInfo.models.map((modelName) =>  { return { model_id: `${providerInfo.plugin}/${modelName}`, short_text: providerInfo.display_name,  full_display_text: `${providerInfo.display_name} (${modelName})`}; })
-    })
+    const providerModels = aiReviewProviders.flatMap(providerInfo =>
+      providerInfo.models.map(modelName => {
+        return {
+          model_id: `${providerInfo.plugin}/${modelName}`,
+          short_text: providerInfo.display_name,
+          full_display_text: `${providerInfo.display_name} (${modelName})`,
+        };
+      }),
+    );
 
     this.defaultModel = providerModels[0].model_id;
 
@@ -161,15 +171,17 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
 
   private async chatAsync(
     req: ChatRequest,
-    listener: ChatResponseListener
+    listener: ChatResponseListener,
   ): Promise<void> {
-    listener.emitResponse(buildChatResponse('_Gathering file contents and calling AI model ...'));
+    listener.emitResponse(
+      buildChatResponse('_Gathering file contents and calling AI model ...'),
+    );
 
     try {
       const changeId = `${req.change?.project}~${req.change?._number}`;
       // We'll take the first 10 files to avoid hitting token limits or browser timeouts
       const filesToReview = (req.files || []).slice(0, 10);
-      const patchPlaceholder = "{{patch}}";
+      const patchPlaceholder = '{{patch}}';
 
       let diffContext = '';
 
@@ -178,31 +190,42 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
 
         // Fetch the diff from Gerrit REST API
         // Endpoint: /changes/{change-id}/revisions/current/files/{file-id}/diff
-        const diff: DiffInfo = await this.plugin.restApi().get(
-          `/changes/${changeId}/revisions/current/files/${encodeURIComponent(file.path)}/diff?context=ALL`
-        );
+        const diff: DiffInfo = await this.plugin
+          .restApi()
+          .get(
+            `/changes/${changeId}/revisions/current/files/${encodeURIComponent(
+              file.path,
+            )}/diff?context=ALL`,
+          );
 
         // Extract the 'after' lines (the new code)
-        const content = diff.content
-          .map((c: any) => c.ab || c.b) // 'ab' is unchanged, 'b' is new content
+        const content = (diff.content ?? [])
+          .map((c: {ab?: string[]; b?: string[]}) => c.ab ?? c.b ?? [])
           .flat()
           .join('\n');
 
         diffContext += `\n--- File: ${file.path} ---\n${content}\n`;
       }
 
-      const prompt = req.prompt.includes(patchPlaceholder) ?
-        req.prompt.replace(patchPlaceholder, diffContext) :
-        `${req.prompt}\n\n` +
-        `Context: This is a code review for change ${changeId}.\n` +
-        `Code Content:\n${diffContext}`;
+      const prompt = req.prompt.includes(patchPlaceholder)
+        ? req.prompt.replace(patchPlaceholder, diffContext)
+        : `${req.prompt}\n\n` +
+          `Context: This is a code review for change ${changeId}.\n` +
+          `Code Content:\n${diffContext}`;
       const model = req.model_name || this.defaultModel;
-      const text = await callAiModelAndGenerateContent({pluginApi: this.plugin, changeId: changeId, model: model, prompt: prompt});
+      const text = await callAiModelAndGenerateContent({
+        pluginApi: this.plugin,
+        changeId,
+        model,
+        prompt,
+      });
 
       listener.emitResponse(buildChatResponse(text));
       listener.done();
     } catch (e) {
-      listener.emitError(e instanceof Error ? e.message : 'Error fetching patch content');
+      listener.emitError(
+        e instanceof Error ? e.message : 'Error fetching patch content',
+      );
       listener.done();
     }
   }
@@ -210,26 +233,30 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
 
 @customElement('gr-ai-api-token')
 class GrAiApiToken extends LitElement {
-  @property({ type: Object }) plugin!: PluginApi;
+  @property({type: Object}) plugin!: PluginApi;
 
-  @state() private providersOutput : GetAiProvidersOutput = { providers: [] }
+  @state() private providersOutput: GetAiProvidersOutput = {providers: []};
 
   @state() private provider = '';
+
   @state() private token = '';
+
   @state() private saving = false;
 
   override willUpdate(changedProperties: PropertyValues) {
     if (changedProperties.has('plugin')) {
-      this.loadProviders();
+      void this.loadProviders();
     }
   }
 
   async loadProviders() {
-      this.providersOutput = await this.plugin.restApi().get(AI_REVIEW_PROVIDERS_ENDPOINT);
-      const firstActive = this.providersOutput.providers.filter(p => p.enabled);
-      if (firstActive.length > 0) {
-          this.provider = firstActive[0].plugin;
-      }
+    this.providersOutput = await this.plugin
+      .restApi()
+      .get(AI_REVIEW_PROVIDERS_ENDPOINT);
+    const firstActive = this.providersOutput.providers.filter(p => p.enabled);
+    if (firstActive.length > 0) {
+      this.provider = firstActive[0].plugin;
+    }
   }
 
   async saveToken() {
@@ -237,7 +264,7 @@ class GrAiApiToken extends LitElement {
     try {
       await this.plugin.restApi().put(TOKEN_ENDPOINT, {
         plugin: this.provider,
-        token: this.token.trim()
+        token: this.token.trim(),
       });
     } finally {
       this.saving = false;
@@ -262,10 +289,10 @@ class GrAiApiToken extends LitElement {
         padding: 0px;
       }
       .gr-form-styles .title {
-          color: var(--deemphasized-text-color);
-          font-weight: var(--font-weight-medium);
-          padding-right: var(--spacing-m);
-          width: 15em;
+        color: var(--deemphasized-text-color);
+        font-weight: var(--font-weight-medium);
+        padding-right: var(--spacing-m);
+        width: 15em;
       }
       md-outlined-text-field {
         width: 15em;
@@ -274,7 +301,9 @@ class GrAiApiToken extends LitElement {
         --md-sys-color-primary: var(--primary-text-color);
         --md-sys-color-on-surface: var(--primary-text-color);
         --md-sys-color-on-surface-variant: var(--deemphasized-text-color);
-        --md-outlined-text-field-label-text-color: var(--deemphasized-text-color);
+        --md-outlined-text-field-label-text-color: var(
+          --deemphasized-text-color
+        );
         --md-outlined-text-field-focus-label-text-color: var(
           --deemphasized-text-color
         );
@@ -312,41 +341,44 @@ class GrAiApiToken extends LitElement {
 
   override render() {
     return html`
-        <fieldset id="ai-preferences">
-          <div id="ai-preferences" class="gr-form-styles">
-            <section>
-              <label class="title" for="aiToken">AI API Token</label>
-              <span class="value">
-                <md-outlined-select
-                  .value=${this.provider}
-                  @input=${(e: Event) => (this.provider = (e.target as HTMLInputElement).value)}
-                  >
-                  ${this.providersOutput.providers
-                    .map(p => this.renderProvider(p))}
-                </md-outlined-select>
-                <md-outlined-text-field
-                  type="password"
-                  id="aiToken"
-                  class="showBlueFocusBorder"
-                  .value=${this.token}
-                  ?disabled=${this.saving}
-                  @input=${(e: Event) => (this.token = (e.target as HTMLInputElement).value)}
-                ></md-outlined-text-field>
-                <gr-button @click=${this.saveToken} ?disabled=${this.saving}>
-                  Save Token
-                </gr-button>
-              </span>
-            </section>
-          </div>
-        </fieldset>
+      <fieldset id="ai-preferences">
+        <div id="ai-preferences" class="gr-form-styles">
+          <section>
+            <label class="title" for="aiToken">AI API Token</label>
+            <span class="value">
+              <md-outlined-select
+                .value=${this.provider}
+                @input=${(e: Event) =>
+                  (this.provider = (e.target as HTMLInputElement).value)}
+              >
+                ${this.providersOutput.providers.map(p =>
+                  this.renderProvider(p),
+                )}
+              </md-outlined-select>
+              <md-outlined-text-field
+                type="password"
+                id="aiToken"
+                class="showBlueFocusBorder"
+                .value=${this.token}
+                ?disabled=${this.saving}
+                @input=${(e: Event) =>
+                  (this.token = (e.target as HTMLInputElement).value)}
+              ></md-outlined-text-field>
+              <gr-button @click=${this.saveToken} ?disabled=${this.saving}>
+                Save Token
+              </gr-button>
+            </span>
+          </section>
+        </div>
+      </fieldset>
     `;
   }
 
   private renderProvider(provider: ProviderInfo) {
     return html`
-                  <md-select-option value=${provider.plugin}>
-                    <div slot="headline" class="providerName">${provider.display_name}</div>
-                  </md-select-option>
+      <md-select-option value=${provider.plugin}>
+        <div slot="headline" class="providerName">${provider.display_name}</div>
+      </md-select-option>
     `;
   }
 }
@@ -367,7 +399,7 @@ function install(plugin: PluginApi) {
   // Override the chat method to pass the plugin instance
   provider.chat = (req, listener) => {
     // @ts-ignore - TODO: reaching into private, there mught might be better way of doing it
-    provider.chatAsync(req, listener);
+    void provider.chatAsync(req, listener);
   };
 
   plugin.aiCodeReview().register(provider);

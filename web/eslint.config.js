@@ -12,12 +12,30 @@
  * limitations under the License.
  */
 
+const fs = require('fs');
+const path = require('path');
 const {defineConfig} = require('eslint/config');
 
-// eslint-disable-next-line no-undef
-__plugindir = 'ai-review-agent-provider/web';
+global.__plugindir = 'ai-review-agent-provider/web';
 
-const gerritEslint = require('../../eslint.config.js');
+const candidates = [
+  // Direct eslint from Gerrit root
+  path.join(process.cwd(), 'plugins', 'eslint.config.js'),
+  // Bazel lint_test / lint_bin from plugin web cwd
+  path.resolve(process.cwd(), '../../eslint.config.js'),
+  // Normal non-symlink checkout inside Gerrit tree
+  path.resolve(__dirname, '../../eslint.config.js'),
+];
+
+const gerritEslintPath = candidates.find(p => fs.existsSync(p));
+
+if (!gerritEslintPath) {
+  throw new Error(
+      `Cannot locate eslint.config.js. Tried:\n${candidates.join('\n')}`
+  );
+}
+
+const gerritEslint = require(gerritEslintPath);
 
 module.exports = defineConfig([
   {
