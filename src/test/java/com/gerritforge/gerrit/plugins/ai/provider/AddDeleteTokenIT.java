@@ -17,9 +17,12 @@ import static com.google.common.truth.Truth.assertThat;
 import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.acceptance.Sandboxed;
 import com.google.gerrit.acceptance.TestPlugin;
+import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.entities.Account;
 import java.io.IOException;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.junit.Test;
 
@@ -28,20 +31,26 @@ import org.junit.Test;
     sysModule = "com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
     apiModule = "com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule")
 @Sandboxed
-public class AddTokenIT extends AbstractTokenIT {
+public class AddDeleteTokenIT extends AbstractTokenIT {
 
   @Test
-  public void shouldAddTokenForSelf() throws Exception {
+  public void shouldAddAndDeleteTokenForSelf() throws Exception {
     AddToken.Input input = new AddToken.Input();
     input.token = "my-secret-token";
     input.plugin = TEST_PROVIDER_PLUGIN_NAME;
+    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri("self")))).isEmpty();
 
     userRestSession.put(getAddTokenUri("self"), input).assertCreated();
 
     assertTokenCorrectlySet(user.id(), "my-secret-token");
 
-    assertThat(getAiProviders(userRestSession.get(getTokenProvidersUri("self"))))
+    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri("self"))))
         .containsExactly(FAKE_PROVIDER_INFO);
+
+    RestResponse response = userRestSession.delete(getTokenProvidersUri("self") + "/" + TEST_PROVIDER_PLUGIN_NAME + "/" + AiReviewProviderModule.API_TOKEN_ENDPOINT);
+    response.assertNoContent();
+
+    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri("self")))).isEmpty();
   }
 
   @Test
@@ -124,6 +133,11 @@ public class AddTokenIT extends AbstractTokenIT {
     assertThat(tokenDataFactory.create(accountId).load().getToken(provider))
         .hasValue(codec.encode(token));
   }
+
+  private Set<GetAiProviders.ProviderInfo> getAiProvidersWithToken(RestResponse tokenProviders) throws Exception {
+    return getAiProviders(tokenProviders).stream().filter(GetAiProviders.ProviderInfo::enabled).collect(Collectors.toSet());
+  }
+
 
   private Set<GetAiProviders.ProviderInfo> getAiProviders(RestResponse tokenProviders)
       throws Exception {
