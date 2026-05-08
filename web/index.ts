@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-import {css, html, LitElement, PropertyValues} from 'lit';
+import {css, html, LitElement, nothing, PropertyValues} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import '@gerritcodereview/typescript-api/gerrit';
 import type {PluginApi} from '@gerritcodereview/typescript-api/plugin';
@@ -239,6 +239,10 @@ class GrAiApiToken extends LitElement {
 
   @state() private provider = '';
 
+  @state() private activeProviders: ProviderInfo[] = [];
+
+  @state() private inactiveProviders: ProviderInfo[] = [];
+
   @state() private token = '';
 
   @state() private saving = false;
@@ -253,9 +257,13 @@ class GrAiApiToken extends LitElement {
     this.providersOutput = await this.plugin
       .restApi()
       .get(AI_REVIEW_PROVIDERS_ENDPOINT);
-    const firstActive = this.providersOutput.providers.filter(p => p.enabled);
-    if (firstActive.length > 0) {
-      this.provider = firstActive[0].plugin;
+
+    const providers = this.providersOutput.providers;
+    this.activeProviders = providers.filter(p => p.enabled);
+    this.inactiveProviders = providers.filter(p => !p.enabled);
+
+    if (this.inactiveProviders.length > 0) {
+      this.provider = this.inactiveProviders[0].plugin;
     }
   }
 
@@ -266,6 +274,8 @@ class GrAiApiToken extends LitElement {
         plugin: this.provider,
         token: this.token.trim(),
       });
+      this.token = '';
+      await this.loadProviders();
     } finally {
       this.saving = false;
     }
@@ -273,26 +283,23 @@ class GrAiApiToken extends LitElement {
 
   static override get styles() {
     return css`
-      section {
-        display: flex;
-        margin-bottom: var(--spacing-m);
+      th {
+        text-align: left;
       }
-      .value {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-m);
-        color: var(--primary-text-color);
+      td.modelColumn,
+      td.valueColumn {
+        width: 15em;
+      }
+      h2 {
+        font-family: var(--header-font-family);
+        font-size: var(--font-size-h2);
+        font-weight: var(--font-weight-h2);
+        line-height: var(--line-height-h2);
       }
       fieldset {
         border: 0px;
         margin: 0px;
         padding: 0px;
-      }
-      .gr-form-styles .title {
-        color: var(--deemphasized-text-color);
-        font-weight: var(--font-weight-medium);
-        padding-right: var(--spacing-m);
-        width: 15em;
       }
       md-outlined-text-field,
       gr-search-autocomplete,
@@ -336,47 +343,80 @@ class GrAiApiToken extends LitElement {
         --_top-space: 4px;
         --_bottom-space: 4px;
       }
-      md-outlined-text-field.showBlueFocusBorder {
-        --md-outlined-text-field-focus-outline-width: 2px;
-        --md-outlined-text-field-focus-outline-color: var(
-          --input-focus-border-color
-        );
-      }
     `;
   }
 
   override render() {
     return html`
-      <fieldset id="ai-preferences">
-        <div id="ai-preferences" class="gr-form-styles">
-          <section>
-            <label class="title" for="aiToken">AI API Token</label>
-            <span class="value">
-              <md-outlined-select
-                .value=${this.provider}
-                @input=${(e: Event) =>
-                  (this.provider = (e.target as HTMLInputElement).value)}
-              >
-                ${this.providersOutput.providers.map(p =>
-                  this.renderProvider(p),
-                )}
-              </md-outlined-select>
-              <md-outlined-text-field
-                type="password"
-                id="aiToken"
-                class="showBlueFocusBorder"
-                .value=${this.token}
-                ?disabled=${this.saving}
-                @input=${(e: Event) =>
-                  (this.token = (e.target as HTMLInputElement).value)}
-              ></md-outlined-text-field>
-              <gr-button @click=${this.saveToken} ?disabled=${this.saving}>
-                Save Token
-              </gr-button>
-            </span>
-          </section>
-        </div>
-      </fieldset>
+      <div class="gr-form-styles">
+        <h2>AI Models and API Keys</h2>
+        <fieldset id="ai-tokens">
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Key</th>
+                <th aria-label="Actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${this.activeProviders.map(p => this.renderActiveProvider(p))}
+              ${this.renderInactiveProviders()}
+            </tbody>
+          </table>
+        </fieldset>
+      </div>
+    `;
+  }
+
+  private renderActiveProvider(provider: ProviderInfo) {
+    return html`
+      <tr>
+        <td class="modelColumn">${provider.display_name}</td>
+        <td class="valueColumn">
+          <span>**********************************</span>
+        </td>
+        <td class="actionColumn">
+          <gr-button
+            link
+            @click=${() => this.deleteToken(provider.plugin)}
+            ?disabled=${this.saving}
+            >Delete</gr-button
+          >
+        </td>
+      </tr>
+    `;
+  }
+
+  private renderInactiveProviders() {
+    if (this.inactiveProviders.length === 0) return nothing;
+    return html`
+      <tr>
+        <td>
+          <md-outlined-select
+            .value=${this.provider}
+            @input=${(e: Event) =>
+              (this.provider = (e.target as HTMLInputElement).value)}
+          >
+            ${this.inactiveProviders.map(p => this.renderProvider(p))}
+          </md-outlined-select>
+        </td>
+        <td>
+          <md-outlined-text-field
+            type="password"
+            id="aiToken"
+            .value=${this.token}
+            ?disabled=${this.saving}
+            @input=${(e: Event) =>
+              (this.token = (e.target as HTMLInputElement).value)}
+          ></md-outlined-text-field>
+        </td>
+        <td>
+          <gr-button link @click=${this.saveToken} ?disabled=${this.saving}
+            >Add</gr-button
+          >
+        </td>
+      </tr>
     `;
   }
 
@@ -386,6 +426,18 @@ class GrAiApiToken extends LitElement {
         <div slot="headline" class="providerName">${provider.display_name}</div>
       </md-select-option>
     `;
+  }
+
+  private async deleteToken(plugin: string) {
+    this.saving = true;
+    try {
+      await this.plugin
+        .restApi()
+        .delete(`${AI_REVIEW_PROVIDERS_ENDPOINT}/${plugin}/apiToken`);
+      await this.loadProviders();
+    } finally {
+      this.saving = false;
+    }
   }
 }
 
