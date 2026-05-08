@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65f66eab_5e7f0edc",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProviderResource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-08T23:33:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "314721a5_034b9f8f",
+      "revId": "04605d67455321e2a823c97c0c56fe1835a1c236",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49ff5cf4_3335a040",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-08T23:32:45Z",
       "side": 1,
       "message": "Missing BSL License",
+      "revId": "04605d67455321e2a823c97c0c56fe1835a1c236",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "829ca83a_9bd99772",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersCollection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-08T23:33:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49ff5cf4_3335a040",
       "revId": "04605d67455321e2a823c97c0c56fe1835a1c236",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
