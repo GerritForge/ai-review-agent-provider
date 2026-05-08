@@ -294,6 +294,12 @@ class GrAiApiToken extends LitElement {
         padding-right: var(--spacing-m);
         width: 15em;
       }
+      md-outlined-text-field,
+      gr-search-autocomplete,
+      md-outlined-select {
+        --md-outlined-field-top-space: 4px;
+        --md-outlined-field-bottom-space: 4px;
+      }
       md-outlined-text-field {
         width: 15em;
         background-color: var(--view-background-color);
