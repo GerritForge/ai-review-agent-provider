@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5cf0265_9effcadb",
+        "filename": "BUILD",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-08T14:34:59Z",
+      "side": 0,
+      "message": "I believe this should also stay, otherwise it would invalidate the semplification done with https://review.gerrithub.io/c/GerritForge/ai-review-agent-provider/+/1234937.",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 100
+      },
+      "revId": "5b477747e5f37f7be7dc720dce1a38ac37b319d1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
