@@ -13,6 +13,7 @@ gerrit_plugin(
         "Implementation-URL: https://github.com/GerritForge/ai-review-agent-provider",
         "Gerrit-Module: com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
         "Gerrit-HttpModule: com.gerritforge.gerrit.plugins.ai.provider.HttpModule",
+        "Gerrit-ApiModule: com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule",
     ],
     resource_jars = ["//plugins/ai-review-agent-provider/web:ai-review-agent-provider"],
     resource_strip_prefix = "plugins/ai-review-agent-provider/src/main/resources",
