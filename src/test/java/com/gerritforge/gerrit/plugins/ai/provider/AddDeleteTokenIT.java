@@ -28,10 +28,10 @@ import org.junit.Test;
     sysModule = "com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
     apiModule = "com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule")
 @Sandboxed
-public class AddTokenIT extends AbstractTokenIT {
+public class AddDeleteTokenIT extends AbstractTokenIT {
 
   @Test
-  public void shouldAddTokenForSelf() throws Exception {
+  public void shouldAddAndDeleteTokenForSelf() throws Exception {
     AddToken.Input input = new AddToken.Input();
     input.token = "my-secret-token";
     input.plugin = TEST_PROVIDER_PLUGIN_NAME;
@@ -42,6 +42,10 @@ public class AddTokenIT extends AbstractTokenIT {
 
     assertThat(getAiProviders(userRestSession.get(getTokenProvidersUri("self"))))
         .containsExactly(FAKE_PROVIDER_INFO);
+
+    userRestSession.delete(getTokenProvidersUri("self") + "/" + TEST_PROVIDER_PLUGIN_NAME + "/" + AiReviewProviderModule.API_TOKEN_ENDPOINT).assertNoContent();
+
+    assertThat(getAiProviders(userRestSession.get(getTokenProvidersUri("self")))).isEmpty();
   }
 
   @Test
