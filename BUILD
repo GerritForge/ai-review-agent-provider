@@ -13,14 +13,15 @@ gerrit_plugin(
         "Implementation-URL: https://github.com/GerritForge/ai-review-agent-provider",
         "Gerrit-Module: com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
         "Gerrit-HttpModule: com.gerritforge.gerrit.plugins.ai.provider.HttpModule",
+        "Gerrit-ApiModule: com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule",
     ],
     resource_jars = ["//plugins/ai-review-agent-provider/web:ai-review-agent-provider"],
     resource_strip_prefix = "plugins/ai-review-agent-provider/src/main/resources",
     resources = glob(["src/main/resources/**/*"]),
     deps = [
-        ":secure-config-neverlink",
         "//lib/errorprone:annotations",
         "//plugins/ai-review-agent-provider:ai-review-agent-provider-api",
+        "//plugins/secure-config",
     ],
 )
 
@@ -44,13 +45,6 @@ gerrit_plugin_tests(
     tags = ["ai-review-agent-provider"],
     deps = [
         ":ai-review-agent-provider__plugin",
-        ":secure-config-neverlink",
         "//plugins/secure-config",
     ],
-)
-
-java_library(
-    name = "secure-config-neverlink",
-    neverlink = True,
-    exports = ["//plugins/secure-config"],
 )
