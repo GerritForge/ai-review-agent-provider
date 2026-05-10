@@ -24,6 +24,7 @@ import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -63,17 +64,17 @@ public class GetAiProviders implements RestReadView<AccountResource> {
 
     Set<ProviderInfo> providersPlugins =
         StreamSupport.stream(aiReviewProviders.entries().spliterator(), false)
-            .map(
-                ext ->
-                    getProviderInfo(
-                        ext, versionedAiUserData.getToken(ext.getPluginName()).isPresent()))
+            .map(ext -> getProviderInfo(ext, versionedAiUserData.getToken(ext.getPluginName())))
             .collect(Collectors.toSet());
     return Response.ok(new Output(providersPlugins));
   }
 
-  private ProviderInfo getProviderInfo(Extension<AiReviewProvider> ext, boolean enabled) {
+  private ProviderInfo getProviderInfo(Extension<AiReviewProvider> ext, Optional<String> apiToken) {
     AiReviewProvider aiProvider = ext.get();
     return new ProviderInfo(
-        ext.getPluginName(), aiProvider.getDisplayName(), aiProvider.getModels(), enabled);
+        ext.getPluginName(),
+        aiProvider.getDisplayName(),
+        apiToken.map(aiProvider::getModels).orElse(Set.of()),
+        apiToken.isPresent());
   }
 }
