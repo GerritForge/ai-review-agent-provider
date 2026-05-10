@@ -56,15 +56,6 @@ public class AiCodeReview implements RestModifyView<ChangeResource, AiCodeReview
       throw new BadRequestException(
           "Multiple AI review agent providers registered for agent " + input.plugin);
     }
-    AiReviewProvider aiReviewProvider = aiReviewProviderSet.iterator().next().get();
-    if (!aiReviewProvider.getModels().contains(input.model)) {
-      throw new BadRequestException(
-          "AiReviewProvider "
-              + aiReviewProvider.getDisplayName()
-              + " does not support "
-              + input.model
-              + " model");
-    }
 
     Account.Id accountId = resource.getUser().getAccountId();
 
@@ -75,6 +66,16 @@ public class AiCodeReview implements RestModifyView<ChangeResource, AiCodeReview
             .getToken(input.plugin)
             .orElseThrow(() -> new ResourceNotFoundException("Token not set"));
     String token = codec.decode(storedToken);
+
+    AiReviewProvider aiReviewProvider = aiReviewProviderSet.iterator().next().get();
+    if (!aiReviewProvider.getModels(token).contains(input.model)) {
+      throw new BadRequestException(
+          "AiReviewProvider "
+              + aiReviewProvider.getDisplayName()
+              + " does not support "
+              + input.model
+              + " model");
+    }
 
     AiCodeReview.Output resp =
         new AiCodeReview.Output(aiReviewProvider.review(token, input.model, input.prompt));

@@ -24,6 +24,8 @@ import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.googlesource.gerrit.plugins.secureconfig.Codec;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -33,6 +35,7 @@ public class GetAiProviders implements RestReadView<AccountResource> {
   private final VersionedAiUserData.Factory tokenDataFactory;
   private final PermissionBackend permissionBackend;
   private final DynamicSet<AiReviewProvider> aiReviewProviders;
+  private final Codec codec;
 
   public record ProviderInfo(
       String plugin, String displayName, Set<String> models, boolean enabled) {}
@@ -44,11 +47,13 @@ public class GetAiProviders implements RestReadView<AccountResource> {
       DynamicSet<AiReviewProvider> aiReviewProviders,
       Provider<CurrentUser> currentUser,
       VersionedAiUserData.Factory tokenDataFactory,
-      PermissionBackend permissionBackend) {
+      PermissionBackend permissionBackend,
+      Codec codec) {
     this.aiReviewProviders = aiReviewProviders;
     this.currentUser = currentUser;
     this.tokenDataFactory = tokenDataFactory;
     this.permissionBackend = permissionBackend;
+    this.codec = codec;
   }
 
   @Override
@@ -63,17 +68,22 @@ public class GetAiProviders implements RestReadView<AccountResource> {
 
     Set<ProviderInfo> providersPlugins =
         StreamSupport.stream(aiReviewProviders.entries().spliterator(), false)
-            .map(
-                ext ->
-                    getProviderInfo(
-                        ext, versionedAiUserData.getToken(ext.getPluginName()).isPresent()))
+            .map(ext -> getProviderInfo(ext, getToken(ext, versionedAiUserData)))
             .collect(Collectors.toSet());
     return Response.ok(new Output(providersPlugins));
   }
 
-  private ProviderInfo getProviderInfo(Extension<AiReviewProvider> ext, boolean enabled) {
+  private Optional<String> getToken(
+      Extension<AiReviewProvider> ext, VersionedAiUserData versionedAiUserData) {
+    return versionedAiUserData.getToken(ext.getPluginName()).map(codec::decode);
+  }
+
+  private ProviderInfo getProviderInfo(Extension<AiReviewProvider> ext, Optional<String> apiToken) {
     AiReviewProvider aiProvider = ext.get();
     return new ProviderInfo(
-        ext.getPluginName(), aiProvider.getDisplayName(), aiProvider.getModels(), enabled);
+        ext.getPluginName(),
+        aiProvider.getDisplayName(),
+        apiToken.map(aiProvider::getModels).orElse(Set.of()),
+        apiToken.isPresent());
   }
 }
