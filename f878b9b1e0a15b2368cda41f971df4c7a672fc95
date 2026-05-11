@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f45030f_697651c9",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersCollection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T06:58:43Z",
+      "side": 1,
+      "message": "nit: can be package protected",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 7
+      },
+      "revId": "f878b9b1e0a15b2368cda41f971df4c7a672fc95",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09a0b879_6c188c42",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersCollection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T06:58:43Z",
+      "side": 1,
+      "message": "nit: can be package protected",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 9
+      },
+      "revId": "f878b9b1e0a15b2368cda41f971df4c7a672fc95",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36d781ac_92814676",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/DeleteToken.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T06:58:43Z",
+      "side": 1,
+      "message": "nit: can be package protected",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 7
+      },
+      "revId": "f878b9b1e0a15b2368cda41f971df4c7a672fc95",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
