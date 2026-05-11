@@ -16,17 +16,16 @@ import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 @Singleton
-class AiHttpClientProvider implements Provider<CloseableHttpClient>, LifecycleListener {
+class AiHttpClientProvider implements Provider<AiHttpClient>, LifecycleListener {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  private final CloseableHttpClient client = HttpClients.createDefault();
+  private final AiHttpClientImpl client = new AiHttpClientImpl(HttpClients.createDefault());
 
   @Override
-  public CloseableHttpClient get() {
+  public AiHttpClient get() {
     return client;
   }
 
