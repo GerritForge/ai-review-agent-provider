@@ -1,7 +1,7 @@
 # Gerrit AI Review Agent Provider
 
-Gerrit Code Review plugin for managing AI API tokens across Gerrit's
-AI Code Review Agent provider plugins (e.g., ai-review-agent-gemini).
+Gerrit Code Review plugin that implements the Gerrit's
+AI Code Review Agent provider for populating the AI chat in the change screen.
 
 ## License
 
@@ -42,5 +42,7 @@ The build output is:
 ## Usage
 
 This plugin can be installed directly into Gerrit into the `$GERRIT_SITE/plugins` and can
-be used with any other implementation of the AI agent provider LLMs (e.g., `ai-review-agent-gemini`)
-that need a shared token management.
+be used with any other implementation of the AI agent provider LLMs.
+
+See a collection of AI agent provider LLMs on the
+[Gerrit scripting project](https://gerrit.googlesource.com/plugins/scripts/+/refs/heads/master/ai/).
