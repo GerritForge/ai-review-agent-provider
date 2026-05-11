@@ -18,25 +18,23 @@ import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestView;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
 class AiProvidersCollection implements ChildCollection<AccountResource, AiProviderResource> {
 
-  private final Provider<GetAiProviders> list;
+  private final GetAiProviders list;
   private final DynamicMap<RestView<AiProviderResource>> views;
 
   @Inject
-  AiProvidersCollection(
-      Provider<GetAiProviders> list, DynamicMap<RestView<AiProviderResource>> views) {
+  AiProvidersCollection(GetAiProviders list, DynamicMap<RestView<AiProviderResource>> views) {
     this.list = list;
     this.views = views;
   }
 
   @Override
   public RestView<AccountResource> list() throws RestApiException {
-    return list.get();
+    return list;
   }
 
   @Override
