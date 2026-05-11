@@ -16,7 +16,6 @@ import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.inject.Scopes;
 import com.google.inject.internal.UniqueAnnotations;
-import org.apache.http.client.HttpClient;
 
 public class AiReviewProviderApiModule extends RestApiModule {
 
@@ -24,7 +23,7 @@ public class AiReviewProviderApiModule extends RestApiModule {
   protected void configure() {
     DynamicSet.setOf(binder(), AiReviewProvider.class);
 
-    bind(HttpClient.class).toProvider(AiHttpClientProvider.class).in(Scopes.SINGLETON);
+    bind(AiHttpClient.class).toProvider(AiHttpClientProvider.class).in(Scopes.SINGLETON);
     bind(LifecycleListener.class)
         .annotatedWith(UniqueAnnotations.create())
         .to(AiHttpClientProvider.class);
