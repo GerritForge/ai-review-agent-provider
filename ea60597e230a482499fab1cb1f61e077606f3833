@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba83eee_ae2d2b5a",
+        "filename": "web/index.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T08:04:56Z",
+      "side": 1,
+      "message": "issue: not set from the outside but loaded from `loadProviders` hence they are internal state not properties",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 41
+      },
+      "revId": "ea60597e230a482499fab1cb1f61e077606f3833",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ddc766c_a0d3fcd8",
+        "filename": "web/index.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T08:04:56Z",
+      "side": 1,
+      "message": "nit: await so that `saving` flips when providers are re-loaded",
+      "range": {
+        "startLine": 282,
+        "startChar": 6,
+        "endLine": 282,
+        "endChar": 27
+      },
+      "revId": "ea60597e230a482499fab1cb1f61e077606f3833",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ef47417_2fe5f8d0",
+        "filename": "web/index.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T08:04:56Z",
+      "side": 1,
+      "message": "nit: inconsistent indentations 2 vs 4 whitespaces",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 44
+      },
+      "revId": "ea60597e230a482499fab1cb1f61e077606f3833",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f8b4b30_ecf5718c",
+        "filename": "web/index.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T08:04:56Z",
+      "side": 1,
+      "message": "issue: `\u003ctable\u003e` never closed",
+      "range": {
+        "startLine": 357,
+        "startChar": 9,
+        "endLine": 357,
+        "endChar": 16
+      },
+      "revId": "ea60597e230a482499fab1cb1f61e077606f3833",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c84c453_4ee1fc5d",
+        "filename": "web/index.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T08:04:56Z",
+      "side": 1,
+      "message": "nit: `modelColumn`? header is `Model`",
+      "range": {
+        "startLine": 376,
+        "startChar": 17,
+        "endLine": 376,
+        "endChar": 30
+      },
+      "revId": "ea60597e230a482499fab1cb1f61e077606f3833",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77f698e4_bf183294",
+        "filename": "web/index.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T08:04:56Z",
+      "side": 1,
+      "message": "nit: it boils down to reading `plugin-name` anyway hence use it directly so that reound-trip `TS value → DOM attribute → string → back to TS`",
+      "range": {
+        "startLine": 383,
+        "startChar": 10,
+        "endLine": 385,
+        "endChar": 53
+      },
+      "revId": "ea60597e230a482499fab1cb1f61e077606f3833",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "953237da_37282f00",
+        "filename": "web/index.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T08:04:56Z",
+      "side": 1,
+      "message": "nit: can be replaced with `Nothing`",
+      "range": {
+        "startLine": 422,
+        "startChar": 13,
+        "endLine": 422,
+        "endChar": 31
+      },
+      "revId": "ea60597e230a482499fab1cb1f61e077606f3833",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ed25ddf_7c1036e8",
+        "filename": "web/index.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-11T08:04:56Z",
+      "side": 1,
+      "message": "nit: `await` so that `saving` flipped after providers are re-loaded",
+      "revId": "ea60597e230a482499fab1cb1f61e077606f3833",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
