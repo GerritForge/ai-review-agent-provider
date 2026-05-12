@@ -16,6 +16,23 @@
       "message": "Would be nice to add some frontend tests for this plugin. checks plugin has quite some frontend tests, see `web/BUILD` there:\n\n```\nweb_test_runner(\n    name \u003d \"web_test_runner\",\n    srcs \u003d [\"web_test_runner.sh\"],\n    data \u003d [\n        \":tsconfig\",\n        \":checks-ts-tests\",\n        \"@plugins_npm//:node_modules\",\n    ],\n```",
       "revId": "c831b22724243d839de7585454e14dca576e811f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8dd1d32_106dee4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-12T19:40:30Z",
+      "side": 1,
+      "message": "Thanks for the fix @geminica.programs@gmail.com !",
+      "revId": "c831b22724243d839de7585454e14dca576e811f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
