@@ -63,7 +63,9 @@ async function callAiModelAndGenerateContent(args: {
 }): Promise<string> {
   const {pluginApi, changeId, model, prompt} = args;
   const url = `/changes/${changeId}/ai-review-agent-provider~aiReview`;
-  const [pluginName, modelName] = model.split('/', 2);
+  const separatorIdx = model.indexOf('/');
+  const pluginName = model.slice(0, separatorIdx);
+  const modelName = model.slice(separatorIdx + 1);
 
   const res: AiCodeReviewOutput = await pluginApi.restApi().post(url, {
     plugin: pluginName,
