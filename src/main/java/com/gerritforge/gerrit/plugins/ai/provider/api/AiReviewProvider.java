@@ -31,7 +31,7 @@ public interface AiReviewProvider {
    *
    * @return Set of LLMs models that can be used in the {link:review}
    */
-  Set<String> getModels();
+  Set<String> getModels(String apiToken);
 
   /**
    * Call the AI Review Provider model with a prompt and return the AI-generated content.

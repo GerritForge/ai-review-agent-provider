@@ -11,6 +11,7 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider;
 
+import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.change.ChangeResource;
@@ -25,8 +26,12 @@ public class AiReviewProviderModule extends RestApiModule {
 
   @Override
   protected void configure() {
+    DynamicMap.mapOf(binder(), AiProviderResource.AI_PROVIDER_KIND);
+
     put(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(AddToken.class);
-    get(AccountResource.ACCOUNT_KIND, API_PROVIDERS_ENDPOINT).to(GetAiProviders.class);
+    child(AccountResource.ACCOUNT_KIND, API_PROVIDERS_ENDPOINT).to(AiProvidersCollection.class);
+    delete(AiProviderResource.AI_PROVIDER_KIND, API_TOKEN_ENDPOINT).to(DeleteToken.class);
+
     post(ChangeResource.CHANGE_KIND, AI_REVIEW_ENDPOINT).to(AiCodeReview.class);
 
     install(new FactoryModuleBuilder().build(VersionedAiUserData.Factory.class));

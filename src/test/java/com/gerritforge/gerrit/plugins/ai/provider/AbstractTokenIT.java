@@ -87,7 +87,7 @@ public class AbstractTokenIT extends LightweightPluginDaemonTest {
     }
 
     @Override
-    public Set<String> getModels() {
+    public Set<String> getModels(String apiToken) {
       return FAKE_AI_MODELS;
     }
 
