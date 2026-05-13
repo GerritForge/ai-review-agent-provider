@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2cbaa9_fcb87c42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-13T06:50:58Z",
+      "side": 1,
+      "message": "nit: `s/coantent/content`",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70a18dfc_bfe80add",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-13T06:50:58Z",
+      "side": 1,
+      "message": "question: how about `MediaType.JSON_UTF_8` (from guava)?\n```suggestion\n  String APPLICATION_JSON \u003d MediaType.JSON_UTF_8.toString();\n```",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff2db24b_6578aa5e",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-13T06:50:58Z",
+      "side": 1,
+      "message": "```suggestion\n    return accept(APPLICATION_JSON);\n```",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 64
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9db1961a_62153df5",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-13T06:50:58Z",
+      "side": 1,
+      "message": "nit: it is not 20x it is `20[0..2]`",
+      "range": {
+        "startLine": 53,
+        "startChar": 46,
+        "endLine": 53,
+        "endChar": 49
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebf8bd9e_2d9f6a7f",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-13T06:50:58Z",
+      "side": 1,
+      "message": "nit `POST`",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "234df600_91486230",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-13T06:50:58Z",
+      "side": 1,
+      "message": "nit: not mentioned in the javadoc above",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 58
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fca636a0_5eba25eb",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-13T06:50:58Z",
+      "side": 1,
+      "message": "nit: used here and on GET - consider extracting",
+      "range": {
+        "startLine": 77,
+        "startChar": 13,
+        "endLine": 77,
+        "endChar": 65
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79fa35d3_872ddef3",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-13T06:50:58Z",
+      "side": 1,
+      "message": "nit: it is not 20x it is `20[0..2]`",
+      "range": {
+        "startLine": 83,
+        "startChar": 45,
+        "endLine": 83,
+        "endChar": 48
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03524897_7c6b528f",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-13T06:50:58Z",
+      "side": 1,
+      "message": "nit: not mentioned in the javadoc above",
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
