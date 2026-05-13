@@ -16,13 +16,16 @@ import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 @Singleton
 class AiHttpClientProvider implements Provider<AiHttpClient>, LifecycleListener {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  private final AiHttpClientImpl client = new AiHttpClientImpl(HttpClients.createDefault());
+  private final AiHttpClientImpl client = new AiHttpClientImpl(createDefaultHttpClient());
 
   @Override
   public AiHttpClient get() {
@@ -39,5 +42,10 @@ class AiHttpClientProvider implements Provider<AiHttpClient>, LifecycleListener 
     } catch (IOException e) {
       logger.atWarning().withCause(e).log("Failed to close HTTP client");
     }
+  }
+
+  private static CloseableHttpClient createDefaultHttpClient() {
+    RequestConfig globalConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
+    return HttpClients.custom().setDefaultRequestConfig(globalConfig).build();
   }
 }
