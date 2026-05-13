@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83fc4347_060ad019",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-13T09:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f2cbaa9_fcb87c42",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70a18dfc_bfe80add",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-05-13T06:50:58Z",
       "side": 1,
       "message": "question: how about `MediaType.JSON_UTF_8` (from guava)?\n```suggestion\n  String APPLICATION_JSON \u003d MediaType.JSON_UTF_8.toString();\n```",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b64f0f_e0599ccd",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-13T09:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70a18dfc_bfe80add",
       "range": {
         "startLine": 30,
         "startChar": 2,
@@ -70,6 +118,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb56bd76_fcb4e8ad",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-13T09:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff2db24b_6578aa5e",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 64
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9db1961a_62153df5",
@@ -93,6 +165,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9f7c32_fd0be4c1",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-13T09:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9db1961a_62153df5",
+      "range": {
+        "startLine": 53,
+        "startChar": 46,
+        "endLine": 53,
+        "endChar": 49
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebf8bd9e_2d9f6a7f",
@@ -106,6 +202,30 @@
       "writtenOn": "2026-05-13T06:50:58Z",
       "side": 1,
       "message": "nit `POST`",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "835bf47a_f7175a02",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-13T09:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebf8bd9e_2d9f6a7f",
       "range": {
         "startLine": 57,
         "startChar": 56,
