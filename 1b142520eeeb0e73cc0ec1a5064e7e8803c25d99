@@ -284,6 +284,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50e5b475_6bdb69a7",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-05-13T09:44:18Z",
+      "side": 1,
+      "message": "As Jacek pointed out, the current implementation does not match the Javadoc.\n\nAlternatively, the accepted range could be extended to cover all 2xx status codes, for example:\n\n```java\ns -\u003e s \u003e\u003d HttpStatus.SC_OK \u0026\u0026 s \u003c HttpStatus.SC_MULTIPLE_CHOICES\n```\n\nThis would also accept responses such as:\n\n* 204 No Content\n* 206 Partial Content\n\nOr more compactly:\n\n```java\ns -\u003e s / 100 \u003d\u003d 2\n```",
+      "parentUuid": "fca636a0_5eba25eb",
+      "range": {
+        "startLine": 77,
+        "startChar": 13,
+        "endLine": 77,
+        "endChar": 65
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79fa35d3_872ddef3",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
         "patchSetId": 2
