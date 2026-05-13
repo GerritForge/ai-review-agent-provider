@@ -329,6 +329,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c0ecf0_1751f923",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-13T09:46:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79fa35d3_872ddef3",
+      "range": {
+        "startLine": 83,
+        "startChar": 45,
+        "endLine": 83,
+        "endChar": 48
+      },
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03524897_7c6b528f",
@@ -342,6 +366,24 @@
       "writtenOn": "2026-05-13T06:50:58Z",
       "side": 1,
       "message": "nit: not mentioned in the javadoc above",
+      "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5851812_1fd95461",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-13T09:46:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03524897_7c6b528f",
       "revId": "1b142520eeeb0e73cc0ec1a5064e7e8803c25d99",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
