@@ -26,6 +26,7 @@ public class AiReviewProviderModule extends RestApiModule {
 
   @Override
   protected void configure() {
+    install(AiProvidersInfoCacheImpl.getModule());
     DynamicMap.mapOf(binder(), AiProviderResource.AI_PROVIDER_KIND);
 
     put(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(AddToken.class);
