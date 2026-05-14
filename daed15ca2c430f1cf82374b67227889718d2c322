@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f275057_8c7a96a6",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-14T17:50:08Z",
+      "side": 1,
+      "message": "issue: I guess I was super un-lucky but I have called gemini once and it produced the following log:\n```\n[2026-05-14T19:28:33.760+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 1/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:28:38.957+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 2/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:28:44.134+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 3/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:28:49.309+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 4/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:28:54.481+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 5/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:29:06.566+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 1/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:29:19.108+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 2/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:29:30.819+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 3/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:29:39.895+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 4/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:29:58.797+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] INFO  com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientProvider : Received HTTP status 429. Retrying request (attempt 5/5) after 5000 ms [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\n[2026-05-14T19:30:04.006+02:00] [HTTP POST /changes/test~21/ai-review-agent-provider~aiReview (admin from [0:0:0:0:0:0:0:1])] WARN  com.google.common.flogger.FluentLogger.forEnclosingClass : Failed to call Gemini API (model\u003dgemini-2.5-flash) [CONTEXT TRACE_ID\u003d\"1778779713664-a2509894\" project\u003d\"test\" request\u003d\"REST /changes/*/ai-review-agent-provider~aiReview\" ]\njava.io.IOException: Failed to execute POST https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent: HTTP 503: [UNAVAILABLE] The service is currently unavailable.\n\tat com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientImpl.execute(AiHttpClientImpl.java:48)\n\tat com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientImpl.execute(AiHttpClientImpl.java:65)\n\tat com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClient.post(AiHttpClient.java:80)\n\tat java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)\n```\n\nthe problem is in `com.gerritforge.gerrit.plugins.ai.provider.AiCodeReview#apply` as it calls `getModels` upfront and that is a subject of the same policy. I wasn\u0027t expecting it :D anyway that is another call for caching `getModels` :D",
+      "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c15696d3_db216efe",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-14T17:50:08Z",
+      "side": 1,
+      "message": "issue: when retry is exhausted then `IOException` is being thrown (see above) and that needs to be properly handled in the calling script as otherwise ugly\n```\nError 500 (Server Error): Internal server error\n```\n\nis displayed in the UI... perhaps it would make sense to handle it in the `com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClient#post` function similarly to what is [OpenRouter implementation](https://gerrit-review.googlesource.com/c/plugins/scripts/+/582861/2/ai/ai-review-agent-openrouter-1.0.groovy#128) so that it get displayed nicely in ui? or better conver `429` to UI so that it gets displayed nicely there?",
+      "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
