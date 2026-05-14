@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fcda381_d4b5661c",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-14T18:35:48Z",
+      "side": 1,
+      "message": "The models are cached from https://review.gerrithub.io/c/GerritForge/ai-review-agent-provider/+/1237234.",
+      "parentUuid": "4f275057_8c7a96a6",
+      "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c15696d3_db216efe",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
         "patchSetId": 1
