@@ -12,6 +12,7 @@
 package com.gerritforge.gerrit.plugins.ai.provider;
 
 import com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProvider;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.registration.Extension;
@@ -27,10 +28,13 @@ import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.secureconfig.Codec;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class GetAiProviders implements RestReadView<AccountResource> {
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
   private final Provider<CurrentUser> currentUser;
   private final VersionedAiUserData.Factory tokenDataFactory;
   private final PermissionBackend permissionBackend;
@@ -83,7 +87,19 @@ public class GetAiProviders implements RestReadView<AccountResource> {
     return new ProviderInfo(
         ext.getPluginName(),
         aiProvider.getDisplayName(),
-        apiToken.map(aiProvider::getModels).orElse(Set.of()),
+        apiToken.map(getProviderModels(aiProvider)).orElse(Set.of()),
         apiToken.isPresent());
+  }
+
+  private static Function<String, Set<String>> getProviderModels(AiReviewProvider aiProvider) {
+    return (apiToken) -> {
+      try {
+        return aiProvider.getModels(apiToken);
+      } catch (Exception e) {
+        logger.atWarning().withCause(e).log(
+            "Unable to fetch AI models for %s", aiProvider.getDisplayName());
+        return Set.of();
+      }
+    };
   }
 }

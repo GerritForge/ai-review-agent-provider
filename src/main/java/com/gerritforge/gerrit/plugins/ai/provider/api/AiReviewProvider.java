@@ -40,6 +40,7 @@ public interface AiReviewProvider {
    * @param model LLMs model to use for the content generation
    * @param prompt prompt for requesting the review
    * @return the AI-generated review content
+   * @throws AiCodeReviewException if the AI engine has failed with a human-readable error
    */
-  String review(String apiToken, String model, String prompt);
+  String review(String apiToken, String model, String prompt) throws AiCodeReviewException;
 }

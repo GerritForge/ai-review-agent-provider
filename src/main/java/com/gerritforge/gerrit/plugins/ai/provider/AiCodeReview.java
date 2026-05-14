@@ -11,7 +11,9 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider;
 
+import com.gerritforge.gerrit.plugins.ai.provider.api.AiCodeReviewException;
 import com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProvider;
+import com.google.gerrit.common.Nullable;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.BadRequestException;
@@ -28,7 +30,14 @@ public class AiCodeReview implements RestModifyView<ChangeResource, AiCodeReview
 
   public record Input(String plugin, String model, String prompt) {}
 
-  public record Output(String text) {}
+  public record ErrorInfo(int statusCode, String message) {
+
+    static ErrorInfo fromException(AiCodeReviewException e) {
+      return new ErrorInfo(e.getStatusCode(), e.getMessage());
+    }
+  }
+
+  public record Output(@Nullable String text, @Nullable ErrorInfo error) {}
 
   private final DynamicSet<AiReviewProvider> aiReviewProvidersSet;
   private final VersionedAiUserData.Factory tokenDataFactory;
@@ -77,8 +86,14 @@ public class AiCodeReview implements RestModifyView<ChangeResource, AiCodeReview
               + " model");
     }
 
-    AiCodeReview.Output resp =
-        new AiCodeReview.Output(aiReviewProvider.review(token, input.model, input.prompt));
+    AiCodeReview.Output resp;
+    try {
+      resp =
+          new AiCodeReview.Output(aiReviewProvider.review(token, input.model, input.prompt), null);
+      return Response.ok(resp);
+    } catch (AiCodeReviewException e) {
+      resp = new AiCodeReview.Output(null, ErrorInfo.fromException(e));
+    }
     return Response.ok(resp);
   }
 }
