@@ -17,12 +17,10 @@ import static com.google.common.truth.Truth.assertThat;
 import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.acceptance.Sandboxed;
 import com.google.gerrit.acceptance.TestPlugin;
-import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.entities.Account;
 import java.io.IOException;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.junit.Test;
 
@@ -38,7 +36,8 @@ public class AddDeleteTokenIT extends AbstractTokenIT {
     AddToken.Input input = new AddToken.Input();
     input.token = "my-secret-token";
     input.plugin = TEST_PROVIDER_PLUGIN_NAME;
-    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri("self")))).isEmpty();
+    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri("self"))))
+        .isEmpty();
 
     userRestSession.put(getAddTokenUri("self"), input).assertCreated();
 
@@ -49,14 +48,15 @@ public class AddDeleteTokenIT extends AbstractTokenIT {
 
     userRestSession.delete(getDeleteTokenUri("self")).assertNoContent();
 
-    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri("self")))).isEmpty();
+    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri("self"))))
+        .isEmpty();
   }
 
   @Test
   public void shouldNotHaveEnabledAiProvidersByDefault() throws Exception {
-    Set<GetAiProviders.ProviderInfo> aiProviders =
+    Set<AiProvidersInfoCache.ProviderInfo> aiProviders =
         getAiProviders(userRestSession.get(getTokenProvidersUri("self")));
-    assertThat(aiProviders.stream().filter(GetAiProviders.ProviderInfo::enabled)).isEmpty();
+    assertThat(aiProviders.stream().filter(AiProvidersInfoCache.ProviderInfo::enabled)).isEmpty();
   }
 
   @Test
@@ -79,7 +79,8 @@ public class AddDeleteTokenIT extends AbstractTokenIT {
     input.token = "my-secret-token";
     input.plugin = TEST_PROVIDER_PLUGIN_NAME;
     String userId = user.id().toString();
-    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri(userId)))).isEmpty();
+    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri(userId))))
+        .isEmpty();
 
     adminRestSession.put(getAddTokenUri(userId), input).assertCreated();
 
@@ -90,7 +91,8 @@ public class AddDeleteTokenIT extends AbstractTokenIT {
 
     userRestSession.delete(getDeleteTokenUri(userId)).assertNoContent();
 
-    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri(userId)))).isEmpty();
+    assertThat(getAiProvidersWithToken(userRestSession.get(getTokenProvidersUri(userId))))
+        .isEmpty();
   }
 
   @Test
@@ -140,12 +142,14 @@ public class AddDeleteTokenIT extends AbstractTokenIT {
         .hasValue(codec.encode(token));
   }
 
-  private Set<GetAiProviders.ProviderInfo> getAiProvidersWithToken(RestResponse tokenProviders) throws Exception {
-    return getAiProviders(tokenProviders).stream().filter(GetAiProviders.ProviderInfo::enabled).collect(Collectors.toSet());
+  private Set<AiProvidersInfoCache.ProviderInfo> getAiProvidersWithToken(
+      RestResponse tokenProviders) throws Exception {
+    return getAiProviders(tokenProviders).stream()
+        .filter(AiProvidersInfoCache.ProviderInfo::enabled)
+        .collect(Collectors.toSet());
   }
 
-
-  private Set<GetAiProviders.ProviderInfo> getAiProviders(RestResponse tokenProviders)
+  private Set<AiProvidersInfoCache.ProviderInfo> getAiProviders(RestResponse tokenProviders)
       throws Exception {
     tokenProviders.assertOK();
     return readContentFromJson(tokenProviders, GetAiProviders.Output.class).providers();
@@ -156,6 +160,10 @@ public class AddDeleteTokenIT extends AbstractTokenIT {
   }
 
   private String getDeleteTokenUri(String account) {
-    return getTokenProvidersUri(account) + "/" + TEST_PROVIDER_PLUGIN_NAME + "/" + AiReviewProviderModule.API_TOKEN_ENDPOINT;
+    return getTokenProvidersUri(account)
+        + "/"
+        + TEST_PROVIDER_PLUGIN_NAME
+        + "/"
+        + AiReviewProviderModule.API_TOKEN_ENDPOINT;
   }
 }
