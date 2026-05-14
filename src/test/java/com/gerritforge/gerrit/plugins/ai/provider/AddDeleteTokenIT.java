@@ -54,9 +54,9 @@ public class AddDeleteTokenIT extends AbstractTokenIT {
 
   @Test
   public void shouldNotHaveEnabledAiProvidersByDefault() throws Exception {
-    Set<GetAiProviders.ProviderInfo> aiProviders =
+    Set<AiProvidersInfoCache.ProviderInfo> aiProviders =
         getAiProviders(userRestSession.get(getTokenProvidersUri("self")));
-    assertThat(aiProviders.stream().filter(GetAiProviders.ProviderInfo::enabled)).isEmpty();
+    assertThat(aiProviders.stream().filter(AiProvidersInfoCache.ProviderInfo::enabled)).isEmpty();
   }
 
   @Test
@@ -140,12 +140,24 @@ public class AddDeleteTokenIT extends AbstractTokenIT {
         .hasValue(codec.encode(token));
   }
 
+<<<<<<< PATCH SET (a44207c9cfc219a7a47006c158fa8cf8055e529f Cache list of AI Provider Models)
+  private Set<AiProvidersInfoCache.ProviderInfo> getAiProvidersWithToken(
+      RestResponse tokenProviders) throws Exception {
+    return getAiProviders(tokenProviders).stream()
+        .filter(AiProvidersInfoCache.ProviderInfo::enabled)
+        .collect(Collectors.toSet());
+=======
   private Set<GetAiProviders.ProviderInfo> getAiProvidersWithToken(RestResponse tokenProviders) throws Exception {
     return getAiProviders(tokenProviders).stream().filter(GetAiProviders.ProviderInfo::enabled).collect(Collectors.toSet());
+>>>>>>> BASE      (a3d78a117733961ece35db3058dfc9e1ddb52285 Surface AI Review Agent backend errors to the UI)
   }
 
+<<<<<<< PATCH SET (a44207c9cfc219a7a47006c158fa8cf8055e529f Cache list of AI Provider Models)
+  private Set<AiProvidersInfoCache.ProviderInfo> getAiProviders(RestResponse tokenProviders)
+=======
 
   private Set<GetAiProviders.ProviderInfo> getAiProviders(RestResponse tokenProviders)
+>>>>>>> BASE      (a3d78a117733961ece35db3058dfc9e1ddb52285 Surface AI Review Agent backend errors to the UI)
       throws Exception {
     tokenProviders.assertOK();
     return readContentFromJson(tokenProviders, GetAiProviders.Output.class).providers();
