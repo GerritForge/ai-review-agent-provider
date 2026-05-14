@@ -176,7 +176,7 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     listener: ChatResponseListener,
   ): Promise<void> {
     listener.emitResponse(
-      buildChatResponse('_Gathering file contents and calling AI model ...'),
+      buildChatResponse('_Gathering file contents and calling AI model..._'),
     );
 
     try {
@@ -222,7 +222,8 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
         prompt,
       });
 
-      listener.emitResponse(buildChatResponse(text));
+      const normalizedText = text.startsWith('\n') ? text : `\n${text}`;
+      listener.emitResponse(buildChatResponse(normalizedText));
       listener.done();
     } catch (e) {
       listener.emitError(
