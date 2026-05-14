@@ -34,7 +34,8 @@ public class AiHttpClientImpl extends HttpClientWrapper implements AiHttpClient 
   @Override
   public CloseableHttpResponse execute(
       HttpUriRequest request, StatusCodeHandler acceptedStatus, ErrorBodyHandler errorFromBody)
-      throws IOException {
+      throws IOException, AiCodeReviewException {
+    CloseableHttpResponse response = (CloseableHttpResponse) super.execute(request);
 
     HttpClientContext context = HttpClientContext.create();
     CloseableHttpResponse response = (CloseableHttpResponse) super.execute(request, context);
@@ -42,9 +43,10 @@ public class AiHttpClientImpl extends HttpClientWrapper implements AiHttpClient 
         (Integer) context.getAttribute(AiHttpClientProvider.RETRY_COUNT_CONTEXT_ATTR);
     int statusCode = response.getStatusLine().getStatusCode();
     if (!acceptedStatus.isSuccessful(statusCode)) {
-      String errorMsg =
-          String.format(
-              "Failed to execute %s %s%s: HTTP %d: %s",
+      String errorMessage =
+          errorFromBody != null ? errorFromBody.getErrorFromBody(getStringEntity(response)) : "";
+      logger.atWarning().log(
+          "Failed to execute %s %s%s: HTTP %d: %s",
               request.getMethod(),
               request.getURI(),
               retryCount == null ? "" : String.format(" after %d retries", retryCount),
@@ -52,7 +54,7 @@ public class AiHttpClientImpl extends HttpClientWrapper implements AiHttpClient 
               errorFromBody != null
                   ? errorFromBody.getErrorFromBody(getStringEntity(response))
                   : "");
-      throw new IOException(errorMsg);
+      throw new AiCodeReviewException(statusCode, errorMessage);
     }
 
     if (retryCount != null) {
@@ -74,7 +76,7 @@ public class AiHttpClientImpl extends HttpClientWrapper implements AiHttpClient 
       StatusCodeHandler acceptedStatus,
       ErrorBodyHandler errorFromBody,
       ResponseBodyHandler<? extends T> responseBodyHandler)
-      throws IOException, ClientProtocolException {
+      throws IOException, ClientProtocolException, AiCodeReviewException {
     try (CloseableHttpResponse response = execute(request, acceptedStatus, errorFromBody)) {
       return responseBodyHandler.handleResponse(getStringEntity(response));
     }
