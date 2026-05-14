@@ -163,6 +163,24 @@
       "parentUuid": "c15696d3_db216efe",
       "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d063d5d_ccce40fd",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-14T20:19:19Z",
+      "side": 1,
+      "message": "Now the AI model communication errors are reported with https://review.gerrithub.io/c/GerritForge/ai-review-agent-provider/+/1237238",
+      "parentUuid": "a84f90a3_e91c3750",
+      "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
