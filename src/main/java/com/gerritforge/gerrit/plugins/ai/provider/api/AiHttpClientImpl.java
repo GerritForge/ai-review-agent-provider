@@ -12,6 +12,7 @@
 package com.gerritforge.gerrit.plugins.ai.provider.api;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.flogger.FluentLogger;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import org.apache.http.client.ClientProtocolException;
@@ -22,6 +23,7 @@ import org.apache.http.util.EntityUtils;
 
 @VisibleForTesting
 public class AiHttpClientImpl extends HttpClientWrapper implements AiHttpClient {
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   @VisibleForTesting
   public AiHttpClientImpl(CloseableHttpClient delegate) {
@@ -31,21 +33,17 @@ public class AiHttpClientImpl extends HttpClientWrapper implements AiHttpClient 
   @Override
   public CloseableHttpResponse execute(
       HttpUriRequest request, StatusCodeHandler acceptedStatus, ErrorBodyHandler errorFromBody)
-      throws IOException {
+      throws IOException, AiCodeReviewException {
     CloseableHttpResponse response = (CloseableHttpResponse) super.execute(request);
 
     int statusCode = response.getStatusLine().getStatusCode();
     if (!acceptedStatus.isSuccessful(statusCode)) {
-      String errorMsg =
-          String.format(
-              "Failed to execute %s %s: HTTP %d: %s",
-              request.getMethod(),
-              request.getURI(),
-              statusCode,
-              errorFromBody != null
-                  ? errorFromBody.getErrorFromBody(getStringEntity(response))
-                  : "");
-      throw new IOException(errorMsg);
+      String errorMessage =
+          errorFromBody != null ? errorFromBody.getErrorFromBody(getStringEntity(response)) : "";
+      logger.atWarning().log(
+          "Failed to execute %s %s: HTTP %d: %s",
+          request.getMethod(), request.getURI(), statusCode, errorMessage);
+      throw new AiCodeReviewException(statusCode, errorMessage);
     }
 
     return response;
@@ -61,7 +59,7 @@ public class AiHttpClientImpl extends HttpClientWrapper implements AiHttpClient 
       StatusCodeHandler acceptedStatus,
       ErrorBodyHandler errorFromBody,
       ResponseBodyHandler<? extends T> responseBodyHandler)
-      throws IOException, ClientProtocolException {
+      throws IOException, ClientProtocolException, AiCodeReviewException {
     try (CloseableHttpResponse response = execute(request, acceptedStatus, errorFromBody)) {
       return responseBodyHandler.handleResponse(getStringEntity(response));
     }
