@@ -16,6 +16,24 @@
       "message": "Configuration needs to be updated with the new cache name.",
       "revId": "ac4784c4fbf9da7c723c7933d173acab9b792597",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "554520db_f2216b1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-14T17:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00ed06a8_48f2aadd",
+      "revId": "ac4784c4fbf9da7c723c7933d173acab9b792597",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
