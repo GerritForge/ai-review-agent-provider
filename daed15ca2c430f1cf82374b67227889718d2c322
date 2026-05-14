@@ -33,6 +33,24 @@
       "message": "issue: when retry is exhausted then `IOException` is being thrown (see above) and that needs to be properly handled in the calling script as otherwise ugly\n```\nError 500 (Server Error): Internal server error\n```\n\nis displayed in the UI... perhaps it would make sense to handle it in the `com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClient#post` function similarly to what is [OpenRouter implementation](https://gerrit-review.googlesource.com/c/plugins/scripts/+/582861/2/ai/ai-review-agent-openrouter-1.0.groovy#128) so that it get displayed nicely in ui? or better conver `429` to UI so that it gets displayed nicely there?",
       "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a84f90a3_e91c3750",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-14T17:55:39Z",
+      "side": 1,
+      "message": "That\u0027s a different problem that I fully acknowledge.\n\nAt the moment, the AI review provider errors are not surfaced to the UI, but they should.\n\nI believe it should be addressed as a separate change, which isn\u0027t the one related to the HTTP retries.",
+      "parentUuid": "c15696d3_db216efe",
+      "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
