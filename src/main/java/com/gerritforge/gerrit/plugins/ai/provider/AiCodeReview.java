@@ -42,15 +42,18 @@ public class AiCodeReview implements RestModifyView<ChangeResource, AiCodeReview
   private final DynamicSet<AiReviewProvider> aiReviewProvidersSet;
   private final VersionedAiUserData.Factory tokenDataFactory;
   private final Codec codec;
+  private final AiProvidersInfoCache providersInfoCache;
 
   @Inject
   AiCodeReview(
       DynamicSet<AiReviewProvider> aiReviewProvidersSet,
       VersionedAiUserData.Factory tokenDataFactory,
-      Codec codec) {
+      Codec codec,
+      AiProvidersInfoCache providersInfoCache) {
     this.aiReviewProvidersSet = aiReviewProvidersSet;
     this.tokenDataFactory = tokenDataFactory;
     this.codec = codec;
+    this.providersInfoCache = providersInfoCache;
   }
 
   @Override
@@ -77,7 +80,9 @@ public class AiCodeReview implements RestModifyView<ChangeResource, AiCodeReview
     String token = codec.decode(storedToken);
 
     AiReviewProvider aiReviewProvider = aiReviewProviderSet.iterator().next().get();
-    if (!aiReviewProvider.getModels(token).contains(input.model)) {
+    Set<String> aiModels =
+        providersInfoCache.getProviderInfo(input.plugin, aiReviewProvider, token).models();
+    if (!aiModels.contains(input.model)) {
       throw new BadRequestException(
           "AiReviewProvider "
               + aiReviewProvider.getDisplayName()
