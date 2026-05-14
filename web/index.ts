@@ -40,6 +40,7 @@ declare interface ProviderInfo {
 
 declare interface AiCodeReviewOutput {
   text: string;
+  error: string;
 }
 
 declare interface GetAiProvidersOutput {
@@ -73,7 +74,7 @@ async function callAiModelAndGenerateContent(args: {
     prompt,
   });
 
-  return res.text || '(No text returned by AI)';
+  return res.text || res.error || '(No text returned by AI)';
 }
 
 class AiCodeReviewProviderImpl implements AiCodeReviewProvider {

@@ -66,6 +66,7 @@ public interface AiHttpClient extends HttpClient, Closeable {
    * @return the HTTP response if the status code is accepted as a success
    * @throws IOException if any errors occur or if the status of the response does not satisfy the
    *     accepted status function
+   * @throws AiCodeReviewException if the AI LLM reported a human-readable error
    */
   default <T> T post(
       String uri,
@@ -73,7 +74,7 @@ public interface AiHttpClient extends HttpClient, Closeable {
       HttpEntity postBody,
       ErrorBodyHandler errorFromBody,
       ResponseBodyHandler<? extends T> responseBodyHandler)
-      throws IOException {
+      throws IOException, AiCodeReviewException {
     HttpPost httpPost = new HttpPost(uri);
     httpPost.setHeaders(headers);
     httpPost.setEntity(postBody);
@@ -92,13 +93,14 @@ public interface AiHttpClient extends HttpClient, Closeable {
    * @return the HTTP response if the status code is accepted as a success
    * @throws IOException if any errors occur or if the status of the response does not satisfy the
    *     accepted status function
+   * @throws AiCodeReviewException if the AI LLM reported a human-readable error
    */
   default <T> T get(
       String uri,
       Header[] headers,
       ErrorBodyHandler errorFromBody,
       ResponseBodyHandler<? extends T> responseBodyHandler)
-      throws IOException {
+      throws IOException, AiCodeReviewException {
     HttpGet httpGet = new HttpGet(uri);
     httpGet.setHeaders(headers);
     return execute(httpGet, HTTP_STATUS_OK_HANDLER, errorFromBody, responseBodyHandler);
@@ -118,7 +120,7 @@ public interface AiHttpClient extends HttpClient, Closeable {
    */
   CloseableHttpResponse execute(
       HttpUriRequest request, StatusCodeHandler acceptedStatus, ErrorBodyHandler errorFromBody)
-      throws IOException;
+      throws IOException, AiCodeReviewException;
 
   /**
    * Executes HTTP request using the default context and processes the response using the given
@@ -139,5 +141,5 @@ public interface AiHttpClient extends HttpClient, Closeable {
       StatusCodeHandler acceptedStatus,
       ErrorBodyHandler errorFromBody,
       ResponseBodyHandler<? extends T> responseBodyHandler)
-      throws IOException, ClientProtocolException;
+      throws IOException, ClientProtocolException, AiCodeReviewException;
 }
