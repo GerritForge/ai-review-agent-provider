@@ -12,16 +12,19 @@
 package com.gerritforge.gerrit.plugins.ai.provider.api;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.flogger.FluentLogger;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 
 @VisibleForTesting
 public class AiHttpClientImpl extends HttpClientWrapper implements AiHttpClient {
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   @VisibleForTesting
   public AiHttpClientImpl(CloseableHttpClient delegate) {
@@ -32,20 +35,30 @@ public class AiHttpClientImpl extends HttpClientWrapper implements AiHttpClient 
   public CloseableHttpResponse execute(
       HttpUriRequest request, StatusCodeHandler acceptedStatus, ErrorBodyHandler errorFromBody)
       throws IOException {
-    CloseableHttpResponse response = (CloseableHttpResponse) super.execute(request);
 
+    HttpClientContext context = HttpClientContext.create();
+    CloseableHttpResponse response = (CloseableHttpResponse) super.execute(request, context);
+    Integer retryCount =
+        (Integer) context.getAttribute(AiHttpClientProvider.RETRY_COUNT_CONTEXT_ATTR);
     int statusCode = response.getStatusLine().getStatusCode();
     if (!acceptedStatus.isSuccessful(statusCode)) {
       String errorMsg =
           String.format(
-              "Failed to execute %s %s: HTTP %d: %s",
+              "Failed to execute %s %s%s: HTTP %d: %s",
               request.getMethod(),
               request.getURI(),
+              retryCount == null ? "" : String.format(" after %d retries", retryCount),
               statusCode,
               errorFromBody != null
                   ? errorFromBody.getErrorFromBody(getStringEntity(response))
                   : "");
       throw new IOException(errorMsg);
+    }
+
+    if (retryCount != null) {
+      logger.atWarning().log(
+          "%s %s retried %d times before succeeding with HTTP status %d",
+          request.getMethod(), request.getURI(), retryCount, statusCode);
     }
 
     return response;

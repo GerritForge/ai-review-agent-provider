@@ -13,6 +13,7 @@ package com.gerritforge.gerrit.plugins.ai.provider;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -27,6 +28,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.protocol.HttpContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +50,9 @@ public class AiHttpClientImplTest {
 
   @Before
   public void setup() throws IOException {
-    doReturn(httpResponse).when(httpClientDelegate).execute(httpClientRequest);
+    doReturn(httpResponse)
+        .when(httpClientDelegate)
+        .execute(any(HttpUriRequest.class), any(HttpContext.class));
     doReturn(httpStatusLine).when(httpResponse).getStatusLine();
     aiHttpClient = new AiHttpClientImpl(httpClientDelegate);
   }
