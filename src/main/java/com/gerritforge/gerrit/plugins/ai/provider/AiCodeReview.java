@@ -11,6 +11,7 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider;
 
+import com.gerritforge.gerrit.plugins.ai.provider.api.AiCodeReviewException;
 import com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProvider;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.extensions.registration.DynamicSet;
@@ -28,7 +29,7 @@ public class AiCodeReview implements RestModifyView<ChangeResource, AiCodeReview
 
   public record Input(String plugin, String model, String prompt) {}
 
-  public record Output(String text) {}
+  public record Output(String text, String error) {}
 
   private final DynamicSet<AiReviewProvider> aiReviewProvidersSet;
   private final VersionedAiUserData.Factory tokenDataFactory;
@@ -77,8 +78,19 @@ public class AiCodeReview implements RestModifyView<ChangeResource, AiCodeReview
               + " model");
     }
 
-    AiCodeReview.Output resp =
-        new AiCodeReview.Output(aiReviewProvider.review(token, input.model, input.prompt));
+    AiCodeReview.Output resp;
+    try {
+      resp =
+          new AiCodeReview.Output(aiReviewProvider.review(token, input.model, input.prompt), null);
+      return Response.ok(resp);
+    } catch (AiCodeReviewException e) {
+      resp =
+          new AiCodeReview.Output(
+              null,
+              String.format(
+                  "⚠\uFE0F **AI Model ERROR (http status=%d)** ⚠\uFE0F\n\n%s",
+                  e.getStatusCode(), e.getMessage()));
+    }
     return Response.ok(resp);
   }
 }
