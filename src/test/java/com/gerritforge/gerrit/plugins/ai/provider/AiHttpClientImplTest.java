@@ -17,6 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
+import com.gerritforge.gerrit.plugins.ai.provider.api.AiCodeReviewException;
 import com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClient;
 import com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientImpl;
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class AiHttpClientImplTest {
   }
 
   @Test
-  public void shouldAcceptCallsReturningOk() throws IOException {
+  public void shouldAcceptCallsReturningOk() throws Exception {
     doReturn(HttpServletResponse.SC_OK).when(httpStatusLine).getStatusCode();
 
     HttpResponse response =
@@ -74,7 +75,7 @@ public class AiHttpClientImplTest {
     doReturn(new StringEntity("", ContentType.TEXT_PLAIN)).when(httpResponse).getEntity();
 
     assertThrows(
-        IOException.class,
+        AiCodeReviewException.class,
         () ->
             aiHttpClient.execute(
                 httpClientRequest, status -> status == HttpServletResponse.SC_OK, s -> s));
@@ -88,9 +89,9 @@ public class AiHttpClientImplTest {
 
     doReturn(HttpServletResponse.SC_BAD_REQUEST).when(httpStatusLine).getStatusCode();
 
-    IOException exception =
+    AiCodeReviewException exception =
         assertThrows(
-            IOException.class,
+            AiCodeReviewException.class,
             () ->
                 aiHttpClient.execute(
                     httpClientRequest,
@@ -101,7 +102,7 @@ public class AiHttpClientImplTest {
   }
 
   @Test
-  public void shouldCallResponseHandlerWhenReturningOk() throws IOException {
+  public void shouldCallResponseHandlerWhenReturningOk() throws Exception {
     String expectedResult = "success";
     String responseBody = "this is a response body";
     doReturn(HttpServletResponse.SC_OK).when(httpStatusLine).getStatusCode();
