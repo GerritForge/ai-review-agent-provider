@@ -16,16 +16,45 @@ import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.ServiceUnavailableRetryStrategy;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.protocol.HttpContext;
 
 @Singleton
 class AiHttpClientProvider implements Provider<AiHttpClient>, LifecycleListener {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private final AiHttpClientImpl client = new AiHttpClientImpl(createDefaultHttpClient());
+
+  private static class AiServiceUnavailableRetryStrategy
+      implements ServiceUnavailableRetryStrategy {
+
+    private static final int MAX_RETRIES = 5;
+    private static final long RETRY_INTERVAL_MS = 5000L;
+
+    @Override
+    public boolean retryRequest(HttpResponse response, int executionCount, HttpContext context) {
+      boolean shouldRetry =
+          executionCount <= MAX_RETRIES
+              && response.getStatusLine().getStatusCode() == HttpStatus.SC_TOO_MANY_REQUESTS;
+      if (shouldRetry) {
+        logger.atInfo().log(
+            "Received HTTP status 429. Retrying request (attempt %d/%d) after %d ms",
+            executionCount, MAX_RETRIES, RETRY_INTERVAL_MS);
+      }
+      return shouldRetry;
+    }
+
+    @Override
+    public long getRetryInterval() {
+      return RETRY_INTERVAL_MS;
+    }
+  }
 
   @Override
   public AiHttpClient get() {
@@ -46,6 +75,9 @@ class AiHttpClientProvider implements Provider<AiHttpClient>, LifecycleListener 
 
   private static CloseableHttpClient createDefaultHttpClient() {
     RequestConfig globalConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
-    return HttpClients.custom().setDefaultRequestConfig(globalConfig).build();
+    return HttpClients.custom()
+        .setDefaultRequestConfig(globalConfig)
+        .setServiceUnavailableRetryStrategy(new AiServiceUnavailableRetryStrategy())
+        .build();
   }
 }
