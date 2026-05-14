@@ -38,6 +38,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ba5739f_fddbc6ca",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-14T18:51:55Z",
+      "side": 1,
+      "message": "```suggestion\n  private static class AiTooManyRequestsRetryStrategy\n```\n\nnit: We are only retrying on `429s`.",
+      "range": {
+        "startLine": 34,
+        "startChar": 23,
+        "endLine": 34,
+        "endChar": 56
+      },
+      "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95566753_0573c522",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-14T18:51:55Z",
+      "side": 1,
+      "message": "We might consider and exponential backoff in a followup change if needed.",
+      "range": {
+        "startLine": 37,
+        "startChar": 29,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c15696d3_db216efe",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
         "patchSetId": 1
