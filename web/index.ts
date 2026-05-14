@@ -39,7 +39,13 @@ declare interface ProviderInfo {
 }
 
 declare interface AiCodeReviewOutput {
-  text: string;
+  text?: string;
+  error?: ErrorInfo;
+}
+
+declare interface ErrorInfo {
+  status_code: number;
+  message: string;
 }
 
 declare interface GetAiProvidersOutput {
@@ -73,7 +79,12 @@ async function callAiModelAndGenerateContent(args: {
     prompt,
   });
 
-  return res.text || '(No text returned by AI)';
+  return (
+    res.text ||
+    (res.error
+      ? `⚠\uFE0F **AI Model ERROR (http status=${res.error.status_code})** ⚠\uFE0F\n\n${res.error.message}`
+      : '(No text returned by AI)')
+  );
 }
 
 class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
