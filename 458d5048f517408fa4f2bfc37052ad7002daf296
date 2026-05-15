@@ -64,6 +64,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4250233b_d9348cc2",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:07:08Z",
+      "side": 1,
+      "message": "the `ai` is in the cache name already, because this is a plugin-specific cache so the plugin name is in its prefix.",
+      "parentUuid": "79200929_07a1031e",
+      "range": {
+        "startLine": 29,
+        "startChar": 71,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f519bd7c_2c35db6b",
@@ -124,6 +148,30 @@
       "side": 1,
       "message": "had the same question but so far I haven\u0027t seen it - per-user cache makes it proportional to the user\u0027s base and less practical - should probably revisit once we get the feedback that needed - the alternative would be to let provider decide if their models should be cached...",
       "parentUuid": "08d73c36_3f12a328",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bc93bbf_a54912d2",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:07:08Z",
+      "side": 1,
+      "message": "Agreed: I don\u0027t see any AI providers providing _per-user_ models. I\u0027d suggest implementing the complexity once it arises.",
+      "parentUuid": "745eb391_2d840cbe",
       "range": {
         "startLine": 31,
         "startChar": 22,
@@ -204,6 +252,54 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4a51426_9c955824",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:07:08Z",
+      "side": 1,
+      "message": "\u003e Caches are not invalidated upon token update, but I believe it is fine for now, right?\n\nModels are per-plugin, not per key.\nIf a provider is disabled for one user, it could still be enabled for another, so it makes sense to keep it in cache.",
+      "parentUuid": "90b92842_b45f4ed4",
+      "range": {
+        "startLine": 60,
+        "startChar": 13,
+        "endLine": 60,
+        "endChar": 49
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb0b846b_69b568fd",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51326021_358e04bc",
+      "range": {
+        "startLine": 60,
+        "startChar": 30,
+        "endLine": 60,
+        "endChar": 48
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aeb750db_aa54129c",
@@ -217,6 +313,30 @@
       "writtenOn": "2026-05-15T07:28:50Z",
       "side": 1,
       "message": "Move it to a constant",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5967e8bc_c468b915",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aeb750db_aa54129c",
       "range": {
         "startLine": 61,
         "startChar": 21,
@@ -263,6 +383,54 @@
       "writtenOn": "2026-05-15T07:28:50Z",
       "side": 1,
       "message": "```suggestion\nThe list of AI providers modules by each provider is kept in a Gerrit persistent cache, which is by default expires after 1 day.\n```",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2b1eb46_1b20f31c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ad651e3_49268edf",
+      "range": {
+        "startLine": 10,
+        "startChar": 77,
+        "endLine": 10,
+        "endChar": 80
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3069d02f_ff3b676d",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:07:08Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "247ee0f7_83d52486",
       "range": {
         "startLine": 10,
         "startChar": 33,
