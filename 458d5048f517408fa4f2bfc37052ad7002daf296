@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f904997_cad0be46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T07:08:12Z",
+      "side": 1,
+      "message": "question: how it would get wiped when provider would start returning `404` (see [line #145](https://gerrit-review.googlesource.com/c/plugins/scripts/+/582861/2/ai/ai-review-agent-openrouter-1.0.groovy#145) here)?",
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41e9297d_02119ccc",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T07:08:12Z",
+      "side": 1,
+      "message": "nit not needed qualifier?",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f519bd7c_2c35db6b",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T07:08:12Z",
+      "side": 1,
+      "message": "nit: it may not keep the returned models order which could be intended",
+      "range": {
+        "startLine": 31,
+        "startChar": 30,
+        "endLine": 31,
+        "endChar": 37
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad651e3_49268edf",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T07:08:12Z",
+      "side": 1,
+      "message": "nit: typo\n```suggestion\nThe list of AI providers modules is kept in a Gerrit persistent cache, which by default expires after 1 day.\n```",
+      "range": {
+        "startLine": 10,
+        "startChar": 77,
+        "endLine": 10,
+        "endChar": 80
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
