@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e7449c0_2dc5f5a7",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T05:57:41Z",
+      "side": 1,
+      "message": "nit: this is actually clogging the log - perhaps we could log once when final attempt is performed noting the final result (secess/false) and at which attempt it succeeded eventually? WDYT?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 7
+      },
+      "revId": "5381f5b1fdd3cc48de53b1c2fbf428626e090d65",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}

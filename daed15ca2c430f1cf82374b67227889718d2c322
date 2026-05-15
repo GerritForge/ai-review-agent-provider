@@ -83,6 +83,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "898aa9db_24603c4e",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T05:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fcda381_d4b5661c",
+      "revId": "daed15ca2c430f1cf82374b67227889718d2c322",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95566753_0573c522",
