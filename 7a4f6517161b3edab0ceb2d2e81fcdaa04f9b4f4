@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6bb48bf_9679906f",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiCodeReview.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T12:22:24Z",
+      "side": 1,
+      "message": "question: can it be `null`? should we have a default then? nothing but `nit` though 😀",
+      "range": {
+        "startLine": 36,
+        "startChar": 46,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "7a4f6517161b3edab0ceb2d2e81fcdaa04f9b4f4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "351dab5a_f9f29161",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T12:22:24Z",
+      "side": 1,
+      "message": "nit: no need to warn specifically about if it worked, WDYT?\n```suggestion\n      logger.atInfo().log(\n```",
+      "range": {
+        "startLine": 57,
+        "startChar": 13,
+        "endLine": 57,
+        "endChar": 22
+      },
+      "revId": "7a4f6517161b3edab0ceb2d2e81fcdaa04f9b4f4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472673f1_3ed101b5",
+        "filename": "web/index.ts",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T12:22:24Z",
+      "side": 1,
+      "message": "nit: consider reformatting to\n```suggestion\n  return (\n    res.text ||\n    (res.error\n      ? `⚠\\uFE0F **AI Model ERROR (http status\u003d${res.error.status_code})** ⚠\\uFE0F\\n\\n${res.error.message}`\n      : \u0027(No text returned by AI)\u0027)\n  );\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 84,
+        "endChar": 43
+      },
+      "revId": "7a4f6517161b3edab0ceb2d2e81fcdaa04f9b4f4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
