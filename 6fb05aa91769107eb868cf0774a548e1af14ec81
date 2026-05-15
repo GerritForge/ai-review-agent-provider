@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b80e05c2_6d8573c7",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T13:22:53Z",
+      "side": 1,
+      "message": "question: I always struggle to remember how it should be specified `.` between the plugin name and cache name or `-` according to `com.google.gerrit.server.cache.CacheProvider#name` it should be with `.` but `show-caches` show with `-` so 🤷:\n```\nD ai-review-agent-provider-models                                       |     2      2   0.76k| 278.2ms |  0%   0%|\n```",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "6fb05aa91769107eb868cf0774a548e1af14ec81",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
