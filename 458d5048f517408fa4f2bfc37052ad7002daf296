@@ -182,6 +182,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07ad09cd_25278fd7",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:23:04Z",
+      "side": 1,
+      "message": "Good catch.",
+      "parentUuid": "f519bd7c_2c35db6b",
+      "range": {
+        "startLine": 31,
+        "startChar": 30,
+        "endLine": 31,
+        "endChar": 37
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcef7f8e_8f911b39",
