@@ -464,6 +464,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e668868_f84b5f76",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:13:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6abb6b5a_436e5a4f",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe3319f5_86ba43e5",
@@ -477,6 +501,30 @@
       "writtenOn": "2026-05-15T07:28:50Z",
       "side": 1,
       "message": "unrelated",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeee0392_32194c0b",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:13:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe3319f5_86ba43e5",
       "range": {
         "startLine": 52,
         "startChar": 0,
@@ -510,6 +558,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2129d1b4_edc1479b",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:13:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a0ec300_b0d2f371",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc76284f_fcdb3dfa",
@@ -533,6 +605,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "484abf85_c2fa1ec7",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:13:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc76284f_fcdb3dfa",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1d589af_81c6564c",
@@ -546,6 +642,30 @@
       "writtenOn": "2026-05-15T07:28:50Z",
       "side": 1,
       "message": "unrealted",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f948015_536579cd",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:13:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1d589af_81c6564c",
       "range": {
         "startLine": 164,
         "startChar": 0,
