@@ -22,6 +22,30 @@
       },
       "revId": "5381f5b1fdd3cc48de53b1c2fbf428626e090d65",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ce6640f_c38ec35d",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T09:10:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e7449c0_2dc5f5a7",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 7
+      },
+      "revId": "5381f5b1fdd3cc48de53b1c2fbf428626e090d65",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
