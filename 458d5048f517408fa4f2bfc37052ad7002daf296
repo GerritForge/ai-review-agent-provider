@@ -112,6 +112,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "745eb391_2d840cbe",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T07:36:14Z",
+      "side": 1,
+      "message": "had the same question but so far I haven\u0027t seen it - per-user cache makes it proportional to the user\u0027s base and less practical - should probably revisit once we get the feedback that needed - the alternative would be to let provider decide if their models should be cached...",
+      "parentUuid": "08d73c36_3f12a328",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dcef7f8e_8f911b39",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
         "patchSetId": 6
@@ -151,6 +175,30 @@
         "startChar": 30,
         "endLine": 60,
         "endChar": 48
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90b92842_b45f4ed4",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T07:36:14Z",
+      "side": 1,
+      "message": "there is 1 day retention period so they will be cleaned after 24h when provider gets disabled...",
+      "parentUuid": "dcef7f8e_8f911b39",
+      "range": {
+        "startLine": 60,
+        "startChar": 13,
+        "endLine": 60,
+        "endChar": 49
       },
       "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
