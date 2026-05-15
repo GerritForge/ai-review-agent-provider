@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79200929_07a1031e",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "```suggestion\n  @VisibleForTesting public static final String AI_MODELS_BY_PLUGIN \u003d \"ai_models\";\n```",
+      "range": {
+        "startLine": 29,
+        "startChar": 71,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f519bd7c_2c35db6b",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
         "patchSetId": 6
@@ -59,6 +82,98 @@
         "startChar": 30,
         "endLine": 31,
         "endChar": 37
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08d73c36_3f12a328",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "What if different users have access to a different set of models?\nServing the models from caches, we might give access to models users don\u0027t have permission to use.",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcef7f8e_8f911b39",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "Caches are not invalidated upon token update, but I believe it is fine for now, right?\n\nSame if a provider is disabled. I think it is fine to assume the admin will need to flush the cache in those cases.",
+      "range": {
+        "startLine": 60,
+        "startChar": 13,
+        "endLine": 60,
+        "endChar": 49
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51326021_358e04bc",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "Move it to a constant .",
+      "range": {
+        "startLine": 60,
+        "startChar": 30,
+        "endLine": 60,
+        "endChar": 48
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeb750db_aa54129c",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "Move it to a constant",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 22
       },
       "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
@@ -83,6 +198,184 @@
         "endLine": 10,
         "endChar": 80
       },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "247ee0f7_83d52486",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "```suggestion\nThe list of AI providers modules by each provider is kept in a Gerrit persistent cache, which is by default expires after 1 day.\n```",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6abb6b5a_436e5a4f",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "unrelated",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe3319f5_86ba43e5",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "unrelated",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a0ec300_b0d2f371",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "Unrelated change",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc76284f_fcdb3dfa",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "Unrelated change",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1d589af_81c6564c",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AddDeleteTokenIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "unrealted",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 8
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "187c53ac_a0be9035",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "I would assert on all the fields of `ProviderInfo`. For example there are no assertions on `enabled` even if there is some logic in how it is populated.",
+      "range": {
+        "startLine": 63,
+        "startChar": 15,
+        "endLine": 63,
+        "endChar": 27
+      },
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d675d7f_b08b2523",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/AiProvidersInfoCacheTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-05-15T07:28:50Z",
+      "side": 1,
+      "message": "Same comment as line 63",
       "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
