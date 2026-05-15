@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "634b708e_ab25539d",
+        "filename": "web/index.ts",
+        "patchSetId": 14
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T13:04:28Z",
+      "side": 1,
+      "message": "sorry I have mis-copied the line 🤦\n```suggestion\n      : \u0027(No text returned by AI)\u0027)\n```",
+      "range": {
+        "startLine": 86,
+        "startChar": 6,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "103176867e7a758ce6fb0be739e05979659ff911",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
