@@ -22,6 +22,30 @@
       },
       "revId": "103176867e7a758ce6fb0be739e05979659ff911",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9becb1c_c4aebaeb",
+        "filename": "web/index.ts",
+        "patchSetId": 14
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T13:25:02Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "634b708e_ab25539d",
+      "range": {
+        "startLine": 86,
+        "startChar": 6,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "103176867e7a758ce6fb0be739e05979659ff911",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
