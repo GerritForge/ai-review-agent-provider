@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6372422f_15ce3982",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T06:12:26Z",
+      "side": 1,
+      "message": "👍 to comments from Ponch, also new behavior not covered in integration tests (could be added in the follow-up though).",
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc942090_2a5ce8cc",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiCodeReview.java",
         "patchSetId": 4
@@ -14,6 +31,30 @@
       "writtenOn": "2026-05-15T05:46:48Z",
       "side": 1,
       "message": "Consider returning a more structured data, like `ErrorInfo(int statusCode, String message)` and let the UI doing the formatting.",
+      "range": {
+        "startLine": 32,
+        "startChar": 43,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "685403ae_68484698",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiCodeReview.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T06:12:26Z",
+      "side": 1,
+      "message": "question: perhaps `Option[ErrorInfo]` it is needed only on failure...",
+      "parentUuid": "dc942090_2a5ce8cc",
       "range": {
         "startLine": 32,
         "startChar": 43,
