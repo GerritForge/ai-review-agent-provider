@@ -13,9 +13,11 @@ package com.gerritforge.gerrit.plugins.ai.provider;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
+import com.gerritforge.gerrit.plugins.ai.provider.api.AiCodeReviewException;
 import com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClient;
 import com.gerritforge.gerrit.plugins.ai.provider.api.AiHttpClientImpl;
 import java.io.IOException;
@@ -27,6 +29,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.protocol.HttpContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,13 +51,15 @@ public class AiHttpClientImplTest {
 
   @Before
   public void setup() throws IOException {
-    doReturn(httpResponse).when(httpClientDelegate).execute(httpClientRequest);
+    doReturn(httpResponse)
+        .when(httpClientDelegate)
+        .execute(any(HttpUriRequest.class), any(HttpContext.class));
     doReturn(httpStatusLine).when(httpResponse).getStatusLine();
     aiHttpClient = new AiHttpClientImpl(httpClientDelegate);
   }
 
   @Test
-  public void shouldAcceptCallsReturningOk() throws IOException {
+  public void shouldAcceptCallsReturningOk() throws Exception {
     doReturn(HttpServletResponse.SC_OK).when(httpStatusLine).getStatusCode();
 
     HttpResponse response =
@@ -70,7 +75,7 @@ public class AiHttpClientImplTest {
     doReturn(new StringEntity("", ContentType.TEXT_PLAIN)).when(httpResponse).getEntity();
 
     assertThrows(
-        IOException.class,
+        AiCodeReviewException.class,
         () ->
             aiHttpClient.execute(
                 httpClientRequest, status -> status == HttpServletResponse.SC_OK, s -> s));
@@ -84,9 +89,9 @@ public class AiHttpClientImplTest {
 
     doReturn(HttpServletResponse.SC_BAD_REQUEST).when(httpStatusLine).getStatusCode();
 
-    IOException exception =
+    AiCodeReviewException exception =
         assertThrows(
-            IOException.class,
+            AiCodeReviewException.class,
             () ->
                 aiHttpClient.execute(
                     httpClientRequest,
@@ -97,7 +102,7 @@ public class AiHttpClientImplTest {
   }
 
   @Test
-  public void shouldCallResponseHandlerWhenReturningOk() throws IOException {
+  public void shouldCallResponseHandlerWhenReturningOk() throws Exception {
     String expectedResult = "success";
     String responseBody = "this is a response body";
     doReturn(HttpServletResponse.SC_OK).when(httpStatusLine).getStatusCode();

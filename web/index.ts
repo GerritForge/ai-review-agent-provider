@@ -39,7 +39,13 @@ declare interface ProviderInfo {
 }
 
 declare interface AiCodeReviewOutput {
-  text: string;
+  text?: string;
+  error?: ErrorInfo;
+}
+
+declare interface ErrorInfo {
+  status_code: number;
+  message: string;
 }
 
 declare interface GetAiProvidersOutput {
@@ -73,7 +79,12 @@ async function callAiModelAndGenerateContent(args: {
     prompt,
   });
 
-  return res.text || '(No text returned by AI)';
+  return (
+    res.text ||
+    (res.error
+      ? `⚠\uFE0F **AI Model ERROR (http status=${res.error.status_code})** ⚠\uFE0F\n\n${res.error.message}`
+      : '(No text returned by AI)')
+  );
 }
 
 class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
@@ -176,7 +187,7 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     listener: ChatResponseListener,
   ): Promise<void> {
     listener.emitResponse(
-      buildChatResponse('_Gathering file contents and calling AI model ...'),
+      buildChatResponse('_Gathering file contents and calling AI model..._'),
     );
 
     try {
@@ -222,7 +233,8 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
         prompt,
       });
 
-      listener.emitResponse(buildChatResponse(text));
+      const normalizedText = text.startsWith('\n') ? text : `\n${text}`;
+      listener.emitResponse(buildChatResponse(normalizedText));
       listener.done();
     } catch (e) {
       listener.emitError(
