@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a92bbb25_19d85d62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6372422f_15ce3982",
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc942090_2a5ce8cc",
@@ -67,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "449b9573_e2ab6eca",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiCodeReview.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "The `Optional` isn\u0027t serializable out of the box; it would introduce more complexity in the JSON translation layer.\n\nIf there is no error, then `error` is null.",
+      "parentUuid": "685403ae_68484698",
+      "range": {
+        "startLine": 32,
+        "startChar": 43,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "284ea66b_4e68f033",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiCodeReview.java",
         "patchSetId": 4
@@ -78,6 +120,24 @@
       "writtenOn": "2026-05-15T05:46:48Z",
       "side": 1,
       "message": "Formatting belongs to the UI, here we should just return the plain text error.",
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee6b1338_f4759253",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiCodeReview.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "284ea66b_4e68f033",
       "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -95,6 +155,30 @@
       "writtenOn": "2026-05-15T05:46:48Z",
       "side": 1,
       "message": "In this case, we are masking a failure with a success. Why not propagate the error code and let the UI handle it, as we are doing for example, in case of a bad reqest?",
+      "range": {
+        "startLine": 94,
+        "startChar": 23,
+        "endLine": 94,
+        "endChar": 27
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "960077b4_29229a36",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/AiCodeReview.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "Gerrit REST-API wrapper would not render the error and just shows that the API failed; returning a 200 is paramount here.",
+      "parentUuid": "a7c4c92d_1869e7ae",
       "range": {
         "startLine": 94,
         "startChar": 23,
@@ -128,6 +212,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a382d34e_276ce1ac",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "No, we want to really catch everything here, unless it is out of memory, of course.\n\n`Exception` is intentional; we want it clear and loud in the logs that we could not fetch the models, and that\u0027s why we returned an empty list.",
+      "parentUuid": "9caf643a_6e909378",
+      "range": {
+        "startLine": 98,
+        "startChar": 15,
+        "endLine": 98,
+        "endChar": 24
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39115e27_8dfd14be",
@@ -141,6 +249,30 @@
       "writtenOn": "2026-05-15T06:43:20Z",
       "side": 1,
       "message": "issue: it contradicts the change intent as here errors are swallowed not propagated back to UI...",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 24
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f989370_28b568eb",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "The intention of the change isn\u0027t to *show any errors* to the user, but only the messages coming from the AI model to explain why a request for reviewing a change was not performed.\n\nThis API is for fetching the models, which may or may not be performed with an interactive UI.",
+      "parentUuid": "39115e27_8dfd14be",
       "range": {
         "startLine": 101,
         "startChar": 8,
@@ -174,6 +306,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46e7e2f6_b478c406",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "Sure, but then more difficult to read at L90. Either we have a lambda here or at L90, both of them have the same reading complexity IMHO.\n\nIt\u0027s just about personal preference IMHO.",
+      "parentUuid": "dc5466eb_f43a9586",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 104,
+        "endChar": 3
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7c9fa6a_a51da9a8",
@@ -187,6 +343,30 @@
       "writtenOn": "2026-05-15T05:46:48Z",
       "side": 1,
       "message": "nit: this might be misleading as it might sound it to the review only action, while it is also used, for example, when getting the models. What about calling it `AIBackendException` or something similar?",
+      "range": {
+        "startLine": 15,
+        "startChar": 13,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2460335e_500bde23",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiCodeReviewException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "No, this is for the AI review action only, therefore the name is accurate.",
+      "parentUuid": "a7c9fa6a_a51da9a8",
       "range": {
         "startLine": 15,
         "startChar": 13,
@@ -220,6 +400,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "623e6e8a_7f801ab0",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "The `response.getStatusLine().getReasonPhrase()` is not for the users, therefore I wouldn\u0027t expose it to the UI.",
+      "parentUuid": "cc6d70be_a5b10c37",
+      "range": {
+        "startLine": 42,
+        "startChar": 10,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae7cd7ea_8114371e",
@@ -243,6 +447,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a15a2500_e0cc4619",
+        "filename": "web/index.ts",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae7cd7ea_8114371e",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 6
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "615f68a0_4c537377",
@@ -256,6 +484,30 @@
       "writtenOn": "2026-05-15T05:46:48Z",
       "side": 1,
       "message": "```suggestion\n  error?: string;\n```",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 7
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e35155b4_08c0d05e",
+        "filename": "web/index.ts",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T11:02:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "615f68a0_4c537377",
       "range": {
         "startLine": 43,
         "startChar": 2,
