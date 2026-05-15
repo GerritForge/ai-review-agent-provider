@@ -36,6 +36,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e52fe315_9c417772",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T13:00:54Z",
+      "side": 1,
+      "message": "we can affect it with configuration, right? if that is correct then it is what it is now 😀",
+      "parentUuid": "02587827_78e49f72",
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41e9297d_02119ccc",
