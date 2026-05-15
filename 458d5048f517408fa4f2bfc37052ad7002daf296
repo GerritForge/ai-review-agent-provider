@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02587827_78e49f72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T12:36:29Z",
+      "side": 1,
+      "message": "That\u0027s tricky, though, and it\u0027s related to @ponch78@gmail.com\u0027s question about cache eviction.\n\nI believe that models are not born in the morning and disappear at midday, therefore the default 1-day TTL is enough and, if that is needed, it can be lowered further.",
+      "parentUuid": "8f904997_cad0be46",
+      "revId": "458d5048f517408fa4f2bfc37052ad7002daf296",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41e9297d_02119ccc",
