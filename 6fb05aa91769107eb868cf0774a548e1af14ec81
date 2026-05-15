@@ -22,6 +22,30 @@
       },
       "revId": "6fb05aa91769107eb868cf0774a548e1af14ec81",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3137019d_54ba3e3c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-05-15T13:40:52Z",
+      "side": 1,
+      "message": "You are right and is indeed confusing.\n\nThe cache name is `ai-review-agent-provider.models` and that\u0027s the way it should be configured.\n\nHowever, the `gerrit show-caches` command displays a `-` instead of a `.` 😄",
+      "parentUuid": "b80e05c2_6d8573c7",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "6fb05aa91769107eb868cf0774a548e1af14ec81",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
