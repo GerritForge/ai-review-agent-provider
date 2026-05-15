@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36ac3ef0_f05b8140",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T13:44:14Z",
+      "side": 1,
+      "message": "It skips cache during `com.gerritforge.gerrit.plugins.ai.provider.AiCodeReview#apply` call",
+      "revId": "50d8e99cd04f89f931979bf6282e786d56fc7c84",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
