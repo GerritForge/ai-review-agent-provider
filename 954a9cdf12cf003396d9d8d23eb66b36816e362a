@@ -107,6 +107,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9caf643a_6e909378",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T06:43:20Z",
+      "side": 1,
+      "message": "nit: quite broad whereas in reality `AiCodeReviewException` + potentially `IOException` would do, wouldn\u0027t it?",
+      "range": {
+        "startLine": 98,
+        "startChar": 15,
+        "endLine": 98,
+        "endChar": 24
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39115e27_8dfd14be",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T06:43:20Z",
+      "side": 1,
+      "message": "issue: it contradicts the change intent as here errors are swallowed not propagated back to UI...",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 24
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc5466eb_f43a9586",
         "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetAiProviders.java",
         "patchSetId": 4
@@ -146,6 +192,29 @@
         "startChar": 13,
         "endLine": 15,
         "endChar": 34
+      },
+      "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc6d70be_a5b10c37",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/api/AiHttpClientImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-15T06:43:20Z",
+      "side": 1,
+      "message": "nit: when `errorFromBody \u003d\u003d null`, exception message is \"\". UI then renders empty body under \"AI Model ERROR\". Fall back to `response.getStatusLine().getReasonPhrase()`?",
+      "range": {
+        "startLine": 42,
+        "startChar": 10,
+        "endLine": 42,
+        "endChar": 23
       },
       "revId": "954a9cdf12cf003396d9d8d23eb66b36816e362a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
