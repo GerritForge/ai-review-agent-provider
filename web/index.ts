@@ -191,7 +191,7 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     );
 
     try {
-      const changeId = `${req.change?.project}~${req.change?._number}`;
+      const changeId = `${encodeURIComponent(req.change?.project)}~${req.change?._number}`;
       // We'll take the first 10 files to avoid hitting token limits or browser timeouts
       const filesToReview = (req.files || []).slice(0, 10);
       const patchPlaceholder = '{{patch}}';
