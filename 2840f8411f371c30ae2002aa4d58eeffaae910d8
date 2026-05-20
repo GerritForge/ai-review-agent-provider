@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cbee40a_341e02fc",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-05-20T09:01:48Z",
+      "side": 1,
+      "message": "Since the server already retries with backoff internally, \"try again shortly\" is exactly right by the time it reaches the user.\n\nOne thought: the 429 branch no longer surfaces `error.message`, which sometimes carries Retry-After or quota detail. Intentional?\n\nAppending `\\n\\n\u003e ${error.message}` would preserve it without bringing the ternary back.",
+      "revId": "2840f8411f371c30ae2002aa4d58eeffaae910d8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
