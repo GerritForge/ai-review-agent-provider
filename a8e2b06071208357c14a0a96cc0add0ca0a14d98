@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df5a1880_d99a4ae6",
+        "filename": "external_package.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-22T07:49:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b574a7c_5f09e438",
+      "revId": "a8e2b06071208357c14a0a96cc0add0ca0a14d98",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50584354_a178e9b7",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-05-22T07:34:37Z",
       "side": 1,
       "message": "Needs to be regenerated.",
+      "range": {
+        "startLine": 899,
+        "startChar": 0,
+        "endLine": 900,
+        "endChar": 117
+      },
+      "revId": "a8e2b06071208357c14a0a96cc0add0ca0a14d98",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbf81fd0_4f685a4a",
+        "filename": "package-lock.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-05-22T07:49:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50584354_a178e9b7",
       "range": {
         "startLine": 899,
         "startChar": 0,
