@@ -31,7 +31,7 @@
     "@codemirror/state": "^6.6.0",
     "@codemirror/view": "^6.40.0",
     "@lezer/highlight": "^1.2.3",
-    "@gerritcodereview/typescript-api": "../gerritcodereview-typescript-api-3.13.0.tgz",
+    "@gerritcodereview/typescript-api": "^3.14.0",
     "@material/web": "^2.4.1",
     "@open-wc/testing": "^4.0.0",
     "@polymer/decorators": "^3.0.0",
@@ -42,13 +42,6 @@
     "resemblejs": "^5.0.0",
     "rxjs": "^6.6.7",
     "sinon": "^20.0.0"
-  },
-  "dependencies // comments": {
-    "@polymer/polymer": [
-      "There is a an issue with release 3.5.2. Tests are failing with:",
-      "NotSupportedError: Failed to execute 'define' on 'CustomElementRegistry':",
-      "the name 'dom-module' has already been used with this registry at ..."
-    ]
   },
   "license": "Apache-2.0",
   "private": true
