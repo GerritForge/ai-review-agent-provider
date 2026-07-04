@@ -19,6 +19,7 @@ import com.google.inject.servlet.ServletModule;
 public class HttpModule extends ServletModule {
   @Override
   protected void configureServlets() {
+    install(new com.gerritforge.gerrit.plugins.bsl.HttpModule());
     DynamicSet.bind(binder(), WebUiPlugin.class)
         .toInstance(new JavaScriptPlugin("ai-review-agent-provider.js"));
   }
