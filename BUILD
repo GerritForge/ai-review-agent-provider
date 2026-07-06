@@ -21,6 +21,7 @@ gerrit_plugin(
     deps = [
         "//lib/errorprone:annotations",
         "//plugins/ai-review-agent-provider:ai-review-agent-provider-api",
+        "//plugins/gerrit-bsl-license",
         "//plugins/secure-config",
     ],
 )
