@@ -22,6 +22,30 @@
       },
       "revId": "138c9cacb3a999d66b4ea7a0c41fdd32c4392940",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f7d5ec_22c54bab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-07-06T20:32:45Z",
+      "side": 1,
+      "message": "Good question @david.ostrovsky@gmail.com wanna chime in? I have always been doing sth like `\"@gerritcodereview/typescript-api\": \"file:../polygerrit-ui/app/api\"` in `plugins/package.json` and building against HEAD without publishing... Other than that it follows the path done for `owners` plugin 😉",
+      "parentUuid": "f3ef6aba_96fb7d8e",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 34
+      },
+      "revId": "138c9cacb3a999d66b4ea7a0c41fdd32c4392940",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
