@@ -79,11 +79,24 @@ async function callAiModelAndGenerateContent(args: {
     prompt,
   });
 
+  if (res.text) return res.text;
+  if (!res.error) return '(No text returned by AI)';
+  return formatAiError(res.error, model);
+}
+
+function formatAiError(error: ErrorInfo, model: string): string {
+  if (error.status_code === 429) {
+    const detail = error.message ? `\n\n> ${error.message}` : '';
+    return (
+      '⚠\uFE0F **Rate limit** ⚠\uFE0F\n\n' +
+      `Model \`${model}\` is temporarily rate-limited by the upstream ` +
+      'provider. Try again shortly, or pick a different model from the ' +
+      `list.${detail}`
+    );
+  }
   return (
-    res.text ||
-    (res.error
-      ? `⚠\uFE0F **AI Model ERROR (http status=${res.error.status_code})** ⚠\uFE0F\n\n${res.error.message}`
-      : '(No text returned by AI)')
+    `⚠\uFE0F **AI Model ERROR (http status=${error.status_code})** ` +
+    `⚠\uFE0F\n\n${error.message}`
   );
 }
 

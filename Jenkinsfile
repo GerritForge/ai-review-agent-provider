@@ -1,1 +1,2 @@
-pluginPipeline(extraPlugins: ['secure-config'])
+pluginPipeline(extraPlugins: ['secure-config'],
+               extraGhRepos: ['gerrit-bsl-license'])
