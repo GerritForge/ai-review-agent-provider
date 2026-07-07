@@ -46,6 +46,30 @@
       },
       "revId": "138c9cacb3a999d66b4ea7a0c41fdd32c4392940",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1698c3c0_a6cf6714",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-07-07T22:38:53Z",
+      "side": 1,
+      "message": "Let\u0027s merge it as-is for now. We can then tackle the master API problem later on.",
+      "parentUuid": "a1f7d5ec_22c54bab",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 34
+      },
+      "revId": "138c9cacb3a999d66b4ea7a0c41fdd32c4392940",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
