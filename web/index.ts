@@ -121,21 +121,24 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     this.plugin = plugin;
   }
 
-  async getModels(): Promise<Models> {
+  private async fetchEnabledProviders(): Promise<ProviderInfo[]> {
+    // A provider is "enabled" only once a working API token is configured.
     const aiReviewProvidersOutput: GetAiProvidersOutput = await this.plugin
       .restApi()
       .get(AI_REVIEW_PROVIDERS_ENDPOINT);
-    const aiReviewProviders = aiReviewProvidersOutput.providers.filter(
-      p => p.enabled,
-    );
+    return aiReviewProvidersOutput.providers.filter(p => p.enabled);
+  }
 
-    if (aiReviewProviders.length === 0) {
-      return {
-        models: [],
-        default_model_id: '',
-        documentation_url: 'https://ai.google.dev/api/generate-content',
-        custom_actions: [],
-      };
+  private hasEnabledProvider(providers: ProviderInfo[]): boolean {
+    return providers.length > 0;
+  }
+
+  async getModels(): Promise<Models> {
+    const aiReviewProviders = await this.fetchEnabledProviders();
+
+    // Reject instead of returning empty models to avoid an endless spinner.
+    if (!this.hasEnabledProvider(aiReviewProviders)) {
+      throw new Error('No API token configured. Add one in Settings.');
     }
 
     const providerModels = aiReviewProviders.flatMap(providerInfo =>
@@ -171,8 +174,15 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     };
   }
 
-  getActions(): Promise<Actions> {
-    return Promise.resolve({
+  async getActions(): Promise<Actions> {
+    const aiReviewProviders = await this.fetchEnabledProviders();
+
+    // No enabled provider means getModels() rejects, so offer no actions.
+    if (!this.hasEnabledProvider(aiReviewProviders)) {
+      return {actions: [], default_action_id: ''};
+    }
+
+    return {
       actions: [
         {
           id: 'review-change',
@@ -188,7 +198,7 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
         },
       ],
       default_action_id: 'review',
-    });
+    };
   }
 
   chat(req: ChatRequest, listener: ChatResponseListener): void {
