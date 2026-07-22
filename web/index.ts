@@ -121,21 +121,23 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     this.plugin = plugin;
   }
 
-  async getModels(): Promise<Models> {
+  private async fetchEnabledProviders(): Promise<ProviderInfo[]> {
     const aiReviewProvidersOutput: GetAiProvidersOutput = await this.plugin
       .restApi()
       .get(AI_REVIEW_PROVIDERS_ENDPOINT);
-    const aiReviewProviders = aiReviewProvidersOutput.providers.filter(
-      p => p.enabled,
-    );
+    return aiReviewProvidersOutput.providers.filter(p => p.enabled);
+  }
 
+  async getModels(): Promise<Models> {
+    const aiReviewProviders = await this.fetchEnabledProviders();
+
+    // No provider has an API token configured. Reject instead of returning an
+    // empty model list: an empty list leaves the chat panel stuck on
+    // "Loading models..." forever, because the host UI cannot tell an empty
+    // result apart from a still-pending one. Rejecting surfaces the error
+    // state to the user instead of hanging silently.
     if (aiReviewProviders.length === 0) {
-      return {
-        models: [],
-        default_model_id: '',
-        documentation_url: 'https://ai.google.dev/api/generate-content',
-        custom_actions: [],
-      };
+      throw new Error('No API token configured. Add one in Settings.');
     }
 
     const providerModels = aiReviewProviders.flatMap(providerInfo =>
@@ -171,8 +173,19 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     };
   }
 
-  getActions(): Promise<Actions> {
-    return Promise.resolve({
+  async getActions(): Promise<Actions> {
+    const aiReviewProviders = await this.fetchEnabledProviders();
+
+    // Without a configured provider there is nothing the actions can do, and
+    // getModels() rejects (leaving state.models undefined). Offering action
+    // chips here would let the user trigger a chat request that asserts on the
+    // missing models. Report no actions so the splash page stays consistent
+    // with the "no provider configured" state surfaced by getModels().
+    if (aiReviewProviders.length === 0) {
+      return {actions: [], default_action_id: ''};
+    }
+
+    return {
       actions: [
         {
           id: 'review-change',
@@ -188,7 +201,7 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
         },
       ],
       default_action_id: 'review',
-    });
+    };
   }
 
   chat(req: ChatRequest, listener: ChatResponseListener): void {
