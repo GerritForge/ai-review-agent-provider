@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc9f74d_12b56a23",
+        "filename": "web/index.ts",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-07-23T16:10:23Z",
+      "side": 1,
+      "message": "Are we deducting that there is no API token because there are no models? This makes me think that we\u0027re checking directly if the api token is set or not, not the availability of models (maybe the models aren\u0027t available for another reason?\n\n\nWhat about?\n\n```suggestion\n      throw new Error(\u0027No Models available at this time. Ensure that you have an API token configured in your settings.\u0027);\n```",
+      "range": {
+        "startLine": 140,
+        "startChar": 22,
+        "endLine": 140,
+        "endChar": 69
+      },
+      "revId": "e55c7e4397c4a4bf4e2ea77271eb05597fffa4c5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
