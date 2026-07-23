@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5478d0_83302a4c",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-07-23T13:09:24Z",
+      "side": 1,
+      "message": "This is pretty much already explained in the commit message, don\u0027t think it requires such a lengthy comment?\n\nMaybe we coul extract the check in a function called \"hasAvailableModels?\"",
+      "range": {
+        "startLine": 134,
+        "startChar": 48,
+        "endLine": 138,
+        "endChar": 53
+      },
+      "revId": "069d97765df47fe9b44a532ef4b36039d395d3dd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69839471_dc6c78c1",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-07-23T13:09:24Z",
+      "side": 1,
+      "message": "Similar comment to above.",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 184,
+        "endChar": 41
+      },
+      "revId": "069d97765df47fe9b44a532ef4b36039d395d3dd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
