@@ -22,6 +22,30 @@
       },
       "revId": "e55c7e4397c4a4bf4e2ea77271eb05597fffa4c5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "899598ff_487e9ad3",
+        "filename": "web/index.ts",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-07-24T06:21:46Z",
+      "side": 1,
+      "message": "Good point, renamed to better reflect the problem. As of the message we are pretty limited in length without more invasive modifications in Gerrit\u0027s core... I would prefer to stay as it is as longer message will just not fit into the header line...",
+      "parentUuid": "abc9f74d_12b56a23",
+      "range": {
+        "startLine": 140,
+        "startChar": 22,
+        "endLine": 140,
+        "endChar": 69
+      },
+      "revId": "e55c7e4397c4a4bf4e2ea77271eb05597fffa4c5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
