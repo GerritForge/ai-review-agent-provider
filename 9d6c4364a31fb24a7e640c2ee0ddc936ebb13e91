@@ -46,6 +46,75 @@
       },
       "revId": "9d6c4364a31fb24a7e640c2ee0ddc936ebb13e91",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "842c2e6c_cb438e66",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-07-30T14:01:01Z",
+      "side": 1,
+      "message": "I don\u0027t believe we need this method; if we just rename the variable at L137, the code would be readable without this code.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 3
+      },
+      "revId": "9d6c4364a31fb24a7e640c2ee0ddc936ebb13e91",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33f53da1_bab57e94",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-07-30T14:01:01Z",
+      "side": 1,
+      "message": "```suggestion\n    const aiEnabledProviders \u003d await this.fetchEnabledProviders();\n```",
+      "range": {
+        "startLine": 137,
+        "startChar": 10,
+        "endLine": 137,
+        "endChar": 27
+      },
+      "revId": "9d6c4364a31fb24a7e640c2ee0ddc936ebb13e91",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ddcd762_db9c9458",
+        "filename": "web/index.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-07-30T14:01:01Z",
+      "side": 1,
+      "message": "```suggestion\n    if (aiEnabledProviders.length \u003d\u003d 0) {\n```",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 51
+      },
+      "revId": "9d6c4364a31fb24a7e640c2ee0ddc936ebb13e91",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
