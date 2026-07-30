@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee7a46e_56caa3e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-07-30T13:22:15Z",
+      "side": 1,
+      "message": "This might be misleading because unfortunately this is not happening. The panel box always shows: `Failed to load models. Please reload the page.` [1].\n\n\nThe expected handler is reached, but the UI discards its message.\n\n\n- The provider throws `No API token configured...`\n- `ChatModel.getModels()` catches it and correctly stores error.message in `modelsLoadingError`.\n- `PromptBox` converts that string into a boolean:\n```x \u003d\u003e (this.hasModelLoadingError \u003d !!x)``` in [prompt-box.ts (line 100)].\n\n\nIt then displays the same hard-coded fallback for every loading error in [prompt-box.ts (line 164)]\n\nSo this change successfully fixes the endless spinner, but the commit message incorrectly suggests that the host panel `surfaces the reason.` Gerrit stores the reason but does not render it.\n\nA related fix should be done in core in my opinion, until then consider adjusting this commit message.\n\nhttps://imgur.com/a/6PV1Sum",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 10
+      },
+      "revId": "9d6c4364a31fb24a7e640c2ee0ddc936ebb13e91",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
