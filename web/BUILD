@@ -25,6 +25,7 @@ ts_project(
     ),
     incremental = True,
     out_dir = "_bazel_ts_out",
+    root_dir = ".",
     tsconfig = ":tsconfig",
     deps = [
         "//plugins:node_modules",
