@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig-plugins-base.json",
   "compilerOptions": {
-    "outDir": "../../../.ts-out/plugins/ai-review-agent-provider", /* overridden by bazel */
+    "rootDir": ".",
     "lib": [
       "dom",
       "dom.iterable",
