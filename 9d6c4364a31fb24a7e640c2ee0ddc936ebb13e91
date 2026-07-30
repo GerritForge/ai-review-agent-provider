@@ -22,6 +22,30 @@
       },
       "revId": "9d6c4364a31fb24a7e640c2ee0ddc936ebb13e91",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e308ac4_6161d00a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-07-30T13:55:04Z",
+      "side": 1,
+      "message": "oh found the related change in gerrit.\n\nResolving this.\n\nhttps://gerrit-review.googlesource.com/c/gerrit/+/610401",
+      "parentUuid": "3ee7a46e_56caa3e7",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 10
+      },
+      "revId": "9d6c4364a31fb24a7e640c2ee0ddc936ebb13e91",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
