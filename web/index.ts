@@ -24,12 +24,17 @@ import type {
   ChatResponseListener,
   Models,
 } from '@gerritcodereview/typescript-api/ai-code-review';
-import type {DiffInfo} from '@gerritcodereview/typescript-api/diff';
+import {HttpMethod} from '@gerritcodereview/typescript-api/rest';
 import {HELP_ME_REVIEW_PROMPT, IMPROVE_COMMIT_MESSAGE} from './prompts';
 
 const TOKEN_ENDPOINT = '/accounts/self/ai-review-agent-provider~apiToken';
 const AI_REVIEW_PROVIDERS_ENDPOINT =
   '/accounts/self/ai-review-agent-provider~apiProviders';
+
+// Lines of unchanged context around each hunk sent to the AI model.
+const DIFF_CONTEXT_LINES = 10;
+// Upper bound on the patch size to stay within model token limits.
+const MAX_PATCH_CHARS = 200_000;
 
 declare interface ProviderInfo {
   plugin: string;
@@ -50,6 +55,15 @@ declare interface ErrorInfo {
 
 declare interface GetAiProvidersOutput {
   providers: ProviderInfo[];
+}
+
+function truncatePatch(patch: string): string {
+  if (patch.length <= MAX_PATCH_CHARS) return patch;
+  const omitted = patch.length - MAX_PATCH_CHARS;
+  return (
+    patch.slice(0, MAX_PATCH_CHARS) +
+    `\n[... patch truncated: ${omitted} more characters omitted ...]\n`
+  );
 }
 
 function buildChatResponse(text: string): ChatResponse {
@@ -206,44 +220,31 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     listener: ChatResponseListener,
   ): Promise<void> {
     listener.emitResponse(
-      buildChatResponse('_Gathering file contents and calling AI model..._'),
+      buildChatResponse('_Fetching patch and calling AI model..._'),
     );
 
     try {
-      const changeId = `${encodeURIComponent(req.change?.project)}~${req.change?._number}`;
-      // We'll take the first 10 files to avoid hitting token limits or browser timeouts
-      const filesToReview = (req.files || []).slice(0, 10);
+      const changeId = `${encodeURIComponent(req.change.project)}~${
+        req.change._number
+      }`;
       const patchPlaceholder = '{{patch}}';
 
-      let diffContext = '';
-
-      for (const file of filesToReview) {
-        if (file.path === '/COMMIT_MSG') continue;
-
-        // Fetch the diff from Gerrit REST API
-        // Endpoint: /changes/{change-id}/revisions/current/files/{file-id}/diff
-        const diff: DiffInfo = await this.plugin
-          .restApi()
-          .get(
-            `/changes/${changeId}/revisions/current/files/${encodeURIComponent(
-              file.path,
-            )}/diff?context=ALL`,
-          );
-
-        // Extract the 'after' lines (the new code)
-        const content = (diff.content ?? [])
-          .map((c: {ab?: string[]; b?: string[]}) => c.ab ?? c.b ?? [])
-          .flat()
-          .join('\n');
-
-        diffContext += `\n--- File: ${file.path} ---\n${content}\n`;
+      const patchUrl =
+        `/changes/${changeId}/revisions/current/patch` +
+        `?raw&context=${DIFF_CONTEXT_LINES}`;
+      const res = await this.plugin.restApi().fetch(HttpMethod.GET, patchUrl);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch patch (HTTP ${res.status})`);
       }
+      const patch = truncatePatch(await res.text());
 
+      // Replacer function: a string replacement would expand `$&` etc.
+      // occurring in the patch text.
       const prompt = req.prompt.includes(patchPlaceholder)
-        ? req.prompt.replace(patchPlaceholder, diffContext)
+        ? req.prompt.replace(patchPlaceholder, () => patch)
         : `${req.prompt}\n\n` +
           `Context: This is a code review for change ${changeId}.\n` +
-          `Code Content:\n${diffContext}`;
+          `Patch:\n${patch}`;
       const model = req.model_name || this.defaultModel;
       const text = await callAiModelAndGenerateContent({
         pluginApi: this.plugin,
