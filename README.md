@@ -80,6 +80,22 @@ ssh -p 29418 admin@<your-gerrit-server> gerrit plugin reload ai-review-agent-pro
 > Browse our extensive collection of pre-configured AI provider scripts (for OpenAI, Gemini, etc.) on the
 > official [Gerrit Scripting Project](https://gerrit.googlesource.com/plugins/scripts/+/refs/heads/master/ai/).
 
+### 💬 Review Actions
+
+The AI chat on the change screen offers the following actions. Each one sends the model the current patch set
+as a Git patch (commit message followed by the `diff --git` sections, diffed against the first parent) with a
+different amount of unchanged context around each hunk:
+
+| Action                   | Context lines | Use it for                                                        |
+|--------------------------|---------------|-------------------------------------------------------------------|
+| `Help me with review`    | 10            | Default. Comments focus on the added and removed lines.           |
+| `Review with full files` | All           | Reviewing changes against the complete content of touched files. |
+| `Improve commit message` | 3             | Suggesting a better commit message for the change.                |
+
+The patch sent to the model is capped at 200,000 characters (roughly 50,000 tokens). Larger patches are
+truncated and end with a `[... patch truncated: N more characters omitted ...]` marker, so the full-file action
+is more likely to hit the limit on large changes.
+
 ---
 
 ## ⚖️ License
