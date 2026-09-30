@@ -16,6 +16,8 @@ feedback.
 # Step by Step Instructions
 
 1.  Read the provided \`patch\` carefully.  Understand the changes it introduces to the codebase.
+    Focus your comments on added (\`+\`) and removed (\`-\`) lines; unchanged
+    lines are context only.
 
 2.  Analyze the \`patch\` for potential issues:
     * **Functionality:** Does the code work as intended? Are there any bugs or unexpected behavior?
