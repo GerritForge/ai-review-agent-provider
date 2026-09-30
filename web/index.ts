@@ -17,6 +17,7 @@ import {customElement, property, state} from 'lit/decorators.js';
 import '@gerritcodereview/typescript-api/gerrit';
 import type {PluginApi} from '@gerritcodereview/typescript-api/plugin';
 import type {
+  Action,
   AiCodeReviewProvider,
   Actions,
   ChatRequest,
@@ -33,8 +34,43 @@ const AI_REVIEW_PROVIDERS_ENDPOINT =
 
 // Lines of unchanged context around each hunk sent to the AI model.
 const DIFF_CONTEXT_LINES = 10;
+// Context large enough to include every unchanged line of each file.
+const FULL_FILE_CONTEXT_LINES = 1_000_000;
 // Upper bound on the patch size to stay within model token limits.
 const MAX_PATCH_CHARS = 200_000;
+
+const REVIEW_CHANGE_ACTION_ID = 'review-change';
+const REVIEW_CHANGE_FULL_ACTION_ID = 'review-change-full';
+const REVIEW_COMMIT_ACTION_ID = 'review-commit';
+
+const ACTIONS: Action[] = [
+  {
+    id: REVIEW_CHANGE_ACTION_ID,
+    display_text: 'Help me with review',
+    enable_send_without_input: true,
+    initial_user_prompt: HELP_ME_REVIEW_PROMPT,
+  },
+  {
+    id: REVIEW_CHANGE_FULL_ACTION_ID,
+    display_text: 'Review with full files',
+    enable_send_without_input: true,
+    initial_user_prompt: HELP_ME_REVIEW_PROMPT,
+  },
+  {
+    id: REVIEW_COMMIT_ACTION_ID,
+    display_text: 'Improve commit message',
+    enable_send_without_input: true,
+    initial_user_prompt: IMPROVE_COMMIT_MESSAGE,
+  },
+];
+
+// Unchanged context lines around each hunk, per action. Other actions
+// fall back to DIFF_CONTEXT_LINES.
+const CONTEXT_BY_ACTION = new Map<string, number>([
+  [REVIEW_CHANGE_ACTION_ID, DIFF_CONTEXT_LINES],
+  [REVIEW_CHANGE_FULL_ACTION_ID, FULL_FILE_CONTEXT_LINES],
+  [REVIEW_COMMIT_ACTION_ID, 3],
+]);
 
 declare interface ProviderInfo {
   plugin: string;
@@ -167,20 +203,7 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
       models: providerModels,
       default_model_id: this.defaultModel,
       documentation_url: 'https://ai.google.dev/api/generate-content',
-      custom_actions: [
-        {
-          id: 'review-change',
-          display_text: 'Help me with review',
-          enable_send_without_input: true,
-          initial_user_prompt: HELP_ME_REVIEW_PROMPT,
-        },
-        {
-          id: 'review-commit',
-          display_text: 'Improve commit message',
-          enable_send_without_input: true,
-          initial_user_prompt: IMPROVE_COMMIT_MESSAGE,
-        },
-      ],
+      custom_actions: ACTIONS,
     };
   }
 
@@ -193,21 +216,8 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     }
 
     return {
-      actions: [
-        {
-          id: 'review-change',
-          display_text: 'Help me with review',
-          enable_send_without_input: true,
-          initial_user_prompt: HELP_ME_REVIEW_PROMPT,
-        },
-        {
-          id: 'review-commit',
-          display_text: 'Improve commit message',
-          enable_send_without_input: true,
-          initial_user_prompt: IMPROVE_COMMIT_MESSAGE,
-        },
-      ],
-      default_action_id: 'review',
+      actions: ACTIONS,
+      default_action_id: REVIEW_CHANGE_ACTION_ID,
     };
   }
 
@@ -229,9 +239,11 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
       }`;
       const patchPlaceholder = '{{patch}}';
 
+      const context =
+        CONTEXT_BY_ACTION.get(req.action?.id) ?? DIFF_CONTEXT_LINES;
       const patchUrl =
         `/changes/${changeId}/revisions/current/patch` +
-        `?raw&context=${DIFF_CONTEXT_LINES}`;
+        `?raw&context=${context}`;
       const res = await this.plugin.restApi().fetch(HttpMethod.GET, patchUrl);
       if (!res.ok) {
         throw new Error(`Failed to fetch patch (HTTP ${res.status})`);

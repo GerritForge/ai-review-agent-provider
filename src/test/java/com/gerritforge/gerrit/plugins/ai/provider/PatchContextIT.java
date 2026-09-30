@@ -16,6 +16,7 @@ import static java.util.stream.Collectors.joining;
 
 import com.google.gerrit.acceptance.PushOneCommit;
 import com.google.gerrit.acceptance.RestResponse;
+import com.google.gerrit.acceptance.Sandboxed;
 import com.google.gerrit.acceptance.TestPlugin;
 import java.util.stream.IntStream;
 import org.junit.Test;
@@ -27,6 +28,7 @@ import org.junit.Test;
     name = "ai-review-agent-provider",
     sysModule = "com.gerritforge.gerrit.plugins.ai.provider.AiReviewProviderModule",
     apiModule = "com.gerritforge.gerrit.plugins.ai.provider.api.AiReviewProviderApiModule")
+@Sandboxed
 public class PatchContextIT extends AbstractTokenIT {
   private static final String FILE_NAME = "large.txt";
   private static final int LINE_COUNT = 100;
@@ -36,6 +38,30 @@ public class PatchContextIT extends AbstractTokenIT {
 
   @Test
   public void shouldReturnRawPatchWithLimitedContext() throws Exception {
+    String patch = getPatch(createLargeFileChange(), 10);
+
+    assertThat(patch).contains("Subject: [PATCH] " + CHANGE_SUBJECT);
+    assertThat(patch).contains(CHANGE_BODY);
+    assertThat(patch).contains("diff --git a/" + FILE_NAME + " b/" + FILE_NAME);
+    assertThat(patch).contains("@@ -40,21 +40,21 @@");
+    assertThat(patch).contains("\n-" + line(CHANGED_LINE) + "\n");
+    assertThat(patch).contains("\n+" + line(CHANGED_LINE) + " modified\n");
+    assertThat(patch).doesNotContain(line(1));
+    assertThat(patch).doesNotContain(line(LINE_COUNT));
+  }
+
+  @Test
+  public void shouldReturnRawPatchWithWholeFileForLargeContext() throws Exception {
+    String patch = getPatch(createLargeFileChange(), 1_000_000);
+
+    assertThat(patch).contains("@@ -1,100 +1,100 @@");
+    assertThat(patch).contains("\n-" + line(CHANGED_LINE) + "\n");
+    assertThat(patch).contains("\n+" + line(CHANGED_LINE) + " modified\n");
+    assertThat(patch).contains(line(1));
+    assertThat(patch).contains(line(LINE_COUNT));
+  }
+
+  private String createLargeFileChange() throws Exception {
     pushFactory
         .create(admin.newIdent(), testRepo, "Add large file", FILE_NAME, fileContent(false))
         .to("refs/heads/master")
@@ -50,21 +76,15 @@ public class PatchContextIT extends AbstractTokenIT {
                 fileContent(true))
             .to("refs/for/master");
     change.assertOkStatus();
+    return change.getChangeId();
+  }
 
+  private String getPatch(String changeId, int context) throws Exception {
     RestResponse patchResponse =
         adminRestSession.get(
-            "/changes/" + change.getChangeId() + "/revisions/current/patch?raw&context=10");
+            "/changes/" + changeId + "/revisions/current/patch?raw&context=" + context);
     patchResponse.assertOK();
-    String patch = patchResponse.getEntityContent();
-
-    assertThat(patch).contains("Subject: [PATCH] " + CHANGE_SUBJECT);
-    assertThat(patch).contains(CHANGE_BODY);
-    assertThat(patch).contains("diff --git a/" + FILE_NAME + " b/" + FILE_NAME);
-    assertThat(patch).contains("@@ -40,21 +40,21 @@");
-    assertThat(patch).contains("\n-" + line(CHANGED_LINE) + "\n");
-    assertThat(patch).contains("\n+" + line(CHANGED_LINE) + " modified\n");
-    assertThat(patch).doesNotContain(line(1));
-    assertThat(patch).doesNotContain(line(LINE_COUNT));
+    return patchResponse.getEntityContent();
   }
 
   private static String fileContent(boolean modified) {
