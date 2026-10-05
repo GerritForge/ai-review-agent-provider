@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c293ba9b_19d1d473",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-05T08:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3d4522f_e53032c5",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 21
+      },
+      "revId": "35c52d2aede32967fae5d56641f94aa263647a0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "806c0af8_80fb13d2",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-10-04T12:01:44Z",
       "side": 1,
       "message": "Maybe add the reason, why the old cap was there: \"(which only existed to avoid browser timeouts)\".",
+      "range": {
+        "startLine": 19,
+        "startChar": 9,
+        "endLine": 19,
+        "endChar": 59
+      },
+      "revId": "35c52d2aede32967fae5d56641f94aa263647a0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a9ad45c_1ff92ffd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-05T08:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "806c0af8_80fb13d2",
       "range": {
         "startLine": 19,
         "startChar": 9,
@@ -87,6 +135,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0d77b32_a216c59c",
+        "filename": "src/test/java/com/gerritforge/gerrit/plugins/ai/provider/PatchContextIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-05T08:20:08Z",
+      "side": 1,
+      "message": "rmeoved",
+      "parentUuid": "3d3f0969_35cf0404",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 3
+      },
+      "revId": "35c52d2aede32967fae5d56641f94aa263647a0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b0edab7_f48df40d",
@@ -104,6 +176,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66e4a835_86f35f41",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-05T08:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b0edab7_f48df40d",
+      "revId": "35c52d2aede32967fae5d56641f94aa263647a0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4d58f0f_3f8b02e0",
@@ -117,6 +207,30 @@
       "writtenOn": "2026-10-04T12:01:44Z",
       "side": 1,
       "message": "TypeScript isn\u0027t tested here, but the checks/code-owners plugins show the `web_test_runner` + `sinon` pattern already works in-tree.\n\nA web/index_test.ts that stubs restApi().fetch would cover the URL/context mapping (including the full-file action), and may be even the error path.\n\nWDYT?",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 0
+      },
+      "revId": "35c52d2aede32967fae5d56641f94aa263647a0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c981231_01135c63",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-05T08:20:08Z",
+      "side": 1,
+      "message": "will create the follow-up with front tests, thanks for the suggestion!",
+      "parentUuid": "c4d58f0f_3f8b02e0",
       "range": {
         "startLine": 232,
         "startChar": 0,
