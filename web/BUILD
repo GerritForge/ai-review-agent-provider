@@ -34,10 +34,35 @@ ts_project(
     ],
 )
 
+ts_project(
+    name = "ai-review-agent-provider-ts-tests",
+    srcs = glob(["**/*.ts"]),
+    incremental = True,
+    out_dir = "_bazel_ts_out_tests",
+    tags = ["manual"],
+    tsc = "//tools/node_tools:tsc-bin",
+    tsconfig = ":tsconfig",
+    deps = [
+        "@plugins_npm//:node_modules",
+        "@ui_dev_npm//:node_modules",
+    ],
+)
+
 gerrit_js_bundle(
     name = "ai-review-agent-provider",
     srcs = [":ai-review-agent-provider-ts"],
     entry_point = "_bazel_ts_out/index.js",
+)
+
+web_test_runner(
+    name = "web_test_runner",
+    srcs = ["web_test_runner.sh"],
+    data = [
+        ":ai-review-agent-provider-ts-tests",
+        ":tsconfig",
+        "@plugins_npm//:node_modules",
+        "@ui_dev_npm//:node_modules",
+    ],
 )
 
 filegroup(
