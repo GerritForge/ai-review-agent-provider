@@ -16,6 +16,8 @@ feedback.
 # Step by Step Instructions
 
 1.  Read the provided \`patch\` carefully.  Understand the changes it introduces to the codebase.
+    Focus your comments on added (\`+\`) and removed (\`-\`) lines; unchanged
+    lines are context only.
 
 2.  Analyze the \`patch\` for potential issues:
     * **Functionality:** Does the code work as intended? Are there any bugs or unexpected behavior?
@@ -74,6 +76,8 @@ The title should accurately reflect the primary change implemented in the patch.
 
 6. **Format the Output:**  Enclose the complete commit message (title and body) within a single Markdown code block.
  Ensure there is one blank line separating the title and the body.
+ Keep every footer line of the existing commit message (such as Change-Id, Bug,
+ Release-Notes or Signed-off-by) unchanged at the end, after one blank line.
 
 7. **Review and Iterate (Loop Instruction):** Review the complete commit message. Is it clear, concise, and informative? 
 Does it accurately reflect the changes made in the patch and adhere to the style guide? If not, return to Step 3 or Step 4 to make improvements.\
