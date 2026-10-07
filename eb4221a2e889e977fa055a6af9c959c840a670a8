@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30326b1e_5e03f2b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-10-07T09:39:35Z",
+      "side": 1,
+      "message": "Nice to finally have the provider under test!\n\nError-path coverage (formatAiError, no-text fallback) could be done later, if at all.",
+      "revId": "eb4221a2e889e977fa055a6af9c959c840a670a8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
