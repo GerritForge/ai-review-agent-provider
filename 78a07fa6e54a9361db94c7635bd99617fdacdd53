@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5042769_d38e8725",
+        "filename": "web/ai-code-review-provider_test.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-08T12:05:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d6759b7_d7ff46aa",
+      "revId": "78a07fa6e54a9361db94c7635bd99617fdacdd53",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcc42d6b_7c91e09a",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-10-08T09:54:43Z",
       "side": 1,
       "message": "Assert done() is called here too (same at line 245, the 500 test).\n\nThe empty-answer and failed-request tests lock done.calledOnce; the error-render paths should too, so \"error shown, chat still closed\" is pinned.",
+      "range": {
+        "startLine": 223,
+        "startChar": 1,
+        "endLine": 223,
+        "endChar": 46
+      },
+      "revId": "78a07fa6e54a9361db94c7635bd99617fdacdd53",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7d8e9fc_0ac9d6e7",
+        "filename": "web/ai-code-review-provider_test.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-08T12:05:35Z",
+      "side": 1,
+      "message": "added done.calledOnce to both 429 tests and the 500 test.",
+      "parentUuid": "dcc42d6b_7c91e09a",
       "range": {
         "startLine": 223,
         "startChar": 1,
