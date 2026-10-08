@@ -91,6 +91,10 @@ suite('ai-code-review-provider tests', () => {
     return listener;
   }
 
+  function responseText(listener: {emitResponse: sinon.SinonStub}): string {
+    return listener.emitResponse.lastCall.args[0].response_parts[0].text;
+  }
+
   function sentPrompt(): string {
     assert.isTrue(postStub.calledOnce);
     return postStub.firstCall.args[1].prompt;
@@ -112,10 +116,7 @@ suite('ai-code-review-provider tests', () => {
     ]);
     assert.isFalse(listener.emitError.called);
     assert.isTrue(listener.done.calledOnce);
-    assert.equal(
-      listener.emitResponse.lastCall.args[0].response_parts[0].text,
-      '\nAI says',
-    );
+    assert.equal(responseText(listener), '\nAI says');
   });
 
   test('uses context per action', async () => {
@@ -190,6 +191,67 @@ suite('ai-code-review-provider tests', () => {
     );
     assert.isTrue(listener.done.calledOnce);
     assert.isFalse(postStub.called);
+  });
+
+  test('reports when the AI returns no text', async () => {
+    postStub.resolves({});
+
+    const listener = await chat(createRequest('review-change'));
+
+    assert.equal(responseText(listener), '\n(No text returned by AI)');
+    assert.isFalse(listener.emitError.called);
+    assert.isTrue(listener.done.calledOnce);
+  });
+
+  test('reports rate limit with upstream detail', async () => {
+    postStub.resolves({
+      error: {status_code: 429, message: 'Quota exceeded'},
+    });
+
+    const listener = await chat(createRequest('review-change'));
+
+    assert.equal(
+      responseText(listener),
+      '\n⚠\uFE0F **Rate limit** ⚠\uFE0F\n\n' +
+        'Model `gemini/flash` is temporarily rate-limited by the upstream ' +
+        'provider. Try again shortly, or pick a different model from the ' +
+        'list.\n\n> Quota exceeded',
+    );
+    assert.isFalse(listener.emitError.called);
+    assert.isTrue(listener.done.calledOnce);
+  });
+
+  test('reports rate limit without upstream detail', async () => {
+    postStub.resolves({error: {status_code: 429, message: ''}});
+
+    const listener = await chat(createRequest('review-change'));
+
+    assert.isTrue(responseText(listener).endsWith('from the list.'));
+    assert.isTrue(listener.done.calledOnce);
+  });
+
+  test('reports other AI model errors with status', async () => {
+    postStub.resolves({
+      error: {status_code: 500, message: 'Internal error'},
+    });
+
+    const listener = await chat(createRequest('review-change'));
+
+    assert.equal(
+      responseText(listener),
+      '\n⚠\uFE0F **AI Model ERROR (http status=500)** ⚠\uFE0F\n\nInternal error',
+    );
+    assert.isFalse(listener.emitError.called);
+    assert.isTrue(listener.done.calledOnce);
+  });
+
+  test('reports failed AI request', async () => {
+    postStub.rejects(new Error('Network down'));
+
+    const listener = await chat(createRequest('review-change'));
+
+    assert.isTrue(listener.emitError.calledOnceWith('Network down'));
+    assert.isTrue(listener.done.calledOnce);
   });
 
   test('exposes the same actions in models and actions', async () => {
