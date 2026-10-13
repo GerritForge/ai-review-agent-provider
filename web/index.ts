@@ -25,6 +25,7 @@ import type {
   ChatResponseListener,
   Models,
 } from '@gerritcodereview/typescript-api/ai-code-review';
+import {ModelsLoadingErrorName} from '@gerritcodereview/typescript-api/ai-code-review';
 import {HttpMethod} from '@gerritcodereview/typescript-api/rest';
 import {HELP_ME_REVIEW_PROMPT, IMPROVE_COMMIT_MESSAGE} from './prompts';
 
@@ -184,7 +185,9 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
 
     // Reject instead of returning empty models to avoid an endless spinner.
     if (aiEnabledProviders.length === 0) {
-      throw new Error('No API token configured. Add one in Settings.');
+      const error = new Error('No API token configured. Add one in Settings.');
+      error.name = ModelsLoadingErrorName.MISSING_API_TOKEN;
+      throw error;
     }
 
     const providerModels = aiEnabledProviders.flatMap(providerInfo =>
