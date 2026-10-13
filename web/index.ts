@@ -180,7 +180,19 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
   }
 
   async getModels(): Promise<Models> {
-    const aiEnabledProviders = await this.fetchEnabledProviders();
+    let aiEnabledProviders: ProviderInfo[];
+    try {
+      aiEnabledProviders = await this.fetchEnabledProviders();
+    } catch (e) {
+      // The raw REST error (e.g. "Error 500 (Internal Server Error): ...")
+      // means nothing to the user, so keep it in the console only.
+      console.error('Failed to fetch the AI providers', e);
+      const error = new Error(
+        'Failed to load the AI providers. Please reload the page.',
+      );
+      error.name = 'AiProvidersLoadingError';
+      throw error;
+    }
 
     // Reject instead of returning empty models to avoid an endless spinner.
     if (aiEnabledProviders.length === 0) {
