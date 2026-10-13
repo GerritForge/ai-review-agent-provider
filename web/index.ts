@@ -184,7 +184,11 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
 
     // Reject instead of returning empty models to avoid an endless spinner.
     if (aiEnabledProviders.length === 0) {
-      throw new Error('No API token configured. Add one in Settings.');
+      const error = new Error('No API token configured. Add one in Settings.');
+      // Gerrit's MISSING_API_TOKEN_ERROR_NAME: Gerrit then links the user to
+      // the settings, where the token can be added.
+      error.name = 'MissingApiTokenError';
+      throw error;
     }
 
     const providerModels = aiEnabledProviders.flatMap(providerInfo =>
