@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c81c8cc4_9f552ee8",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-10-16T12:52:59Z",
+      "side": 1,
+      "message": "If you use the constant, this part of the comment can be removed",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 47
+      },
+      "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45a036f1_5acf7b3c",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-10-16T12:52:59Z",
+      "side": 1,
+      "message": "I think you can use this constants [1].\n\n[1]: https://gerrit.googlesource.com/gerrit/+/refs/heads/master/polygerrit-ui/app/api/ai-code-review.ts#268",
+      "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
