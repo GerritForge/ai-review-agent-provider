@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95e8ea1f_da7d647a",
+        "filename": "web/index.ts",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-10-16T22:02:30Z",
+      "side": 1,
+      "message": "That\u0027s not true: you can use a developer version of the Gerrit TypeScript API.",
+      "parentUuid": "fa3080fa_62dfa158",
+      "range": {
+        "startLine": 193,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "bbc52bea16d083377e65eed2e5d39df92b56fe35",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b3d6fb0_0ef2f7d9",
         "filename": "web/index.ts",
         "patchSetId": 2
