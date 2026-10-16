@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52d82071_efdff40b",
+        "filename": "web/index.ts",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-10-16T13:03:20Z",
+      "side": 1,
+      "message": "You can use the Gerrit\u0027s provided constants here [1].\n\n[1]: https://gerrit.googlesource.com/gerrit/+/refs/heads/master/polygerrit-ui/app/api/ai-code-review.ts#268",
+      "range": {
+        "startLine": 193,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "bbc52bea16d083377e65eed2e5d39df92b56fe35",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b3d6fb0_0ef2f7d9",
+        "filename": "web/index.ts",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-10-16T13:03:20Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we catch this as well ?\n\nIs it worth catching inside `fetchEnabledProviders()` ?",
+      "range": {
+        "startLine": 227,
+        "startChar": 3,
+        "endLine": 227,
+        "endChar": 66
+      },
+      "revId": "bbc52bea16d083377e65eed2e5d39df92b56fe35",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
