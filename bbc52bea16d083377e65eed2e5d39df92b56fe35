@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa3080fa_62dfa158",
+        "filename": "web/index.ts",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-10-16T16:35:47Z",
+      "side": 1,
+      "message": "AFAICT these can\u0027t be used until a new Gerrit typescript api version is released.",
+      "parentUuid": "52d82071_efdff40b",
+      "range": {
+        "startLine": 193,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "bbc52bea16d083377e65eed2e5d39df92b56fe35",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b3d6fb0_0ef2f7d9",
         "filename": "web/index.ts",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2026-10-16T13:03:20Z",
       "side": 1,
       "message": "Shouldn\u0027t we catch this as well ?\n\nIs it worth catching inside `fetchEnabledProviders()` ?",
+      "range": {
+        "startLine": 227,
+        "startChar": 3,
+        "endLine": 227,
+        "endChar": 66
+      },
+      "revId": "bbc52bea16d083377e65eed2e5d39df92b56fe35",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0d61cbb_c892086e",
+        "filename": "web/index.ts",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-10-16T16:35:47Z",
+      "side": 1,
+      "message": "Potentially, but it would be a follow-up ticket, wdyt?",
+      "parentUuid": "2b3d6fb0_0ef2f7d9",
       "range": {
         "startLine": 227,
         "startChar": 3,
