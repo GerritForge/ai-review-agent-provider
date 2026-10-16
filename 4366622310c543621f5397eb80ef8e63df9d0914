@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "406cd575_f7342339",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-10-16T22:01:09Z",
+      "side": 1,
+      "message": "Just mention the bug number, we can then configure the URL in the `project.config`.\n\n\n\n```suggestion\nBug: Issue 10\n```",
+      "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c81c8cc4_9f552ee8",
         "filename": "web/index.ts",
         "patchSetId": 1
@@ -79,6 +96,24 @@
       "side": 1,
       "message": "AFAICT these can\u0027t be used until a new Gerrit typescript api version is released",
       "parentUuid": "45a036f1_5acf7b3c",
+      "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9fd567d_d3532a95",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-10-16T22:01:09Z",
+      "side": 1,
+      "message": "That\u0027s not true: you can use a developer version of the Gerrit TypeScript API.",
+      "parentUuid": "0b5a087e_bcd23ea5",
       "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
