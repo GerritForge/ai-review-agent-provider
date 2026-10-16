@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "330e2871_bad970bc",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-10-16T16:35:01Z",
+      "side": 1,
+      "message": "AFAICT these can\u0027t be used until a new Gerrit typescript api version is released.\n\nI\u0027ll resolve this comment and we can continue conversation on the other one.",
+      "parentUuid": "c81c8cc4_9f552ee8",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 47
+      },
+      "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45a036f1_5acf7b3c",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-10-16T12:52:59Z",
       "side": 1,
       "message": "I think you can use this constants [1].\n\n[1]: https://gerrit.googlesource.com/gerrit/+/refs/heads/master/polygerrit-ui/app/api/ai-code-review.ts#268",
+      "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b5a087e_bcd23ea5",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-10-16T16:35:01Z",
+      "side": 1,
+      "message": "AFAICT these can\u0027t be used until a new Gerrit typescript api version is released",
+      "parentUuid": "45a036f1_5acf7b3c",
       "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
