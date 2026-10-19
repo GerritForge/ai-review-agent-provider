@@ -5,6 +5,112 @@ The encryption/decryption logic is provided by [secure-config](https://gerrit.go
 
 Refers to its configuration settings for more details about encryption/decryption.
 
+## AI review actions
+
+An AI review action is a named prompt for reviewing a change, such as
+"Help me with review". Each action is a file `ai-review/<id>.md` on the
+`refs/meta/config` branch of a project. The file name is the action id;
+it must match `[a-z][a-z0-9-]{0,63}`. The
+[actions REST endpoint](rest-api.html#list-ai-review-actions) returns
+the actions of a change's project.
+
+A file holds a JSON object between two `---` lines, followed by the
+prompt:
+
+```
+---
+{"displayText": "Security review", "contextLines": 20}
+---
+Review this patch for security issues: injection, missing permission
+checks, secrets in code.
+
+{{patch}}
+```
+
+| Field          | Meaning                                          | Default |
+| -------------- | ------------------------------------------------ | ------- |
+| `enabled`      | `false` hides the action                         | `true`  |
+| `displayText`  | Label; required, at most 200 characters          |         |
+| `contextLines` | Unchanged lines around each hunk of the patch    | `10`    |
+|                | reviewed with the prompt, 0 to 1000000           |         |
+
+The prompt after the header is required. A disabled action needs
+neither `displayText` nor a prompt:
+
+```
+---
+{"enabled": false}
+---
+```
+
+The header must be strict JSON: double-quoted names and strings, no
+comments, no trailing commas, no duplicate fields. Fields this version
+of the plugin does not know are ignored. `displayText` must not contain
+control or formatting characters such as line breaks or bidirectional
+overrides.
+
+HTML comments before the first `---` line are skipped, so a file can
+carry a licence header that is never part of the prompt:
+
+```
+<!--
+Copyright 2026 Example Corp.
+SPDX-License-Identifier: Apache-2.0
+-->
+---
+{"displayText": "Security review"}
+---
+...
+```
+
+The prompt marks where the patch goes with `{{patch}}`.
+
+### Inheritance
+
+For each action id, Gerrit looks in the project, then in its parents,
+then in All-Projects and finally in the actions bundled with the
+plugin. The first file found is used as it is: a child file replaces
+the inherited one entirely, and fields it leaves out take their
+defaults, not the parent's values. A disabled file hides the action for
+the project and its children; a child can define the action again.
+Deleting the child's file brings back the inherited action.
+
+The bundled actions are `review-change` ("Help me with review"),
+`review-change-full` ("Review with full files") and `review-commit`
+("Improve commit message"). Override or disable them by id like any
+other action.
+
+Bundled actions are listed first, followed by the other actions sorted
+by id. `review-change` is selected by default; when it is disabled, the
+first action is.
+
+### Limits
+
+Files in `ai-review/` that are not `.md` files, and files in its
+subfolders, are ignored.
+
+* A file must not be larger than 64 KiB.
+* A project must not have more than 100 action files.
+* At most 200 actions can be enabled for a project.
+* The actions of a project, as returned by the REST API, must not be
+  larger than 2 MiB together.
+
+If the action file that would be used is invalid, loading the actions
+fails with an error naming the file, and its project if the user can
+see it. Fix or delete the file to recover.
+
+### Visibility
+
+Anyone who can see a change can read the actions of its project. This
+includes the project's own action files and those inherited from
+parent projects, although by default only project owners can read
+`refs/meta/config`. Do not put secrets in action files. Actions
+inherited from a project the user cannot see at all are not returned:
+loading the actions fails instead.
+
+Actions are review aids, not policy: they do not restrict which prompts
+users can send.
+
 ## Caches
 
 The list of AI providers' modules by each provider is kept in a Gerrit persistent cache, which by default expires
@@ -21,6 +127,10 @@ Example:
   memoryLimit = 4096
   diskLimit = 100m
 ```
+
+Parsed action files are kept in the in-memory cache
+`ai-review-agent-provider.action_files`, keyed by project and
+`refs/meta/config` revision, so a new revision applies without restart.
 
 For more details on all the cache settings, please refer to the official documentation
 [Gerrit documentation](https://gerrit-documentation.storage.googleapis.com/Documentation/3.14.0/config-gerrit.html#cache.name.maxAge).

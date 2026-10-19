@@ -113,7 +113,73 @@ If there is no AI api key present in the user's profile:
 
 ---
 
+### List AI Review Actions
+
+**GET** `/a/changes/<change-id>/revisions/<revision-id>/ai-review-agent-provider~actions`
+
+Lists the AI review actions of the change's project, as described in
+[AI review actions](config.html#ai-review-actions). Prompts are returned
+as written: placeholders such as `{{patch}}` are not expanded.
+
+`revision` is the commit of the requested revision; clients fetch the
+patch of that same commit. `fingerprint` changes whenever any returned
+action changes, so a client can detect that its copy is out of date.
+`default_action_id` is missing when no action is enabled.
+
+#### Response
+
+```
+200 OK
+Content-Type: application/json; charset=UTF-8
+
+{
+  "revision": "8b3e0e2d4d6a...",
+  "actions": [
+    {
+      "id": "review-change",
+      "display_text": "Help me with review",
+      "context_lines": 10,
+      "prompt": "You are a highly experienced code reviewer ... {{patch}} ..."
+    },
+    {
+      "id": "security",
+      "display_text": "Security review",
+      "context_lines": 20,
+      "prompt": "Review this patch for security issues ... {{patch}}"
+    }
+  ],
+  "default_action_id": "review-change",
+  "fingerprint": "5f0c2d..."
+}
+```
+
+Anonymous users get `403 Forbidden`. Users who cannot see the change get
+`404 Not Found`.
+
+If an action file that would be used is invalid, a project in the
+hierarchy has more than 100 action files, more than 200 actions are
+enabled, the parents of the project cannot be resolved, an action comes
+from a parent project the user cannot see, or the response would be
+larger than 2 MiB:
+
+```
+409 Conflict
+
+Invalid AI review action file ai-review/security.md in project my-project: "displayText" must be a string
+```
+
+The project and the file are named only to users who can see that
+project; others are told that a parent project has an invalid
+configuration.
+
+---
+
 ## Security Considerations
 
 - Only the authenticated user can manage their own API Tokens.
 - Users with the administrative server capabilities can manage tokens for other accounts.
+- Anyone who can see a change can read the AI review actions of its
+  project, including the project's own action files and those inherited
+  from parent projects, whose `refs/meta/config` they usually cannot
+  read. Action files must not contain secrets. Actions inherited from a
+  project the user cannot see at all are never returned.
