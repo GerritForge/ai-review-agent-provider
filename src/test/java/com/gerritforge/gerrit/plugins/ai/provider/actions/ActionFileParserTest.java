@@ -94,6 +94,18 @@ public class ActionFileParserTest {
   }
 
   @Test
+  public void reportsUnknownFieldsInFileOrder() throws Exception {
+    ActionFileParser.Parsed parsed =
+        ActionFileParser.parseWithUnknownFields(
+            "security",
+            "---\n{\"paths\": [], \"displayText\": \"S\", \"model\": {}}\n---\nCheck"
+                .getBytes(UTF_8));
+
+    assertThat(parsed.unknownFields()).containsExactly("paths", "model").inOrder();
+    assertThat(parsed.definition()).isInstanceOf(ActionDefinition.Enabled.class);
+  }
+
+  @Test
   public void rejectsInvalidFiles() {
     assertInvalid("security", "", "must start with a '---' line");
     assertInvalid("security", "Check {{patch}}", "must start with a '---' line");
