@@ -89,8 +89,7 @@ record ActionFiles(ImmutableSortedMap<String, ActionFile> byPath, Optional<Strin
   }
 
   /** Iterates over the entries directly in the {@code ai-review} folder of {@code tree}, if any. */
-  private static AbstractTreeIterator folder(ObjectReader reader, ObjectId tree)
-      throws IOException {
+  static AbstractTreeIterator folder(ObjectReader reader, ObjectId tree) throws IOException {
     try (TreeWalk walk = TreeWalk.forPath(reader, ActionFileParser.FOLDER_NAME, tree)) {
       if (walk != null && walk.getFileMode(0) == FileMode.TREE) {
         return new CanonicalTreeParser(null, reader, walk.getObjectId(0));
@@ -99,12 +98,12 @@ record ActionFiles(ImmutableSortedMap<String, ActionFile> byPath, Optional<Strin
     return new EmptyTreeIterator();
   }
 
-  /** Whether the entry is a file, not a folder, link or submodule. */
-  private static boolean isFile(TreeWalk walk, int nth) {
+  /** Whether the entry in tree {@code nth} is a file, not a folder, link or submodule. */
+  static boolean isFile(TreeWalk walk, int nth) {
     return (walk.getRawMode(nth) & FileMode.TYPE_MASK) == FileMode.TYPE_FILE;
   }
 
-  private static String id(TreeWalk walk) {
+  static String id(TreeWalk walk) {
     String name = walk.getNameString();
     return name.substring(0, name.length() - ActionFileParser.EXTENSION.length());
   }

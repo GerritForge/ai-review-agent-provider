@@ -48,9 +48,11 @@ The header must be strict JSON: double-quoted names and strings, no
 comments, no trailing commas, no duplicate fields. Fields this version
 of the plugin does not know are ignored, except `paths`: it is reserved
 for choosing actions by the files a change touches and is rejected until
-that is supported. `displayText` must not contain
-control or formatting characters such as line breaks or bidirectional
-overrides.
+that is supported. Pushing a commit that adds or modifies a file with
+unknown fields shows a warning; moving `refs/meta/config` to a commit
+the server already has, or submitting a change, shows none.
+`displayText` must not contain control or formatting characters such as
+line breaks or bidirectional overrides.
 
 ### In the AI chat
 
@@ -109,27 +111,37 @@ action.
 
 An invalid file hides its action in the same way: neither an inherited
 action nor a built-in one with the same id is offered instead, and the
-project's other actions stay available. Invalid files are logged once
-for each new revision of `refs/meta/config`; fix or delete the file to
-bring the action back.
+project's other actions stay available. Updates reject invalid files, so
+this happens only to files written around Gerrit, for example before the
+plugin was installed. Invalid files are logged once for each new
+revision of `refs/meta/config`; fix or delete the file to bring the
+action back.
 
-### Limits
+### Validation and limits
 
-Files in `ai-review/` that are not `.md` files, and files in its
-subfolders, are ignored. The limits apply to the files of each project;
-inherited actions do not count.
+Updates of `refs/meta/config` are rejected when they add or modify an
+invalid action file: changes uploaded for review, direct pushes, pushes
+of commits the server already has, and the commits a submit creates. At
+most 20 errors and 20 warnings are listed. Deleting a file is always
+allowed, and files an update does not change are not checked; for a
+merge, these are the files one of its parents already has. Files in
+`ai-review/` that are not `.md` files, and files in its subfolders, are
+ignored. The limits apply to the files of each project; inherited
+actions do not count.
 
 * A file must not be larger than 64 KiB; a larger file is invalid.
-* A project must not have more than 100 action files.
+* A project must not have more than 100 action files; an update that
+  adds files beyond that is rejected.
 * The labels and prompts of the enabled actions of a project must not
   be longer than 2097152 characters together, counted in UTF-16 code
-  units: an emoji counts as two.
+  units: an emoji counts as two. An update is rejected when they are
+  longer.
 
-If a project in the hierarchy has more files, or longer labels and
-prompts, loading the actions fails with an error that gives no reason,
-because the reason can name a parent project the user cannot see. The
-reason, naming the project, is written to the server log, at most once a
-minute for each project.
+If a project in the hierarchy breaks a limit nonetheless, loading the
+actions fails with an error that gives no reason, because the reason can
+name a parent project the user cannot see. The reason, naming the
+project, is written to the server log, at most once a minute for each
+project.
 
 ### Visibility
 

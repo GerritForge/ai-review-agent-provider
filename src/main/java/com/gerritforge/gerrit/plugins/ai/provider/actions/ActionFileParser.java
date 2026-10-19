@@ -14,6 +14,7 @@ package com.gerritforge.gerrit.plugins.ai.provider.actions;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.Ints;
 import com.google.gson.Strictness;
 import com.google.gson.stream.JsonReader;
@@ -24,6 +25,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.CodingErrorAction;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -60,7 +62,16 @@ class ActionFileParser {
     return ID.matcher(id).matches();
   }
 
+  /** A parsed file and the header fields this plugin version ignores, in file order. */
+  record Parsed(ActionDefinition definition, ImmutableSet<String> unknownFields) {}
+
   static ActionDefinition parse(String id, byte[] content) throws InvalidActionFileException {
+    return parseWithUnknownFields(id, content).definition();
+  }
+
+  /** Like {@link #parse}, and also reports unknown header fields, which are often typos. */
+  static Parsed parseWithUnknownFields(String id, byte[] content)
+      throws InvalidActionFileException {
     if (!isValidId(id)) {
       throw new InvalidActionFileException(
           String.format("file path must match %s%s%s", FOLDER, ID.pattern(), EXTENSION));
@@ -78,7 +89,8 @@ class ActionFileParser {
       if (line(text, lineStart, end).equals(FENCE)) {
         Header header = parseHeader(text.substring(headerStart, lineStart));
         String body = text.substring(nextLineStart(text, end));
-        return toDefinition(id, header, body);
+        return new Parsed(
+            toDefinition(id, header, body), ImmutableSet.copyOf(header.unknownFields));
       }
       lineStart = nextLineStart(text, end);
     }
@@ -133,7 +145,10 @@ class ActionFileParser {
           case PATHS ->
               throw new InvalidActionFileException(
                   String.format("\"%s\" is not supported yet", PATHS));
-          default -> reader.skipValue();
+          default -> {
+            header.unknownFields.add(shown(name));
+            reader.skipValue();
+          }
         }
       }
       reader.endObject();
@@ -249,6 +264,7 @@ class ActionFileParser {
     boolean enabled = true;
     String displayText;
     int contextLines = DEFAULT_CONTEXT_LINES;
+    Set<String> unknownFields = new LinkedHashSet<>();
   }
 
   private ActionFileParser() {}
