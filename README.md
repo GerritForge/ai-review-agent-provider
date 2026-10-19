@@ -82,9 +82,9 @@ ssh -p 29418 admin@<your-gerrit-server> gerrit plugin reload ai-review-agent-pro
 
 ### 💬 Review Actions
 
-The AI chat on the change screen offers the following actions. Each one sends the model the current patch set
-as a Git patch (commit message followed by the `diff --git` sections, diffed against the first parent) with a
-different amount of unchanged context around each hunk:
+The AI chat on the change screen offers the following actions unless a project changes them. Each one sends the
+model the current patch set as a Git patch (commit message followed by the `diff --git` sections, diffed against
+the first parent) with a different amount of unchanged context around each hunk:
 
 | Action                   | Context lines | Use it for                                                        |
 |--------------------------|---------------|-------------------------------------------------------------------|
@@ -95,6 +95,25 @@ different amount of unchanged context around each hunk:
 The patch sent to the model is capped at 200,000 characters (roughly 50,000 tokens). Larger patches are
 truncated and end with a `[... patch truncated: N more characters omitted ...]` marker, so the full-file action
 is more likely to hit the limit on large changes.
+
+### 🗂️ Per-Project Actions
+
+Project owners add, replace or hide actions with markdown files in the project's `refs/meta/config` branch.
+Each file `ai-review/<id>.md` is one action: a JSON header with its label and context lines, then the prompt.
+Projects inherit actions from their parents and All-Projects; a child file with the same id replaces the
+inherited action, and `{"enabled": false}` hides it.
+
+```
+---
+{"displayText": "Security review", "contextLines": 20}
+---
+Review this patch for security issues in {{project}} ({{branch}}).
+
+{{patch}}
+```
+
+See the [configuration documentation](src/main/resources/Documentation/config.md#ai-review-actions) for the
+format, the inheritance rules and the limits.
 
 ---
 

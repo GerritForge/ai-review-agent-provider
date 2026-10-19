@@ -22,7 +22,7 @@ prompt:
 {"displayText": "Security review", "contextLines": 20}
 ---
 Review this patch for security issues: injection, missing permission
-checks, secrets in code.
+checks, secrets in code. Project: {{project}}, branch: {{branch}}.
 
 {{patch}}
 ```
@@ -63,7 +63,27 @@ SPDX-License-Identifier: Apache-2.0
 ...
 ```
 
-The prompt marks where the patch goes with `{{patch}}`.
+### In the AI chat
+
+The AI chat of a change offers the enabled actions as buttons labelled
+with `displayText`. When a user sends a prompt, the first `{{patch}}` is
+replaced by the patch of the revision, `{{project}}` by the project
+name and `{{branch}}` by the destination branch. Text inserted for a
+placeholder is not expanded again, and other `{{...}}` text, including
+any further `{{patch}}`, is left as it is. Without `{{patch}}`, the
+patch is appended to the prompt. The patch is cut at 200000 characters,
+and a prompt longer than 300000 characters after expansion is not sent.
+
+If the action changed or was removed after the change page loaded, the
+chat does not send the prompt and asks the user to reload the page.
+
+If the actions cannot be loaded, the chat shows the error instead of
+accepting prompts. If every action is disabled, users can still type
+their own prompts.
+
+The patch is written by the change's author and is sent to the model as
+it is, so it can steer the model's answer. Treat the answer as a review
+aid, not as a verdict.
 
 ### Inheritance
 
@@ -95,9 +115,9 @@ subfolders, are ignored.
 * The actions of a project, as returned by the REST API, must not be
   larger than 2 MiB together.
 
-If the action file that would be used is invalid, loading the actions
-fails with an error naming the file, and its project if the user can
-see it. Fix or delete the file to recover.
+If the action file that would be used is invalid, the AI chat shows an
+error instead of any actions, naming the file, and its project if the
+user can see it. Fix or delete the file to recover.
 
 ### Visibility
 

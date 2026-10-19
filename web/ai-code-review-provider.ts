@@ -13,6 +13,7 @@
  */
 
 import type {PluginApi} from '@gerritcodereview/typescript-api/plugin';
+import type {ChangeInfo} from '@gerritcodereview/typescript-api/rest-api';
 import type {
   Action,
   AiCodeReviewProvider,
@@ -23,50 +24,44 @@ import type {
   Models,
 } from '@gerritcodereview/typescript-api/ai-code-review';
 import {HttpMethod} from '@gerritcodereview/typescript-api/rest';
-import {HELP_ME_REVIEW_PROMPT, IMPROVE_COMMIT_MESSAGE} from './prompts';
 
 export const AI_REVIEW_PROVIDERS_ENDPOINT =
   '/accounts/self/ai-review-agent-provider~apiProviders';
 
-// Lines of unchanged context around each hunk sent to the AI model.
-const DIFF_CONTEXT_LINES = 10;
-// Context large enough to include every unchanged line of each file.
-const FULL_FILE_CONTEXT_LINES = 1_000_000;
+const ACTIONS_ENDPOINT = 'ai-review-agent-provider~actions';
+
+// Lines of unchanged context for prompts that are not one of the actions.
+const DEFAULT_CONTEXT_LINES = 10;
 // Upper bound on the patch size to stay within model token limits.
 const MAX_PATCH_CHARS = 200_000;
+// Upper bound on the prompt once the patch, project and branch are in.
+const MAX_PROMPT_CHARS = 300_000;
 
-const REVIEW_CHANGE_ACTION_ID = 'review-change';
-const REVIEW_CHANGE_FULL_ACTION_ID = 'review-change-full';
-const REVIEW_COMMIT_ACTION_ID = 'review-commit';
+// Core sends every prompt with an action, typed ones with the default
+// action. This one is offered when the project enables no action, so that
+// typed prompts still work. Without a splash page card it shows no button.
+const FREE_FORM_ACTION: Action = {
+  id: 'ai-review-agent-provider-free-form',
+  display_text: 'Ask about this change',
+};
 
-const ACTIONS: Action[] = [
-  {
-    id: REVIEW_CHANGE_ACTION_ID,
-    display_text: 'Help me with review',
-    enable_send_without_input: true,
-    initial_user_prompt: HELP_ME_REVIEW_PROMPT,
-  },
-  {
-    id: REVIEW_CHANGE_FULL_ACTION_ID,
-    display_text: 'Review with full files',
-    enable_send_without_input: true,
-    initial_user_prompt: HELP_ME_REVIEW_PROMPT,
-  },
-  {
-    id: REVIEW_COMMIT_ACTION_ID,
-    display_text: 'Improve commit message',
-    enable_send_without_input: true,
-    initial_user_prompt: IMPROVE_COMMIT_MESSAGE,
-  },
-];
+const PLACEHOLDERS = /\{\{(patch|project|branch)\}\}/g;
 
-// Unchanged context lines around each hunk, per action. Other actions
-// fall back to DIFF_CONTEXT_LINES.
-const CONTEXT_BY_ACTION = new Map<string, number>([
-  [REVIEW_CHANGE_ACTION_ID, DIFF_CONTEXT_LINES],
-  [REVIEW_CHANGE_FULL_ACTION_ID, FULL_FILE_CONTEXT_LINES],
-  [REVIEW_COMMIT_ACTION_ID, 3],
-]);
+// An AI review action defined in refs/meta/config, as returned by the
+// actions REST endpoint. The prompt still contains its placeholders.
+export declare interface ActionInfo {
+  id: string;
+  display_text: string;
+  context_lines: number;
+  prompt: string;
+}
+
+export declare interface GetActionsOutput {
+  revision: string;
+  actions: ActionInfo[];
+  default_action_id?: string;
+  fingerprint: string;
+}
 
 export declare interface ProviderInfo {
   plugin: string;
@@ -96,6 +91,59 @@ function truncatePatch(patch: string): string {
     patch.slice(0, MAX_PATCH_CHARS) +
     `\n[... patch truncated: ${omitted} more characters omitted ...]\n`
   );
+}
+
+function changeIdOf(change: ChangeInfo): string {
+  return `${encodeURIComponent(change.project)}~${change._number}`;
+}
+
+function toAction(info: ActionInfo): Action {
+  return {
+    id: info.id,
+    display_text: info.display_text,
+    enable_send_without_input: true,
+    initial_user_prompt: info.prompt,
+  };
+}
+
+// Whether the server still defines the action as the user saw it.
+function isUnchanged(sent: Action, current: ActionInfo): boolean {
+  return (
+    sent.display_text === current.display_text &&
+    sent.initial_user_prompt === current.prompt
+  );
+}
+
+// Expands all placeholders in one pass, so placeholders occurring in the
+// inserted patch, project or branch are left as they are. Only the first
+// {{patch}} gets the patch, which keeps the prompt within the patch cap.
+function expandPrompt(
+  prompt: string,
+  values: {patch: string; project: string; branch: string},
+  changeId: string,
+): string {
+  let patchInserted = false;
+  const expanded = prompt.replace(
+    PLACEHOLDERS,
+    (match, name: 'patch' | 'project' | 'branch') => {
+      if (name !== 'patch') return values[name];
+      if (patchInserted) return match;
+      patchInserted = true;
+      return values.patch;
+    },
+  );
+  const withPatch = patchInserted
+    ? expanded
+    : `${expanded}\n\n` +
+      `Context: This is a code review for change ${changeId}.\n` +
+      `Patch:\n${values.patch}`;
+  if (withPatch.length > MAX_PROMPT_CHARS) {
+    throw new Error(
+      `The prompt is longer than ${MAX_PROMPT_CHARS} characters once ` +
+        'the patch, project and branch are inserted.',
+    );
+  }
+  return withPatch;
 }
 
 function buildChatResponse(text: string): ChatResponse {
@@ -163,8 +211,33 @@ export class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
 
   defaultModel: string = '';
 
+  // The actions request of the revision loaded last, shared by getModels()
+  // and getActions() so that both offer the same actions.
+  private actionsRequest?: {key: string; output: Promise<GetActionsOutput>};
+
   constructor(plugin: PluginApi) {
     this.plugin = plugin;
+  }
+
+  private fetchActions(
+    change: ChangeInfo,
+    revision = change.current_revision ?? 'current',
+  ): Promise<GetActionsOutput> {
+    return this.plugin
+      .restApi()
+      .get(
+        `/changes/${changeIdOf(change)}/revisions/${revision}/` +
+          ACTIONS_ENDPOINT,
+      );
+  }
+
+  private loadActions(change: ChangeInfo): Promise<GetActionsOutput> {
+    const revision = change.current_revision ?? 'current';
+    const key = `${changeIdOf(change)}@${revision}`;
+    if (this.actionsRequest?.key !== key) {
+      this.actionsRequest = {key, output: this.fetchActions(change, revision)};
+    }
+    return this.actionsRequest.output;
   }
 
   private async fetchEnabledProviders(): Promise<ProviderInfo[]> {
@@ -175,7 +248,7 @@ export class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     return aiReviewProvidersOutput.providers.filter(p => p.enabled);
   }
 
-  async getModels(): Promise<Models> {
+  async getModels(change: ChangeInfo): Promise<Models> {
     const aiEnabledProviders = await this.fetchEnabledProviders();
 
     // Reject instead of returning empty models to avoid an endless spinner.
@@ -195,15 +268,19 @@ export class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
 
     this.defaultModel = providerModels[0].model_id;
 
+    // Rejecting shows why the actions cannot be loaded in place of the
+    // prompt input; core would not send typed prompts without them anyway.
+    const output = await this.loadActions(change);
+
     return {
       models: providerModels,
       default_model_id: this.defaultModel,
       documentation_url: 'https://ai.google.dev/api/generate-content',
-      custom_actions: ACTIONS,
+      custom_actions: output.actions.map(toAction),
     };
   }
 
-  async getActions(): Promise<Actions> {
+  async getActions(change: ChangeInfo): Promise<Actions> {
     const aiEnabledProviders = await this.fetchEnabledProviders();
 
     // No enabled provider means getModels() rejects, so offer no actions.
@@ -211,9 +288,16 @@ export class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
       return {actions: [], default_action_id: ''};
     }
 
+    const output = await this.loadActions(change);
+    if (output.actions.length === 0) {
+      return {
+        actions: [FREE_FORM_ACTION],
+        default_action_id: FREE_FORM_ACTION.id,
+      };
+    }
     return {
-      actions: ACTIONS,
-      default_action_id: REVIEW_CHANGE_ACTION_ID,
+      actions: output.actions.map(toAction),
+      default_action_id: output.default_action_id ?? '',
     };
   }
 
@@ -230,15 +314,32 @@ export class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     );
 
     try {
-      const changeId = `${encodeURIComponent(req.change.project)}~${
-        req.change._number
-      }`;
-      const patchPlaceholder = '{{patch}}';
+      const change = req.change;
+      const changeId = changeIdOf(change);
+      const sent = req.action;
 
-      const context =
-        CONTEXT_BY_ACTION.get(req.action?.id) ?? DIFF_CONTEXT_LINES;
+      let revision = change.current_revision ?? 'current';
+      let context = DEFAULT_CONTEXT_LINES;
+      if (sent && sent.id !== FREE_FORM_ACTION.id) {
+        // Use the current definition, and the patch of the revision it was
+        // loaded for, but only if it is still the one the user started from.
+        const current = await this.fetchActions(change, revision);
+        const action = current.actions.find(a => a.id === sent.id);
+        if (!action || !isUnchanged(sent, action)) {
+          listener.emitError(
+            `The "${sent.display_text}" action was changed or removed ` +
+              'since this page was loaded. Copy your prompt if you ' +
+              'edited it, then reload the page.',
+          );
+          listener.done();
+          return;
+        }
+        revision = current.revision;
+        context = action.context_lines;
+      }
+
       const patchUrl =
-        `/changes/${changeId}/revisions/current/patch` +
+        `/changes/${changeId}/revisions/${revision}/patch` +
         `?raw&context=${context}`;
       const res = await this.plugin.restApi().fetch(HttpMethod.GET, patchUrl);
       if (!res.ok) {
@@ -246,13 +347,11 @@ export class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
       }
       const patch = truncatePatch(await res.text());
 
-      // Replacer function: a string replacement would expand `$&` etc.
-      // occurring in the patch text.
-      const prompt = req.prompt.includes(patchPlaceholder)
-        ? req.prompt.replace(patchPlaceholder, () => patch)
-        : `${req.prompt}\n\n` +
-          `Context: This is a code review for change ${changeId}.\n` +
-          `Patch:\n${patch}`;
+      const prompt = expandPrompt(
+        req.prompt,
+        {patch, project: change.project, branch: change.branch},
+        changeId,
+      );
       const model = req.model_name || this.defaultModel;
       const text = await callAiModelAndGenerateContent({
         pluginApi: this.plugin,
