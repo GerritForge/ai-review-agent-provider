@@ -46,11 +46,11 @@ neither `displayText` nor a prompt:
 
 The header must be strict JSON: double-quoted names and strings, no
 comments, no trailing commas, no duplicate fields. Fields this version
-of the plugin does not know are ignored, except `paths`: it is reserved
-for choosing actions by the files a change touches and is rejected until
-that is supported. `displayText` must not contain
-control or formatting characters such as line breaks or bidirectional
-overrides.
+of the plugin does not know are ignored, with a warning on push, except
+`paths`: it is reserved for choosing actions by the files a change
+touches and is rejected until that is supported. `displayText` must not
+contain control or formatting characters such as line breaks or
+bidirectional overrides.
 
 ### In the AI chat
 
@@ -107,25 +107,38 @@ the action for the project and its children; a child can define the
 action again. Deleting the child's file brings back the inherited
 action.
 
-### Limits
+### Validation and limits
 
-Files in `ai-review/` that are not `.md` files, and files in its
-subfolders, are ignored.
+Updates of `refs/meta/config` are rejected when they add or modify an
+invalid action file: changes uploaded for review, direct pushes, pushes
+of commits the server already has, and the commits a submit creates. At
+most 20 errors and 20 warnings are listed. Deleting a file is always
+allowed, and files an update does not change are not checked; for a
+merge, these are the files one of its parents already has. Files in
+`ai-review/` that are not `.md` files, and files in its subfolders, are
+ignored.
 
 * A file must not be larger than 64 KiB.
-* A project must not have more than 100 action files.
+* A project must not have more than 100 action files; an update that
+  adds files beyond that is rejected.
 * At most 200 actions can be enabled for a project.
 * The labels and prompts of the enabled actions of a project must not
   be longer than 2097152 characters together, counted in UTF-16 code
-  units: an emoji counts as two.
+  units: an emoji counts as two. An update is rejected when those of
+  the project's own files are longer.
 
-If the action file that would be used is invalid, or a limit is
-exceeded, loading the actions fails with an error that gives no reason,
-because the reason can name a parent project the user cannot see. The
-reason, naming the file and its project, is written to the server log,
-at most once a minute for each project. Fix or delete the file to
-recover. Invalid files are also logged once for each new revision of
-`refs/meta/config`.
+The limit on enabled actions, and the character limit for inherited
+actions, depend on the parent projects, so they are checked only when
+the actions are loaded.
+
+If the action file that would be used is invalid nonetheless, for
+example because it was written before the plugin was installed, or a
+limit is exceeded, loading the actions fails with an error that gives
+no reason, because the reason can name a parent project the user cannot
+see. The reason, naming the file and its project, is written to the
+server log, at most once a minute for each project. Fix or delete the
+file to recover. Invalid files are also logged once for each new
+revision of `refs/meta/config`.
 
 ### Visibility
 
