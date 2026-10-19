@@ -23,7 +23,7 @@ A file starts with a `---` line, followed by a JSON object, a second
 {"displayText": "Security review", "contextLines": 20}
 ---
 Review this patch for security issues: injection, missing permission
-checks, secrets in code.
+checks, secrets in code. Project: {{project}}, branch: {{branch}}.
 
 {{patch}}
 ```
@@ -51,6 +51,51 @@ for choosing actions by the files a change touches and is rejected until
 that is supported. `displayText` must not contain
 control or formatting characters such as line breaks or bidirectional
 overrides.
+
+### In the AI chat
+
+The AI chat of a change offers its built-in actions first:
+
+| Action               | Label                  | Context lines |
+| -------------------- | ---------------------- | ------------- |
+| `review-change`      | Help me with review    | 10            |
+| `review-change-full` | Review with full files | 1000000       |
+| `review-commit`      | Improve commit message | 3             |
+
+A project file with the id of a built-in action replaces it in place,
+and a disabled one hides it. The project's other enabled actions follow,
+sorted by id. Each action is a button labelled with `displayText`. A
+prompt the user types instead is sent with 10 context lines.
+
+Actions are review aids, not policy: users can edit an action's prompt
+before sending it, or type their own.
+
+When a user sends a prompt, the first `{{patch}}` is replaced by the
+patch of the revision, `{{project}}` by the project name and
+`{{branch}}` by the destination branch. Text inserted for a placeholder
+is not expanded again, and other `{{...}}` text, including any further
+`{{patch}}`, is left as it is. Without `{{patch}}`, the patch is
+appended to the prompt. The patch is cut at 200000 characters, and a
+prompt longer than 300000 characters after expansion is not sent.
+
+The chat keeps the actions of the last 20 projects it showed. Opening a
+change of such a project again only checks that they are still current.
+
+If the action's label or prompt changed, or the action was removed,
+after the change page loaded, the chat does not send the prompt and asks
+the user to reload the page. A change of only its context lines is
+applied without a reload, as users neither see nor edit them.
+
+If the project's actions cannot be loaded, for example because a project
+in the hierarchy has more action files than the limit, the chat offers
+no action, not even a built-in one, as the project may have disabled or
+changed it. Typed prompts still work, and their answers start with a
+notice naming the error. An action offered before the error is not
+sent; the chat says why.
+
+The patch is written by the change's author and is sent to the model as
+it is, so it can steer the model's answer. Treat the answer as a review
+aid, not as a verdict.
 
 ### Inheritance
 
