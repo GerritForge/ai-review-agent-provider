@@ -14,9 +14,13 @@ package com.gerritforge.gerrit.plugins.ai.provider;
 import com.gerritforge.gerrit.plugins.ai.provider.actions.ActionFilesCache;
 import com.gerritforge.gerrit.plugins.ai.provider.actions.ActionLimits;
 import com.google.gerrit.extensions.registration.DynamicMap;
+import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.change.ChangeResource;
+import com.google.gerrit.server.git.validators.CommitValidationListener;
+import com.google.gerrit.server.git.validators.OnSubmitValidationListener;
+import com.google.gerrit.server.git.validators.RefOperationValidationListener;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlesource.gerrit.plugins.secureconfig.Codec;
@@ -41,6 +45,10 @@ public class AiReviewProviderModule extends RestApiModule {
 
     post(ChangeResource.CHANGE_KIND, AI_REVIEW_ENDPOINT).to(AiCodeReview.class);
     get(ProjectResource.PROJECT_KIND, ACTIONS_ENDPOINT).to(GetActions.class);
+
+    DynamicSet.bind(binder(), CommitValidationListener.class).to(ActionFilesValidator.class);
+    DynamicSet.bind(binder(), RefOperationValidationListener.class).to(ActionFilesValidator.class);
+    DynamicSet.bind(binder(), OnSubmitValidationListener.class).to(ActionFilesValidator.class);
 
     install(new FactoryModuleBuilder().build(VersionedAiUserData.Factory.class));
     bind(Codec.class).to(PBECodec.class);
