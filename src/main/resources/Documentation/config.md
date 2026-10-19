@@ -45,9 +45,9 @@ neither `displayText` nor a prompt:
 
 The header must be strict JSON: double-quoted names and strings, no
 comments, no trailing commas, no duplicate fields. Fields this version
-of the plugin does not know are ignored. `displayText` must not contain
-control or formatting characters such as line breaks or bidirectional
-overrides.
+of the plugin does not know are ignored, with a warning on push.
+`displayText` must not contain control or formatting characters such
+as line breaks or bidirectional overrides.
 
 HTML comments before the first `---` line are skipped, so a file can
 carry a licence header that is never part of the prompt:
@@ -104,20 +104,29 @@ Bundled actions are listed first, followed by the other actions sorted
 by id. `review-change` is selected by default; when it is disabled, the
 first action is.
 
-### Limits
+### Validation and limits
 
-Files in `ai-review/` that are not `.md` files, and files in its
-subfolders, are ignored.
+Updates of `refs/meta/config` are rejected when they add or modify an
+invalid action file: changes uploaded for review, direct pushes, pushes
+of commits the server already has, and the commits a submit creates.
+Deleting a file is always allowed, and files an update does not change
+are not checked. Files in `ai-review/` that are not `.md` files, and
+files in its subfolders, are ignored.
 
 * A file must not be larger than 64 KiB.
-* A project must not have more than 100 action files.
+* A project must not have more than 100 action files; an update that
+  adds files beyond that is rejected.
 * At most 200 actions can be enabled for a project.
 * The actions of a project, as returned by the REST API, must not be
   larger than 2 MiB together.
 
-If the action file that would be used is invalid, the AI chat shows an
-error instead of any actions, naming the file, and its project if the
-user can see it. Fix or delete the file to recover.
+The last two limits depend on the parent projects too, so they are
+checked only when the actions are loaded.
+
+If the action file that would be used is invalid nonetheless, for
+example because it was written before the plugin was installed, the AI
+chat shows an error instead of any actions, naming the file, and its
+project if the user can see it. Fix or delete the file to recover.
 
 ### Visibility
 
