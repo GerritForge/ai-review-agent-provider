@@ -11,10 +11,13 @@
 
 package com.gerritforge.gerrit.plugins.ai.provider;
 
+import com.gerritforge.gerrit.plugins.ai.provider.actions.ActionFilesCache;
+import com.gerritforge.gerrit.plugins.ai.provider.actions.ActionLimits;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.change.ChangeResource;
+import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlesource.gerrit.plugins.secureconfig.Codec;
 import com.googlesource.gerrit.plugins.secureconfig.PBECodec;
@@ -23,10 +26,13 @@ public class AiReviewProviderModule extends RestApiModule {
   public static final String API_TOKEN_ENDPOINT = "apiToken";
   public static final String API_PROVIDERS_ENDPOINT = "apiProviders";
   public static final String AI_REVIEW_ENDPOINT = "aiReview";
+  public static final String ACTIONS_ENDPOINT = "actions";
 
   @Override
   protected void configure() {
     install(AiProvidersInfoCacheImpl.getModule());
+    install(ActionFilesCache.module());
+    bind(ActionLimits.class).toInstance(ActionLimits.DEFAULT);
     DynamicMap.mapOf(binder(), AiProviderResource.AI_PROVIDER_KIND);
 
     put(AccountResource.ACCOUNT_KIND, API_TOKEN_ENDPOINT).to(AddToken.class);
@@ -34,6 +40,7 @@ public class AiReviewProviderModule extends RestApiModule {
     delete(AiProviderResource.AI_PROVIDER_KIND, API_TOKEN_ENDPOINT).to(DeleteToken.class);
 
     post(ChangeResource.CHANGE_KIND, AI_REVIEW_ENDPOINT).to(AiCodeReview.class);
+    get(ProjectResource.PROJECT_KIND, ACTIONS_ENDPOINT).to(GetActions.class);
 
     install(new FactoryModuleBuilder().build(VersionedAiUserData.Factory.class));
     bind(Codec.class).to(PBECodec.class);
