@@ -134,6 +134,24 @@
       "parentUuid": "0b5a087e_bcd23ea5",
       "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88d7c1be_0d166d8d",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-10-20T10:24:28Z",
+      "side": 1,
+      "message": "Having looked more into this, I still believe what I said above.\n\nIf698a2379b9 updated the plugin\u0027s dependencies so that the hack we used is no longer works.\n\nThis also seems to be confirmed in a comment between @geminica.programs@gmail.com and yourself, @luca.milanesio@gmail.com.\n\nAs the enum addition has been added to 3.15.0-rc2 maybe we can publish that typescript api?",
+      "parentUuid": "f9fd567d_d3532a95",
+      "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
