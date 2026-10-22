@@ -170,6 +170,24 @@
       "parentUuid": "88d7c1be_0d166d8d",
       "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "514ceaa2_5609ef3a",
+        "filename": "web/index.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-10-22T15:25:20Z",
+      "side": 1,
+      "message": "It\u0027s now possible thanks to [1].\nBuild is now passing.\n\nhttps://gerrit-review.googlesource.com/c/gerrit/+/646943",
+      "parentUuid": "664aed53_518f5761",
+      "revId": "4366622310c543621f5397eb80ef8e63df9d0914",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
