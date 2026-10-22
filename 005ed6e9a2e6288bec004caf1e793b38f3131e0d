@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66706a65_b9b1a408",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-10-22T10:41:43Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed any more. It was fixed in Gerrit: [1].\n\n[1]: https://gerrit-review.googlesource.com/c/gerrit/+/646943",
+      "revId": "005ed6e9a2e6288bec004caf1e793b38f3131e0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
