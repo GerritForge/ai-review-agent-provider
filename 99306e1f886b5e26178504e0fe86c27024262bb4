@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "842a4502_53b80466",
+        "filename": "web/ai-code-review-provider.ts",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-24T14:52:19Z",
+      "side": 1,
+      "message": "issue: don\u0027t load actions unconditionally, load them when both API token is configured and any model is returned",
+      "range": {
+        "startLine": 348,
+        "startChar": 4,
+        "endLine": 348,
+        "endChar": 45
+      },
+      "revId": "99306e1f886b5e26178504e0fe86c27024262bb4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
