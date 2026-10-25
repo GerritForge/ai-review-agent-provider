@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "740432c1_8dcc1638",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-10-25T09:14:31Z",
+      "side": 1,
+      "message": "I\u0027ve tested end to end, including project inheritance. It works as expected.",
+      "revId": "f43edcdd80bb08499cc4f1721a9cc6d4b6fc8108",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e36a4f73_4cb82280",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetActions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-10-25T09:14:31Z",
+      "side": 1,
+      "message": "Design question.\n\nThe response exposes only a coarse hierarchy `version` — no per-definition fingerprint, no surviving-default, and no revision SHA — and the endpoint is project-scoped rather than revision-scoped.\n\nThis looks deliberate (the client owns built-ins and default selection, and the change already carries the revision SHA). Is that the intended contract for v1, to be revisited when path applicability lands and revision-scoped discovery becomes useful?\n\nNoting it so the divergence from the longer proposal is a conscious decision rather than an oversight.",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 21
+      },
+      "revId": "f43edcdd80bb08499cc4f1721a9cc6d4b6fc8108",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bddb1a13_1d819ed5",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetActions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-10-25T09:14:31Z",
+      "side": 1,
+      "message": "`e.getMessage()` is returned verbatim as a 409. For an invalid winning file in an ancestor that is not visible to the caller, this discloses the ancestor\u0027s project name, file path, and bounded parser-diagnostic details such as a private header field name or a JSON path (via `ActionResolver` and `ActionFileParser.shown()`).\n\nField values and prompt bodies are not echoed, but the private ancestor identity and header structure are. Return a generic error to unauthorized readers and keep the detail in the server log.",
+      "revId": "f43edcdd80bb08499cc4f1721a9cc6d4b6fc8108",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02f837ef_d5d54abf",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/actions/ActionFileParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-10-25T09:14:31Z",
+      "side": 1,
+      "message": "The `default` arm silently skips unknown fields, so the reserved field `paths` is accepted and the action is offered with no path restriction. `paths` should be rejected until path applicability is implemented, rather than accepted and ignored. A dedicated `case \"paths\"` throwing `InvalidActionFileException` in this shared parser covers both runtime loading and upload validation.",
+      "revId": "f43edcdd80bb08499cc4f1721a9cc6d4b6fc8108",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
