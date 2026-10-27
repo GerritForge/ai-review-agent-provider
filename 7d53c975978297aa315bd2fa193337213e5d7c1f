@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68b1cb09_c37271e9",
+        "filename": "web/ai-code-review-provider.ts",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-27T08:51:56Z",
+      "side": 1,
+      "message": "This is intended: context lines are never shown to the user or editable, so the current value is what the project configures now, and a reload prompt wouldn\u0027t tell the user anything. The reload covers what the user sees and may have edited, the label and the prompt; the test \"uses changed context lines of an unchanged action\" pins this, and config.md now says so (PS5).",
+      "parentUuid": "91e938a2_cd038751",
+      "revId": "7d53c975978297aa315bd2fa193337213e5d7c1f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0dcac3e_a1d8fea8",
         "filename": "web/ai-code-review-provider.ts",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-25T09:14:54Z",
       "side": 1,
       "message": "On load failure this returns the full `BUILT_IN_ACTIONS`, re-exposing actions a project disabled via tombstone (the `disabled` filter runs only on the success path). Refresh-before-send uses the same fallback, so it does not fail closed, and the fallback notice is prepended only after the patch fetch and model call. Fail closed instead: hide configured and built-in buttons on load failure, show the config error, and keep free-form prompting.",
+      "revId": "7d53c975978297aa315bd2fa193337213e5d7c1f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebb8eb93_7622db2e",
+        "filename": "web/ai-code-review-provider.ts",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-27T08:51:56Z",
+      "side": 1,
+      "message": "Done. If the actions cannot be loaded, the chat offers and sends no action, built-in or not; typed prompts still work and show the error in the progress message and at the start of the answer (PS5).",
+      "parentUuid": "f0dcac3e_a1d8fea8",
       "revId": "7d53c975978297aa315bd2fa193337213e5d7c1f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-10-25T09:14:54Z",
       "side": 1,
       "message": "When no provider is enabled (no API token), `getActions` returns empty and `getModels` throws, so a project\u0027s configured AI review actions are not shown at all until a token is set. This is reasonable — without a model an action button would just fail on click — but it also means the project admin\u0027s configured actions are invisible/undiscoverable until then. Consider surfacing their existence, e.g. the no-token notice mentioning that AI review actions become available once a token is added. Minor UX, not a correctness issue.",
+      "revId": "7d53c975978297aa315bd2fa193337213e5d7c1f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b991a77a_01f140c9",
+        "filename": "web/ai-code-review-provider.ts",
+        "patchSetId": 4
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-27T08:51:56Z",
+      "side": 1,
+      "message": "Done. Without a usable model, the chat now says \"No API token configured, or no AI models could be loaded with it. Add or check the token in Settings to use the chat and the AI review actions.\"; providers without models no longer count, so the actions are loaded only once a model is available (PS5).",
+      "parentUuid": "54f6ba04_73e29517",
       "revId": "7d53c975978297aa315bd2fa193337213e5d7c1f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
