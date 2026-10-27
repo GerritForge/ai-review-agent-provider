@@ -41,6 +41,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4675602c_5d31d841",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetActions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-27T08:51:48Z",
+      "side": 1,
+      "message": "Yes, this is deliberate for v1: actions live in refs/meta/config, which doesn\u0027t vary by revision, and a revision-scoped URL would resolve and download all prompts again on every change open. The version covers every config revision in the hierarchy plus the plugin build, and before sending, the client compares the action\u0027s label and prompt with the current definition, so no per-action fingerprint is needed. v2 path matching is planned in the client against the revision\u0027s files, so the endpoint can stay project-scoped and just return `paths`.",
+      "parentUuid": "e36a4f73_4cb82280",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 21
+      },
+      "revId": "f43edcdd80bb08499cc4f1721a9cc6d4b6fc8108",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bddb1a13_1d819ed5",
@@ -58,6 +82,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c1c1910_42b70a63",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/GetActions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-27T08:51:48Z",
+      "side": 1,
+      "message": "Done. The 409 now says only that the configuration is invalid and that the reason is in the server log, for every caller; the reason is logged at most once a minute per project (PS4).",
+      "parentUuid": "bddb1a13_1d819ed5",
+      "revId": "f43edcdd80bb08499cc4f1721a9cc6d4b6fc8108",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02f837ef_d5d54abf",
@@ -71,6 +113,24 @@
       "writtenOn": "2026-10-25T09:14:31Z",
       "side": 1,
       "message": "The `default` arm silently skips unknown fields, so the reserved field `paths` is accepted and the action is offered with no path restriction. `paths` should be rejected until path applicability is implemented, rather than accepted and ignored. A dedicated `case \"paths\"` throwing `InvalidActionFileException` in this shared parser covers both runtime loading and upload validation.",
+      "revId": "f43edcdd80bb08499cc4f1721a9cc6d4b6fc8108",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88521bd4_7d1ce1ed",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/actions/ActionFileParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-10-27T08:51:48Z",
+      "side": 1,
+      "message": "Done. The shared parser rejects `paths` until path applicability lands, so push validation refuses it and an existing file makes loading fail; other unknown fields still only get a push warning (PS4).",
+      "parentUuid": "02f837ef_d5d54abf",
       "revId": "f43edcdd80bb08499cc4f1721a9cc6d4b6fc8108",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
