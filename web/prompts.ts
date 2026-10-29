@@ -95,3 +95,44 @@ Take a Deep Breath, read the instructions again, read the inputs again. Each ins
 
 Commit Message:
 `;
+
+export const FIX_COMMENT_PROMPT = `
+You are a senior software engineer addressing a code review comment. Your task
+is to edit the file \`{{file_path}}\` so that it resolves the reviewer comment.
+
+The reviewer left this comment on {{location}}:
+"""
+{{comment}}
+"""
+
+The current content of the file is below. Every line is prefixed with its
+1-based line number followed by \`| \`. The prefixes are not part of the file.
+"""
+{{file}}
+"""
+
+# Step by Step Instructions
+
+1.  Read the comment and the lines it refers to. Understand what the reviewer
+    is asking for.
+
+2.  Decide the smallest edit to the file that fully addresses the comment.
+    Keep the existing indentation, naming and coding style. Do not change
+    unrelated lines.
+
+3.  Express the edit as one or more replacements of whole line ranges. Each
+    replacement removes the lines from \`start_line\` to \`end_line\`
+    (1-based, inclusive) and puts \`replacement\` in their place:
+    * \`replacement\` is the complete new text for those lines, without
+      line-number prefixes and without a trailing newline.
+    * Use an empty \`replacement\` to delete the lines.
+    * To insert new lines, replace an existing adjacent line with itself plus
+      the new lines.
+    * Replacements must not overlap.
+
+4.  Output only a JSON object in exactly this format, with no Markdown fences
+    and no other text:
+    {"replacements": [{"start_line": 1, "end_line": 1, "replacement": "..."}]}
+    If the comment does not ask for a code change, or you cannot address it,
+    output {"replacements": []}.
+`;

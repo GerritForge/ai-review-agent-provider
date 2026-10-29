@@ -27,6 +27,19 @@ import type {
 } from '@gerritcodereview/typescript-api/ai-code-review';
 import {ModelsLoadingErrorName} from '@gerritcodereview/typescript-api/ai-code-review';
 import {HttpMethod} from '@gerritcodereview/typescript-api/rest';
+import type {FixId} from '@gerritcodereview/typescript-api/rest-api';
+import type {
+  SuggestCodeRequest,
+  SuggestedFixResponse,
+  SuggestionsProvider,
+} from '@gerritcodereview/typescript-api/suggestions';
+import {ResponseCode} from '@gerritcodereview/typescript-api/suggestions';
+import {
+  buildFixPrompt,
+  InvalidFixError,
+  splitLines,
+  toFixReplacements,
+} from './fix-suggestion';
 import {HELP_ME_REVIEW_PROMPT, IMPROVE_COMMIT_MESSAGE} from './prompts';
 
 const TOKEN_ENDPOINT = '/accounts/self/ai-review-agent-provider~apiToken';
@@ -112,27 +125,42 @@ function buildChatResponse(text: string): ChatResponse {
   };
 }
 
+async function fetchEnabledProviders(
+  plugin: PluginApi,
+): Promise<ProviderInfo[]> {
+  // A provider is "enabled" only once a working API token is configured.
+  const aiReviewProvidersOutput: GetAiProvidersOutput = await plugin
+    .restApi()
+    .get(AI_REVIEW_PROVIDERS_ENDPOINT);
+  return aiReviewProvidersOutput.providers.filter(p => p.enabled);
+}
+
+async function callAiModel(args: {
+  pluginApi: PluginApi;
+  changeId: string;
+  model: string;
+  prompt: string;
+}): Promise<AiCodeReviewOutput> {
+  const {pluginApi, changeId, model, prompt} = args;
+  const url = `/changes/${changeId}/ai-review-agent-provider~aiReview`;
+  const separatorIdx = model.indexOf('/');
+  return pluginApi.restApi().post(url, {
+    plugin: model.slice(0, separatorIdx),
+    model: model.slice(separatorIdx + 1),
+    prompt,
+  });
+}
+
 async function callAiModelAndGenerateContent(args: {
   pluginApi: PluginApi;
   changeId: string;
   model: string;
   prompt: string;
 }): Promise<string> {
-  const {pluginApi, changeId, model, prompt} = args;
-  const url = `/changes/${changeId}/ai-review-agent-provider~aiReview`;
-  const separatorIdx = model.indexOf('/');
-  const pluginName = model.slice(0, separatorIdx);
-  const modelName = model.slice(separatorIdx + 1);
-
-  const res: AiCodeReviewOutput = await pluginApi.restApi().post(url, {
-    plugin: pluginName,
-    model: modelName,
-    prompt,
-  });
-
+  const res = await callAiModel(args);
   if (res.text) return res.text;
   if (!res.error) return '(No text returned by AI)';
-  return formatAiError(res.error, model);
+  return formatAiError(res.error, args.model);
 }
 
 function formatAiError(error: ErrorInfo, model: string): string {
@@ -172,18 +200,10 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
     this.plugin = plugin;
   }
 
-  private async fetchEnabledProviders(): Promise<ProviderInfo[]> {
-    // A provider is "enabled" only once a working API token is configured.
-    const aiReviewProvidersOutput: GetAiProvidersOutput = await this.plugin
-      .restApi()
-      .get(AI_REVIEW_PROVIDERS_ENDPOINT);
-    return aiReviewProvidersOutput.providers.filter(p => p.enabled);
-  }
-
   async getModels(): Promise<Models> {
     let aiEnabledProviders: ProviderInfo[];
     try {
-      aiEnabledProviders = await this.fetchEnabledProviders();
+      aiEnabledProviders = await fetchEnabledProviders(this.plugin);
     } catch (e) {
       // The raw REST error (e.g. "Error 500 (Internal Server Error): ...")
       // means nothing to the user, so keep it in the console only.
@@ -223,7 +243,7 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
   }
 
   async getActions(): Promise<Actions> {
-    const aiEnabledProviders = await this.fetchEnabledProviders();
+    const aiEnabledProviders = await fetchEnabledProviders(this.plugin);
 
     // No enabled provider means getModels() rejects, so offer no actions.
     if (aiEnabledProviders.length === 0) {
@@ -289,6 +309,116 @@ class AiCodeReviewProviderImpl implements AiCodeReviewProvider {
       );
       listener.done();
     }
+  }
+}
+
+function noFix(responseCode: ResponseCode): SuggestedFixResponse {
+  return {responseCode, fix_suggestions: []};
+}
+
+function randomFixId(): FixId {
+  // crypto.randomUUID() is unavailable on non-HTTPS Gerrit sites.
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  const hex = Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+  // FixId is a branded string type: any unique string is a valid id.
+  const fixId = hex as FixId;
+  return fixId;
+}
+
+function decodeBase64Utf8(base64: string): string {
+  const binary = atob(base64.trim());
+  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+  // fatal: binary files must not be turned into garbage text.
+  return new TextDecoder('utf-8', {fatal: true}).decode(bytes);
+}
+
+/**
+ * Backs Gerrit's "Get AI Fix" comment action: asks the AI model to address
+ * the comment and returns the edit as a fix suggestion, which the user can
+ * preview and apply as a change edit.
+ */
+class AiSuggestionsProviderImpl implements SuggestionsProvider {
+  constructor(private readonly plugin: PluginApi) {}
+
+  getFixSuggestionTitle(): string {
+    return 'Fix with AI';
+  }
+
+  async suggestFix(req: SuggestCodeRequest): Promise<SuggestedFixResponse> {
+    try {
+      return await this.suggestFixOrThrow(req);
+    } catch (e) {
+      console.error('Failed to generate the AI fix', e);
+      return noFix(
+        e instanceof InvalidFixError
+          ? ResponseCode.INVALID_RANGE
+          : ResponseCode.ERROR,
+      );
+    }
+  }
+
+  private async suggestFixOrThrow(
+    req: SuggestCodeRequest,
+  ): Promise<SuggestedFixResponse> {
+    const providers = await fetchEnabledProviders(this.plugin);
+    const provider = providers.find(p => p.models.length > 0);
+    if (!provider) {
+      console.warn('AI fix unavailable: no API token configured');
+      return noFix(ResponseCode.ERROR);
+    }
+    const modelName = provider.models[0];
+    const model = `${provider.plugin}/${modelName}`;
+
+    const changeId = `${encodeURIComponent(req.changeInfo.project)}~${
+      req.changeInfo._number
+    }`;
+    const contentUrl =
+      `/changes/${changeId}/revisions/${req.patchsetNumber}` +
+      `/files/${encodeURIComponent(req.filePath)}/content`;
+    const res = await this.plugin.restApi().fetch(HttpMethod.GET, contentUrl);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch ${req.filePath} (HTTP ${res.status})`);
+    }
+    let content: string;
+    try {
+      content = decodeBase64Utf8(await res.text());
+    } catch (e) {
+      console.warn(`AI fix unavailable: ${req.filePath} is not text`, e);
+      return noFix(ResponseCode.UNSUPPORTED_FILE_TYPE);
+    }
+    if (content.length > MAX_PATCH_CHARS) {
+      return noFix(ResponseCode.FILE_TOO_LARGE);
+    }
+
+    const file = splitLines(content);
+    const out = await callAiModel({
+      pluginApi: this.plugin,
+      changeId,
+      model,
+      prompt: buildFixPrompt({
+        filePath: req.filePath,
+        file,
+        comment: req.prompt,
+        range: req.range,
+        lineNumber: req.lineNumber,
+      }),
+    });
+    if (out.error) {
+      throw new Error(formatAiError(out.error, model));
+    }
+
+    const replacements = toFixReplacements(out.text ?? '', req.filePath, file);
+    if (replacements.length === 0) return noFix(ResponseCode.NO_SUGGESTION);
+    return {
+      responseCode: ResponseCode.OK,
+      fix_suggestions: [
+        {
+          fix_id: randomFixId(),
+          description: `${provider.display_name} (${modelName})`,
+          replacements,
+        },
+      ],
+    };
   }
 }
 
@@ -522,6 +652,7 @@ function install(plugin: PluginApi) {
   };
 
   plugin.aiCodeReview().register(provider);
+  plugin.suggestions().register(new AiSuggestionsProviderImpl(plugin));
   plugin.registerCustomComponent('profile', 'gr-ai-api-token');
 }
 

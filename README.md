@@ -96,6 +96,24 @@ The patch sent to the model is capped at 200,000 characters (roughly 50,000 toke
 truncated and end with a `[... patch truncated: N more characters omitted ...]` marker, so the full-file action
 is more likely to hit the limit on large changes.
 
+### 🛠️ Fix with AI
+
+The plugin also backs Gerrit's **Get AI Fix** action on comment threads. When the change owner clicks it on an
+unresolved comment, the plugin sends the model the comment and the full content of the commented file at that patch
+set, and asks for a minimal edit that addresses the comment. The result is shown as a **Fix with AI** preview inside
+the thread; **Apply Edit** turns it into a change edit that the owner can review and publish as a new patch set.
+
+The action uses the first model of the first provider with an API token configured. It is offered only on line or
+range comments of text files, not on file-level, commit message or left-side comments, and files larger than 200,000
+characters are rejected. Gerrit shows the button only when the following experiments are enabled in `gerrit.config`;
+the second is needed because applying the fix also saves a `Fix applied.` reply that carries the suggested fix:
+
+```ini
+[experiments]
+  enabled = UiFeature__ml_suggested_edit_get_fix
+  enabled = GerritBackendFeature__allow_fix_suggestions_in_comments
+```
+
 ---
 
 ## ⚖️ License
