@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10a84113_d25ecabb",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/actions/ActionResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-11-01T16:17:12Z",
+      "side": 1,
+      "message": "`resolve()` throws `ActionsLoadException` on the first `Invalid` winner, aborting the whole hierarchy, and `GetActions` returns 409. So one bad `ai-review/*.md` in a shared ancestor (e.g. `All-Projects`) disables all actions for every descendant, and a descendant admin cannot fix an ancestor file.\n\nIt is also upgrade-fragile: this series tightens the parser (it now rejects `paths`), so a file that was valid under an older plugin becomes `Invalid` after an upgrade with no config change, 409-ing every descendant at once. Every future parser tightening then risks an instance-wide outage. This is also inconsistent with unknown fields, which only warn.\n\nSuggest: skip and log an `Invalid` inherited file (drop only its id, keep serving the other valid actions), and fail closed only for the project\u0027s own files where the admin can fix it. At minimum, do not abort the whole hierarchy on an ancestor\u0027s file.\n\nDoes it make sense?",
+      "revId": "cbb412ab9041460e01b738810facd0a188e85b9d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
