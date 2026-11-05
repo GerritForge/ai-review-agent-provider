@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16b38ba4_03c13422",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/ActionFilesValidator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-11-05T07:02:55Z",
+      "side": 1,
+      "message": "Direct pushes of new commits do warn: commit validation runs for them too (warnsAboutUnknownFieldsOnDirectPush). Only moving refs/meta/config to a commit the server already has, and submit, skip the warnings: the submitted change was warned about on upload, and submit cannot show them. config.md now says so (PS7).",
+      "parentUuid": "dfaa1d57_c7073ac8",
+      "revId": "49283a4c7ff9b003ef8d1161a946ad9d73b645d9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85fe1cbc_b445e646",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-01T16:17:21Z",
       "side": 1,
       "message": "`ActionFilesCheck` validates only this project\u0027s own files (`maxFiles`, and `ownTextLengthError` over own enabled actions). It never checks `maxEnabledActions`, and the char limit is not the inherited total. `ActionResolver.effective()` enforces both `maxEnabledActions` and `maxTotalChars` over the resolved hierarchy, so a parent can push files within its own limits yet push every descendant\u0027s effective set over the limit, making `GetActions` return 409 for all descendants with no fix the descendant admin can apply. Validate against the effective hierarchy, or document that these limits are not enforced on write.",
+      "revId": "49283a4c7ff9b003ef8d1161a946ad9d73b645d9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79224c46_945fb88c",
+        "filename": "src/main/java/com/gerritforge/gerrit/plugins/ai/provider/actions/ActionFilesCheck.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2026-11-05T07:02:55Z",
+      "side": 1,
+      "message": "Agreed: a parent\u0027s push could take every descendant over the hierarchy-wide limits, which no descendant can fix, and checking them on a parent\u0027s push would mean resolving every descendant. The limits now apply to each project\u0027s own files, the same at push and at load, so a parent can no longer break its descendants; maxEnabledActions is gone, as 100 files per project already bound it (1255196 PS5, docs in PS7).",
+      "parentUuid": "85fe1cbc_b445e646",
       "revId": "49283a4c7ff9b003ef8d1161a946ad9d73b645d9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
