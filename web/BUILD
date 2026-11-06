@@ -1,5 +1,5 @@
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
-load("//tools/bzl:js.bzl", "gerrit_js_bundle")
+load("//tools/bzl:js.bzl", "gerrit_js_bundle", "web_test_runner")
 load("//tools/js:eslint.bzl", "plugin_eslint")
 
 package_group(
@@ -31,10 +31,33 @@ ts_project(
     ],
 )
 
+ts_project(
+    name = "ai-review-agent-provider-ts-tests",
+    srcs = glob(["**/*.ts"]),
+    incremental = True,
+    out_dir = "_bazel_ts_out_tests",
+    tags = ["manual"],
+    tsconfig = ":tsconfig",
+    deps = [
+        "//plugins:node_modules",
+        "//polygerrit-ui:node_modules",
+    ],
+)
+
 gerrit_js_bundle(
     name = "ai-review-agent-provider",
     srcs = [":ai-review-agent-provider-ts"],
     entry_point = "_bazel_ts_out/index.js",
+)
+
+web_test_runner(
+    name = "web_test_runner",
+    srcs = ["web_test_runner.sh"],
+    data = [
+        ":ai-review-agent-provider-ts-tests",
+        ":tsconfig",
+        "//plugins:node_modules",
+    ],
 )
 
 filegroup(
