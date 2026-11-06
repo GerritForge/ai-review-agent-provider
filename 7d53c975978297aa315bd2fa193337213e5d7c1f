@@ -36,6 +36,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04556631_2506a325",
+        "filename": "web/ai-code-review-provider.ts",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000177
+      },
+      "writtenOn": "2026-11-06T13:27:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "68b1cb09_c37271e9",
+      "revId": "7d53c975978297aa315bd2fa193337213e5d7c1f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0dcac3e_a1d8fea8",
