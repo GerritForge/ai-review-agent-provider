@@ -24,7 +24,11 @@ import type {
   Models,
 } from '@gerritcodereview/typescript-api/ai-code-review';
 import {HttpMethod} from '@gerritcodereview/typescript-api/rest';
-import {HELP_ME_REVIEW_PROMPT, IMPROVE_COMMIT_MESSAGE} from './prompts';
+import {
+  HELP_ME_REVIEW_PROMPT,
+  IMPROVE_COMMIT_MESSAGE,
+  SUMMARIZE_CHANGE_PROMPT,
+} from './prompts';
 
 export const AI_REVIEW_PROVIDERS_ENDPOINT =
   '/accounts/self/ai-review-agent-provider~apiProviders';
@@ -57,6 +61,12 @@ const FREE_FORM_ACTION: Action = {
 
 // Offered unless the project replaces or disables them.
 export const BUILT_IN_ACTIONS: ActionInfo[] = [
+  {
+    id: 'summarize-change',
+    display_text: 'Summarize change',
+    context_lines: 3,
+    prompt: SUMMARIZE_CHANGE_PROMPT,
+  },
   {
     id: 'review-change',
     display_text: 'Help me with review',
