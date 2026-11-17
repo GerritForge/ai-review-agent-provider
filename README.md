@@ -88,6 +88,7 @@ the first parent) with a different amount of unchanged context around each hunk:
 
 | Action                   | Context lines | Use it for                                                        |
 |--------------------------|---------------|-------------------------------------------------------------------|
+| `Summarize change`       | 3             | Learning what the change does and why before reviewing it.        |
 | `Help me with review`    | 10            | Default. Comments focus on the added and removed lines.           |
 | `Review with full files` | All           | Reviewing changes against the complete content of touched files. |
 | `Improve commit message` | 3             | Suggesting a better commit message for the change.                |

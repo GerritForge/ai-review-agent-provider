@@ -60,6 +60,7 @@ The AI chat of a change offers its built-in actions first:
 
 | Action               | Label                  | Context lines |
 | -------------------- | ---------------------- | ------------- |
+| `summarize-change`   | Summarize change       | 3             |
 | `review-change`      | Help me with review    | 10            |
 | `review-change-full` | Review with full files | 1000000       |
 | `review-commit`      | Improve commit message | 3             |
