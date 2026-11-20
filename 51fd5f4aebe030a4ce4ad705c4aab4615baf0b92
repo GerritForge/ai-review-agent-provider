@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1acfdc92_8ba03ed7",
+        "filename": "web/prompts.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-11-20T08:38:34Z",
+      "side": 1,
+      "message": "I\u0027m wondering whether asking for \"risky\" parts might encourage the model to produce review findings, despite the instruction in step 3.\n\n```\n3.  Describe the change, do not review it: give no findings, fixes or\n    suggestions, and do not rewrite the commit message.\n```\n\nWould it be clearer to ask for \"`complex or non-obvious implementation details worth understanding` instead?\nThat might better preserve the distinction between summarizing and reviewing a change.",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 65
+      },
+      "revId": "51fd5f4aebe030a4ce4ad705c4aab4615baf0b92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
