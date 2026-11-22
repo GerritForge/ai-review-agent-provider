@@ -36,7 +36,12 @@ const REVISION = 'abc123';
 const PROVIDERS_ENDPOINT =
   '/accounts/self/ai-review-agent-provider~apiProviders';
 const ACTIONS_URL = '/projects/my%2Fproject/ai-review-agent-provider~actions';
-const BUILT_IN_IDS = ['review-change', 'review-change-full', 'review-commit'];
+const BUILT_IN_IDS = [
+  'summarize-change',
+  'review-change',
+  'review-change-full',
+  'review-commit',
+];
 const FREE_FORM = 'free_form';
 const NOTICE =
   "\n⚠\uFE0F The project's AI review actions could not be loaded: " +
@@ -210,8 +215,11 @@ suite('ai-code-review-provider tests', () => {
     assert.deepEqual(actionIds(models.custom_actions), expectedIds);
     assert.deepEqual(actionIds(actions.actions), [...expectedIds, FREE_FORM]);
     assert.equal(actions.default_action_id, FREE_FORM);
-    assert.equal(actions.actions[0].initial_user_prompt, HELP_ME_REVIEW_PROMPT);
-    assert.deepEqual(actions.actions[3], {
+    assert.equal(
+      actions.actions.find(a => a.id === 'review-change')?.initial_user_prompt,
+      HELP_ME_REVIEW_PROMPT,
+    );
+    assert.deepEqual(actions.actions[BUILT_IN_IDS.length], {
       id: 'security',
       display_text: 'Security review',
       enable_send_without_input: true,
@@ -298,6 +306,7 @@ suite('ai-code-review-provider tests', () => {
     } as ChangeInfo);
 
     assert.deepEqual(actionIds(models.custom_actions), [
+      'summarize-change',
       'review-change-full',
       'review-commit',
     ]);
@@ -351,12 +360,13 @@ suite('ai-code-review-provider tests', () => {
     const models = await provider.getModels(change);
 
     assert.deepEqual(actionIds(models.custom_actions), [
+      'summarize-change',
       'review-change-full',
       'review-commit',
       'alpha',
       'security',
     ]);
-    assert.equal(models.custom_actions?.[0].display_text, 'Full review');
+    assert.equal(models.custom_actions?.[1].display_text, 'Full review');
   });
 
   test('sends the project replacement of a built-in action', async () => {
@@ -517,8 +527,26 @@ suite('ai-code-review-provider tests', () => {
     assert.equal(responseText(listener), '\nAI says');
   });
 
+  test('offers a summary of the change first', async () => {
+    const models = await provider.getModels(change);
+
+    const [summary] = models.custom_actions ?? [];
+    assert.equal(summary?.id, 'summarize-change');
+    assert.equal(summary?.display_text, 'Summarize change');
+    assert.notEqual(summary?.initial_user_prompt, HELP_ME_REVIEW_PROMPT);
+  });
+
+  test('sends the summary prompt with the patch in its place', async () => {
+    const listener = await chat(createRequest('summarize-change'));
+
+    const summary = BUILT_IN_ACTIONS.find(a => a.id === 'summarize-change');
+    assert.equal(sentPrompt(), summary?.prompt.replace('{{patch}}', 'PATCH'));
+    assert.isFalse(listener.emitError.called);
+  });
+
   test('uses context lines of each action', async () => {
     const expectedContext: [string | undefined, number][] = [
+      ['summarize-change', 3],
       ['review-change', 10],
       ['review-change-full', 1000000],
       ['review-commit', 3],
